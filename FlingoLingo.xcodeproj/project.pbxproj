@@ -12,7 +12,6 @@
 		3CADB95629E6D134006E92C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CADB95529E6D134006E92C9 /* ViewController.swift */; };
 		3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95A29E6D136006E92C9 /* Assets.xcassets */; };
 		3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */; };
-		3CADB96629E6D61D006E92C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB96529E6D61D006E92C9 /* GoogleService-Info.plist */; };
 		3CADB96929E6E607006E92C9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3CADB96829E6E607006E92C9 /* FirebaseAnalytics */; };
 		3CADB96B29E6E607006E92C9 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 3CADB96A29E6E607006E92C9 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		3CADB96D29E6E607006E92C9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3CADB96C29E6E607006E92C9 /* FirebaseAuth */; };
@@ -21,6 +20,7 @@
 		3CADB97329E6E607006E92C9 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3CADB97229E6E607006E92C9 /* FirebaseDatabaseSwift */; };
 		3CADB97529E6E607006E92C9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3CADB97429E6E607006E92C9 /* FirebaseFirestore */; };
 		3CADB97729E6E607006E92C9 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3CADB97629E6E607006E92C9 /* FirebaseFirestoreSwift */; };
+		3CADB97929E6EA5B006E92C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB97829E6EA5B006E92C9 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		3CADB95A29E6D136006E92C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CADB95D29E6D136006E92C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CADB95F29E6D136006E92C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3CADB96529E6D61D006E92C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3CADB97829E6EA5B006E92C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +72,7 @@
 		3CADB95029E6D134006E92C9 /* FlingoLingo */ = {
 			isa = PBXGroup;
 			children = (
-				3CADB96529E6D61D006E92C9 /* GoogleService-Info.plist */,
+				3CADB97829E6EA5B006E92C9 /* GoogleService-Info.plist */,
 				3CADB95129E6D134006E92C9 /* AppDelegate.swift */,
 				3CADB95329E6D134006E92C9 /* SceneDelegate.swift */,
 				3CADB95529E6D134006E92C9 /* ViewController.swift */,
@@ -156,7 +156,7 @@
 			files = (
 				3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */,
 				3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */,
-				3CADB96629E6D61D006E92C9 /* GoogleService-Info.plist in Resources */,
+				3CADB97929E6EA5B006E92C9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
