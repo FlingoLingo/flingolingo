@@ -12,9 +12,11 @@
 		3CADB95629E6D134006E92C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CADB95529E6D134006E92C9 /* ViewController.swift */; };
 		3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95A29E6D136006E92C9 /* Assets.xcassets */; };
 		3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */; };
+		3CCE816629E7078200EAF382 /* Umbrella in Frameworks */ = {isa = PBXBuildFile; productRef = 3CCE816529E7078200EAF382 /* Umbrella */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C99C24029E7060100CC546E /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Modules; path = FlingoLingo/Modules; sourceTree = "<group>"; };
 		3CADB94E29E6D134006E92C9 /* FlingoLingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlingoLingo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CADB95129E6D134006E92C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CADB95329E6D134006E92C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CCE816629E7078200EAF382 /* Umbrella in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,7 +42,9 @@
 			isa = PBXGroup;
 			children = (
 				3CADB95029E6D134006E92C9 /* FlingoLingo */,
+				3C99C24029E7060100CC546E /* Modules */,
 				3CADB94F29E6D134006E92C9 /* Products */,
+				3CCE816429E7078200EAF382 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +69,13 @@
 			path = FlingoLingo;
 			sourceTree = "<group>";
 		};
+		3CCE816429E7078200EAF382 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -80,6 +92,9 @@
 			dependencies = (
 			);
 			name = FlingoLingo;
+			packageProductDependencies = (
+				3CCE816529E7078200EAF382 /* Umbrella */,
+			);
 			productName = FlingoLingo;
 			productReference = 3CADB94E29E6D134006E92C9 /* FlingoLingo.app */;
 			productType = "com.apple.product-type.application";
@@ -348,6 +363,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3CCE816529E7078200EAF382 /* Umbrella */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Umbrella;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3CADB94629E6D134006E92C9 /* Project object */;
 }
