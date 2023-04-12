@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Authorization
 
 class ViewController: UIViewController {
 
