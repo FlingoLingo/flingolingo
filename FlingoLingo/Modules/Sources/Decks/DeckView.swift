@@ -12,6 +12,7 @@ struct DeckView: View {
     // MARK: - Constants
     enum Constants {
         static let mainSpacing: CGFloat = 25
+        static let bottomPadding: CGFloat = 40
         static let deckInfo: String = "Всего слов: 3\nИзучено слов: 2\nПоследний раз повторяли : 10.04.2023"
     }
     
@@ -30,6 +31,12 @@ struct DeckView: View {
                 WordsScrollView()
             }
             .padding(.horizontal, Constants.mainSpacing)
+            VStack {
+                Spacer()
+                ButtonView()
+                    .padding(.bottom, Constants.bottomPadding)
+                    .padding(.horizontal, Constants.mainSpacing)
+            }
         }
     }
 }
