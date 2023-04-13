@@ -5,11 +5,12 @@ import PackageDescription
 
 let package = Package(
     name: "Modules",
+    platforms: [.iOS(.v16)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Umbrella",
-            targets: ["Authorization"]),
+            targets: ["Authorization", "Decks"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -24,5 +25,8 @@ let package = Package(
         .target(
             name: "UIComponents",
             dependencies: []),
+        .target(
+            name: "Decks",
+            dependencies: ["UIComponents"]),
     ]
 )
