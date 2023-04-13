@@ -13,6 +13,7 @@
 		3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95A29E6D136006E92C9 /* Assets.xcassets */; };
 		3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */; };
 		3CCE816629E7078200EAF382 /* Umbrella in Frameworks */ = {isa = PBXBuildFile; productRef = 3CCE816529E7078200EAF382 /* Umbrella */; };
+		F431B5F9AD728C57BC1D6C10 /* Pods_FlingoLingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785A1D2192B6CD60EB676546 /* Pods_FlingoLingo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		3CADB95A29E6D136006E92C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CADB95D29E6D136006E92C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CADB95F29E6D136006E92C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		785A1D2192B6CD60EB676546 /* Pods_FlingoLingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlingoLingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B34A12241BE5D2F1E2640162 /* Pods-FlingoLingo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlingoLingo.release.xcconfig"; path = "Target Support Files/Pods-FlingoLingo/Pods-FlingoLingo.release.xcconfig"; sourceTree = "<group>"; };
+		C963C3BA42699468E7B4D7CA /* Pods-FlingoLingo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlingoLingo.debug.xcconfig"; path = "Target Support Files/Pods-FlingoLingo/Pods-FlingoLingo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +36,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CCE816629E7078200EAF382 /* Umbrella in Frameworks */,
+				F431B5F9AD728C57BC1D6C10 /* Pods_FlingoLingo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +50,7 @@
 				3C99C24029E7060100CC546E /* Modules */,
 				3CADB94F29E6D134006E92C9 /* Products */,
 				3CCE816429E7078200EAF382 /* Frameworks */,
+				5A34E781B39FD306DC750729 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,8 +78,18 @@
 		3CCE816429E7078200EAF382 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				785A1D2192B6CD60EB676546 /* Pods_FlingoLingo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A34E781B39FD306DC750729 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C963C3BA42699468E7B4D7CA /* Pods-FlingoLingo.debug.xcconfig */,
+				B34A12241BE5D2F1E2640162 /* Pods-FlingoLingo.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +99,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CADB96229E6D136006E92C9 /* Build configuration list for PBXNativeTarget "FlingoLingo" */;
 			buildPhases = (
+				BBDD9761CB5E74668DA93410 /* [CP] Check Pods Manifest.lock */,
+				3CB4C65B29E8434000BF6282 /* ShellScript */,
 				3CADB94A29E6D134006E92C9 /* Sources */,
 				3CADB94B29E6D134006E92C9 /* Frameworks */,
 				3CADB94C29E6D134006E92C9 /* Resources */,
@@ -143,6 +161,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3CB4C65B29E8434000BF6282 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		BBDD9761CB5E74668DA93410 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlingoLingo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3CADB94A29E6D134006E92C9 /* Sources */ = {
@@ -285,6 +345,7 @@
 		};
 		3CADB96329E6D136006E92C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C963C3BA42699468E7B4D7CA /* Pods-FlingoLingo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -314,6 +375,7 @@
 		};
 		3CADB96429E6D136006E92C9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B34A12241BE5D2F1E2640162 /* Pods-FlingoLingo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
