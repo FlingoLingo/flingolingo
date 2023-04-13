@@ -21,5 +21,8 @@ let package = Package(
         .target(
             name: "Authorization",
             dependencies: []),
+        .target(
+            name: "UIComponents",
+            dependencies: []),
     ]
 )
