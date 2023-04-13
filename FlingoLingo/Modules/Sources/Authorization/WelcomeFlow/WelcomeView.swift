@@ -24,7 +24,7 @@ class WelcomeView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = Fonts.largeTitle
-        label.textColor = ColorScheme.label
+        label.textColor = ColorScheme.mainText
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -35,8 +35,8 @@ class WelcomeView: UIView {
         label.text = "Приложение для удобного изучения английского языка по карточкам"
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.font = Fonts.body
-        label.textColor = ColorScheme.secondaryLabel
+        label.font = Fonts.mainText
+        label.textColor = ColorScheme.secondaryText
         label.translatesAutoresizingMaskIntoConstraints = false
                 
         return label
@@ -56,7 +56,7 @@ class WelcomeView: UIView {
     }()
     
     private lazy var logInButton: MainButton = {
-        let button = MainButton(title: "Войти", titleColor: ColorScheme.label, backgroundColor: ColorScheme.background)
+        let button = MainButton(title: "Войти", titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.background)
         button.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -66,7 +66,7 @@ class WelcomeView: UIView {
     }()
     
     private lazy var signUpButton: MainButton = {
-        let button = MainButton(title: "Зарегистрироваться", titleColor: ColorScheme.label, backgroundColor: ColorScheme.fill)
+        let button = MainButton(title: "Зарегистрироваться", titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.accent)
         button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -78,8 +78,8 @@ class WelcomeView: UIView {
     private lazy var guestLogInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Войти как гость", for: .normal)
-        button.setTitleColor(ColorScheme.secondaryLabel, for: .normal)
-        button.titleLabel?.font = Fonts.footnote
+        button.setTitleColor(ColorScheme.secondaryText, for: .normal)
+        button.titleLabel?.font = Fonts.mainText
         button.addTarget(self, action: #selector(guestLogInButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -116,7 +116,7 @@ class WelcomeView: UIView {
     // MARK: - Module functions
     private func setupViews() {
         
-        backgroundColor = ColorScheme.secondaryBackground
+        backgroundColor = ColorScheme.darkBackground
     }
     
     private func setupConstraints() {

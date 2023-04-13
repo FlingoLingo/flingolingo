@@ -18,7 +18,7 @@ public class MainButton: UIButton {
         layer.cornerRadius = 20
         setTitle(title, for: .normal)
         setTitleColor(titleColor, for: .normal)
-        titleLabel?.font = Fonts.title
+        titleLabel?.font = Fonts.buttonTitle
         self.backgroundColor = backgroundColor
     }
 }

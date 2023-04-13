@@ -41,10 +41,7 @@ extension WelcomeViewController: WelcomeViewDelegate {
     }
     
     func logInButtonTapped() {
-        
-//        let authorizationViewController = AuthorizationViewController()
-//        navigationController?.pushViewController(authorizationViewController, animated: true)
-//        authorizationViewController.navigationController?.navigationBar.isHidden = true
+
         print(#function)
     }
     
