@@ -9,9 +9,18 @@ import UIKit
 
 public enum Fonts {
     
+    // Верхний большой заголовок.
     public static let largeTitle = UIFont.systemFont(ofSize: 32, weight: .bold)
-    public static let title = UIFont.systemFont(ofSize: 20, weight: .semibold)
-    public static let body = UIFont.systemFont(ofSize: 17, weight: .regular)
-    public static let footnote = UIFont.systemFont(ofSize: 15, weight: .regular)
-    public static let caption = UIFont.systemFont(ofSize: 13, weight: .regular)
+    // Подзаголовок.
+    public static let subtitle = UIFont.systemFont(ofSize: 22, weight: .semibold)
+    // Кнопка.
+    public static let buttonTitle = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    // Заголовки на плашках.
+    public static let cardsTitle = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    // Текст в поиске.
+    public static let searchText = UIFont.systemFont(ofSize: 17, weight: .regular)
+    // Основной текст.
+    public static let mainText = UIFont.systemFont(ofSize: 15, weight: .regular)
+    // Текст на плашках.
+    public static let cardsText = UIFont.systemFont(ofSize: 13, weight: .regular)
 }
