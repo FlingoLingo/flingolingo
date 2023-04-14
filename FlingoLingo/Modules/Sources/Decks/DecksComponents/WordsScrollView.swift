@@ -8,12 +8,13 @@
 
 
 import SwiftUI
+import UIComponents
 
 struct WordsScrollView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack (spacing: CommonConstants.smallSpacing) {
                 ForEach (1..<5) { i in
                     WordCardView()
                 }

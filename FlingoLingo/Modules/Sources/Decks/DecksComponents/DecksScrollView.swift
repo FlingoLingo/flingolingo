@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import UIComponents
 
 struct DecksScrollView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: CommonConstants.smallSpacing) {
                 ForEach (1..<5) { i in
                     DeckCardView()
                 }

@@ -11,16 +11,13 @@ import UIComponents
 struct WordCardView: View {
     // MARK: - Constants
     enum Constants {
-        static let mainSpacing: CGFloat = 25
-        static let smallSpacing: CGFloat = 15
-        static let cornerRadius: CGFloat = 19
         static let word: String = "apple"
         static let translation: String = "яблоко"
     }
     
     var body: some View {
         HStack {
-            VStack (alignment: .leading, spacing: 5) {
+            VStack (alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                 Text(Constants.word)
                     .font(Font(Fonts.cardsTitle))
                     .foregroundColor(Color(ColorScheme.mainText))
@@ -28,14 +25,18 @@ struct WordCardView: View {
                     .font(Font(Fonts.cardsText))
                     .foregroundColor(Color(ColorScheme.secondaryText))
             }
-            .padding(.trailing, Constants.smallSpacing)
+            .padding(.trailing, CommonConstants.smallSpacing)
             Spacer()
-            Image(systemName: "xmark")
-                .foregroundColor(Color(ColorScheme.mainText))
+            Button(action: {
+                // TODO: add action
+            }, label: {
+                Image(systemName: "xmark")
+                    .foregroundColor(Color(ColorScheme.mainText))
+            })
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.all, Constants.smallSpacing)
+        .padding(.all, CommonConstants.smallSpacing)
         .background(Color(ColorScheme.darkBackground))
-        .cornerRadius(Constants.cornerRadius)
+        .cornerRadius(CommonConstants.cornerRadius)
     }
 }

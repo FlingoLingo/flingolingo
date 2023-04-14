@@ -13,7 +13,6 @@ struct DeckBackHeaderView: View {
     // MARK: - Constants
     enum Constants {
         static let headerName: String = "Для путешествий"
-        static let smallSpacing: CGFloat = 15
     }
     
     var body: some View {
@@ -28,7 +27,7 @@ struct DeckBackHeaderView: View {
                 Text(Constants.headerName)
                     .font(Font(Fonts.subtitle))
                     .foregroundColor(Color(ColorScheme.mainText))
-                    .padding(.leading, Constants.smallSpacing)
+                    .padding(.leading, CommonConstants.smallSpacing)
                 Spacer()
                 Button (action: {
                     // TODO: add action
