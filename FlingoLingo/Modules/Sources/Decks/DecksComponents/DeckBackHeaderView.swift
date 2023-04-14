@@ -9,15 +9,15 @@ import SwiftUI
 import UIComponents
 
 struct DeckBackHeaderView: View {
-    
+
     let deck: Deck
     let backButtonClicked: (() -> Void)
     let editButtonClicked: (() -> Void)
-    
+
     var body: some View {
         HStack {
             HStack {
-                Button (action: backButtonClicked,
+                Button(action: backButtonClicked,
                         label: {
                     Icons.leftArrow
                         .foregroundColor(SColors.mainText)
@@ -27,7 +27,7 @@ struct DeckBackHeaderView: View {
                     .foregroundColor(SColors.mainText)
                     .padding(.leading, CommonConstants.smallSpacing)
                 Spacer()
-                Button (action: editButtonClicked,
+                Button(action: editButtonClicked,
                         label: {
                     Icons.pencil
                         .foregroundColor(SColors.mainText)

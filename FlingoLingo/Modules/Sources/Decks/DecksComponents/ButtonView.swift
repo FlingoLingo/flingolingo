@@ -9,16 +9,16 @@ import SwiftUI
 import UIComponents
 
 struct ButtonView: View {
-    
+
     let buttonText: String
     let buttonClicked: (() -> Void)
-    
+
     var body: some View {
         Button(action: buttonClicked,
                label: {
             Text(buttonText)
                 .font(SFonts.buttonTitle)
-                .foregroundColor(SColors.mainText))
+                .foregroundColor(SColors.mainText)
         })
         .frame(maxWidth: .infinity)
         .padding(.all, CommonConstants.smallSpacing)

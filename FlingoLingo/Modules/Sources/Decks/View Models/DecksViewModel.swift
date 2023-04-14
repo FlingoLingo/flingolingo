@@ -8,14 +8,14 @@
 import Foundation
 
 public final class DecksViewModel: ObservableObject {
-    
+
     @Published var decks: [Deck] = []
-    
+
     public init() {
-        
+
     }
-    
+
     func deckCardClicked(id: Int) {
-        
+
     }
 }

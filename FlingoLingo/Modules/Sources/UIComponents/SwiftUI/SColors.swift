@@ -6,11 +6,10 @@
 //
 
 import Foundation
-
-import UIKit
+import SwiftUI
 
 public enum SColors {
-    
+
     // Кнопка.
     public static let accent = Color(UIColor(red: 210/255, green: 67/255, blue: 102/255, alpha: 1.0))
     // Основной текст.

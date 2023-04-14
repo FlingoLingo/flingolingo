@@ -9,10 +9,10 @@ import SwiftUI
 import UIComponents
 
 struct DeckInfoView: View {
-    
+
     var deck: Deck
     private let formatter: Formatter = .init()
-    
+
     public var body: some View {
         VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
             Text(formatter.formatWords(deck: deck))

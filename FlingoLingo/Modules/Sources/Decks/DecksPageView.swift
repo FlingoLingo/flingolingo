@@ -9,17 +9,17 @@ import SwiftUI
 import UIComponents
 
 struct DecksPageView: View {
-    
+
     @StateObject private var viewModel = DecksViewModel()
-    
+
     var body: some View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
-            VStack (alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
+            VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                 DecksHeaderView()
                 ScrollView {
                     VStack(spacing: CommonConstants.smallSpacing) {
-                        ForEach (viewModel.decks) { deck in
+                        ForEach(viewModel.decks) { deck in
                             DeckCardView(deck: deck) {
                                 viewModel.deckCardClicked(id: deck.id)
                             }
@@ -46,7 +46,7 @@ struct Previews: PreviewProvider {
                                 count: 5)
         return viewModel
     }()
-    
+
     static var previews: some View {
         DecksPageView()
     }

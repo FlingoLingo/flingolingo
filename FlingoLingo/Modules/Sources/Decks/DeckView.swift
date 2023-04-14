@@ -9,15 +9,15 @@ import SwiftUI
 import UIComponents
 
 struct DeckView: View {
-    
+
     @State private var text: String = ""
     private let viewModel = DeckViewModel()
     var deck: Deck
-    
+
     var body: some View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
-            VStack (spacing: CommonConstants.bigSpacing) {
+            VStack(spacing: CommonConstants.bigSpacing) {
                 DeckBackHeaderView(deck: deck,
                                    backButtonClicked: viewModel.backButtonClicked,
                                    editButtonClicked: viewModel.editButtonClicked)
@@ -25,7 +25,7 @@ struct DeckView: View {
                 SearchView(text: $text)
                 ScrollView {
                     VStack(spacing: CommonConstants.smallSpacing) {
-                        ForEach (deck.cards) { card in
+                        ForEach(deck.cards) { card in
                             WordCardView(card: card) {
                                 viewModel.wordCardClicked()
                             }

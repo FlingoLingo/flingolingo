@@ -8,12 +8,12 @@
 import Foundation
 
 public final class DecksHeaderViewModel: ObservableObject {
-    
+
     public init() {
-        
+
     }
-    
+
     func addDeckButtonClicked() {
-        
+
     }
 }

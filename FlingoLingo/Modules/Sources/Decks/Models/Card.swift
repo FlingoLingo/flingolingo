@@ -12,7 +12,7 @@ public struct Card: Identifiable {
     public let eng: String
     public let rus: String
     public let examples: [String]
-    
+
     public init(id: Int, eng: String, rus: String, examples: [String]) {
         self.id = id
         self.rus = rus

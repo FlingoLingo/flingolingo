@@ -9,15 +9,15 @@ import SwiftUI
 import UIComponents
 
 struct WordCardView: View {
-    
+
     var card: Card
     var wordCardClicked: (() -> Void)
-    
+
     var body: some View {
-        Button(action: wordCardClicked?,
+        Button(action: wordCardClicked,
                label: {
             HStack {
-                VStack (alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
+                VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                     Text(card.eng)
                         .font(SFonts.cardsTitle)
                         .foregroundColor(SColors.mainText)

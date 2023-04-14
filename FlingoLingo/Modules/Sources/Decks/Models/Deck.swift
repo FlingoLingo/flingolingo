@@ -14,7 +14,7 @@ public struct Deck: Identifiable {
     public let learnedWords: Int
     public let repetitionDate: Date
     public let cards: [Card]
-    
+
     public init(id: Int, title: String, wordsCount: Int, learnedWords: Int, repetitionDate: Date, cards: [Card]) {
         self.id = id
         self.title = title

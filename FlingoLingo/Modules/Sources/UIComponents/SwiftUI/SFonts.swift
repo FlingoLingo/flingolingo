@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 public enum SFonts {
-    
+
     // Верхний большой заголовок.
     public static let largeTitle = Font(UIFont.systemFont(ofSize: 32, weight: .bold))
     // Подзаголовок.

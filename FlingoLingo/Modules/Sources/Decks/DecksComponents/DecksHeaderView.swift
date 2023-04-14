@@ -13,16 +13,16 @@ struct DecksHeaderView: View {
     enum Constants {
         static let headerName: String = "Колоды"
     }
-    
+
     private let viewModel = DecksHeaderViewModel()
-    
+
     var body: some View {
         HStack {
             Text(Constants.headerName)
                 .font(SFonts.largeTitle)
                 .foregroundColor(SColors.mainText)
             Spacer()
-            Button (action: {
+            Button(action: {
                 viewModel.addDeckButtonClicked()
             }, label: {
                 Icons.plus

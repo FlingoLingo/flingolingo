@@ -13,14 +13,14 @@ struct SearchView: View {
     enum Constants {
         static let placeholder: String = "Найти слово в колоде..."
     }
-    
+
     // MARK: - Properties
     @Binding var text: String
-    
+
     private var borderColor: Color {
         text.isEmpty ? SColors.inactive : SColors.mainText
     }
-    
+
     var body: some View {
         HStack {
             TextField("", text: $text)
@@ -39,11 +39,11 @@ struct SearchView: View {
                         .foregroundColor(SColors.mainText)
                 })
             }
-            
+
         }
         .padding(.all, CommonConstants.smallSpacing)
         .overlay(
-            RoundedRectangle(cornerRadius: CommonConstants.cornerRadius)
+            RoundedRectangle(cornerRadius: CommonConstants.textFieldCornerRadius)
                 .stroke(borderColor, lineWidth: 1)
         )
     }
@@ -54,7 +54,7 @@ private extension View {
         when shouldShow: Bool,
         alignment: Alignment = .leading,
         @ViewBuilder placeholder: () -> Content) -> some View {
-            
+
             ZStack(alignment: alignment) {
                 placeholder().opacity(shouldShow ? 1 : 0)
                 self

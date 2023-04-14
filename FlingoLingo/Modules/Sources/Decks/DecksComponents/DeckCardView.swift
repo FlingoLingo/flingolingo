@@ -9,16 +9,16 @@ import SwiftUI
 import UIComponents
 
 struct DeckCardView: View {
-    
+
     var deck: Deck
     var deckCardClicked: (() -> Void)
     private let formatter: Formatter = .init()
-    
+
     var body: some View {
         Button(action: deckCardClicked,
                label: {
             HStack {
-                VStack (alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
+                VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                     Text(deck.title)
                         .font(SFonts.cardsTitle)
                         .foregroundColor(SColors.mainText)

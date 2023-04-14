@@ -7,27 +7,25 @@
 
 import Foundation
 
-import Foundation
-
 public final class DeckViewModel: ObservableObject {
-    
+
     public init() {
-        
+
     }
-    
+
     func startButtonClicked() {
-        
+
     }
-    
+
     func backButtonClicked() {
-        
+
     }
-    
+
     func editButtonClicked() {
-        
+
     }
-    
+
     func wordCardClicked() {
-        
+
     }
 }
