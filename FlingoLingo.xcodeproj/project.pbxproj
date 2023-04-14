@@ -13,6 +13,16 @@
 		3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95A29E6D136006E92C9 /* Assets.xcassets */; };
 		3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */; };
 		3CCE816629E7078200EAF382 /* Umbrella in Frameworks */ = {isa = PBXBuildFile; productRef = 3CCE816529E7078200EAF382 /* Umbrella */; };
+		C31BF96529E7063700C757E3 /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31BF96429E7063700C757E3 /* DictionaryViewController.swift */; };
+		C31BF96F29E7083200C757E3 /* DictionaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31BF96E29E7083200C757E3 /* DictionaryTableViewCell.swift */; };
+		C31BF97129E716A600C757E3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31BF97029E716A600C757E3 /* Constants.swift */; };
+		C31BF97629E725B000C757E3 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31BF97529E725B000C757E3 /* Language.swift */; };
+		C31BF97B29E7423C00C757E3 /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31BF97A29E7423C00C757E3 /* Arrow.swift */; };
+		C31BF97D29E7E17000C757E3 /* DTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31BF97C29E7E17000C757E3 /* DTextField.swift */; };
+		C31BF98729E7FFA900C757E3 /* DTableFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31BF98629E7FFA900C757E3 /* DTableFuncs.swift */; };
+		C38A279329E97486002070F5 /* DictionaryStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38A279229E97486002070F5 /* DictionaryStructs.swift */; };
+		C38A279529E974BF002070F5 /* NetworkFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38A279429E974BF002070F5 /* NetworkFetcher.swift */; };
+		C38A279729E974E5002070F5 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38A279629E974E5002070F5 /* NetworkRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +34,16 @@
 		3CADB95A29E6D136006E92C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CADB95D29E6D136006E92C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CADB95F29E6D136006E92C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C31BF96429E7063700C757E3 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
+		C31BF96E29E7083200C757E3 /* DictionaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTableViewCell.swift; sourceTree = "<group>"; };
+		C31BF97029E716A600C757E3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C31BF97529E725B000C757E3 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		C31BF97A29E7423C00C757E3 /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
+		C31BF97C29E7E17000C757E3 /* DTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTextField.swift; sourceTree = "<group>"; };
+		C31BF98629E7FFA900C757E3 /* DTableFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTableFuncs.swift; sourceTree = "<group>"; };
+		C38A279229E97486002070F5 /* DictionaryStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryStructs.swift; sourceTree = "<group>"; };
+		C38A279429E974BF002070F5 /* NetworkFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetcher.swift; sourceTree = "<group>"; };
+		C38A279629E974E5002070F5 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,9 +79,11 @@
 		3CADB95029E6D134006E92C9 /* FlingoLingo */ = {
 			isa = PBXGroup;
 			children = (
+				C38A279129E97468002070F5 /* Network */,
 				3CADB95129E6D134006E92C9 /* AppDelegate.swift */,
 				3CADB95329E6D134006E92C9 /* SceneDelegate.swift */,
 				3CADB95529E6D134006E92C9 /* ViewController.swift */,
+				C31BF96329E705F100C757E3 /* DictionaryScreen */,
 				3CADB95A29E6D136006E92C9 /* Assets.xcassets */,
 				3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */,
 				3CADB95F29E6D136006E92C9 /* Info.plist */,
@@ -74,6 +96,70 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C31BF96329E705F100C757E3 /* DictionaryScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C31BF97029E716A600C757E3 /* Constants.swift */,
+				C31BF96929E7067A00C757E3 /* DModels */,
+				C31BF96829E7067000C757E3 /* DController(s) */,
+				C31BF96629E7065800C757E3 /* DViews */,
+			);
+			path = DictionaryScreen;
+			sourceTree = "<group>";
+		};
+		C31BF96629E7065800C757E3 /* DViews */ = {
+			isa = PBXGroup;
+			children = (
+				C31BF97C29E7E17000C757E3 /* DTextField.swift */,
+				C31BF98329E7FA6500C757E3 /* DictTableView */,
+				C31BF97429E7250000C757E3 /* SelectedLanguages */,
+			);
+			path = DViews;
+			sourceTree = "<group>";
+		};
+		C31BF96829E7067000C757E3 /* DController(s) */ = {
+			isa = PBXGroup;
+			children = (
+				C31BF96429E7063700C757E3 /* DictionaryViewController.swift */,
+			);
+			path = "DController(s)";
+			sourceTree = "<group>";
+		};
+		C31BF96929E7067A00C757E3 /* DModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DModels;
+			sourceTree = "<group>";
+		};
+		C31BF97429E7250000C757E3 /* SelectedLanguages */ = {
+			isa = PBXGroup;
+			children = (
+				C31BF97529E725B000C757E3 /* Language.swift */,
+				C31BF97A29E7423C00C757E3 /* Arrow.swift */,
+			);
+			path = SelectedLanguages;
+			sourceTree = "<group>";
+		};
+		C31BF98329E7FA6500C757E3 /* DictTableView */ = {
+			isa = PBXGroup;
+			children = (
+				C31BF96E29E7083200C757E3 /* DictionaryTableViewCell.swift */,
+				C31BF98629E7FFA900C757E3 /* DTableFuncs.swift */,
+			);
+			path = DictTableView;
+			sourceTree = "<group>";
+		};
+		C38A279129E97468002070F5 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C38A279229E97486002070F5 /* DictionaryStructs.swift */,
+				C38A279429E974BF002070F5 /* NetworkFetcher.swift */,
+				C38A279629E974E5002070F5 /* NetworkRequest.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,9 +235,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C31BF98729E7FFA900C757E3 /* DTableFuncs.swift in Sources */,
+				C38A279729E974E5002070F5 /* NetworkRequest.swift in Sources */,
+				C38A279329E97486002070F5 /* DictionaryStructs.swift in Sources */,
 				3CADB95629E6D134006E92C9 /* ViewController.swift in Sources */,
+				C31BF96F29E7083200C757E3 /* DictionaryTableViewCell.swift in Sources */,
+				C31BF97B29E7423C00C757E3 /* Arrow.swift in Sources */,
 				3CADB95229E6D134006E92C9 /* AppDelegate.swift in Sources */,
+				C38A279529E974BF002070F5 /* NetworkFetcher.swift in Sources */,
+				C31BF97629E725B000C757E3 /* Language.swift in Sources */,
+				C31BF97D29E7E17000C757E3 /* DTextField.swift in Sources */,
+				C31BF96529E7063700C757E3 /* DictionaryViewController.swift in Sources */,
 				3CADB95429E6D134006E92C9 /* SceneDelegate.swift in Sources */,
+				C31BF97129E716A600C757E3 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +386,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M6T69FPPN9;
+				DEVELOPMENT_TEAM = WS5WFL9CRG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FlingoLingo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -299,6 +395,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -319,7 +416,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M6T69FPPN9;
+				DEVELOPMENT_TEAM = WS5WFL9CRG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FlingoLingo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -328,6 +425,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
