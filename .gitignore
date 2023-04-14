@@ -89,3 +89,5 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+FlingoLingo.xcodeproj/project.xcworkspace/xcuserdata
+FlingoLingo.xcodeproj/xcuserdata
