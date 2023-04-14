@@ -21,7 +21,7 @@ struct DeckBackHeaderView: View {
                 Button (action: {
                     // TODO: add action
                 }, label: {
-                    Image(systemName: "chevron.left")
+                    Icons.leftArrow
                         .foregroundColor(Color(ColorScheme.mainText))
                 })
                 Text(Constants.headerName)
@@ -32,7 +32,7 @@ struct DeckBackHeaderView: View {
                 Button (action: {
                     // TODO: add action
                 }, label: {
-                    Image(systemName: "pencil")
+                    Icons.pencil
                         .foregroundColor(Color(ColorScheme.mainText))
                 })
             }

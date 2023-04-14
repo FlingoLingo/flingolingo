@@ -36,7 +36,7 @@ struct SearchView: View {
                 Button(action: {
                     text = ""
                 }, label: {
-                    Image(systemName: "xmark")
+                    Icons.xmark
                         .foregroundColor(Color(ColorScheme.mainText))
                 })
             }

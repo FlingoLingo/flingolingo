@@ -23,7 +23,7 @@ struct HeaderView: View {
             Button (action: {
                 // TODO: add action
             }, label: {
-                Image(systemName: "plus")
+                Icons.plus
                     .foregroundColor(Color(ColorScheme.mainText))
             })
         }

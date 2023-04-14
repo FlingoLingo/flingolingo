@@ -30,7 +30,7 @@ struct WordCardView: View {
             Button(action: {
                 // TODO: add action
             }, label: {
-                Image(systemName: "xmark")
+                Icons.xmark
                     .foregroundColor(Color(ColorScheme.mainText))
             })
         }

@@ -31,7 +31,7 @@ struct DeckCardView: View {
             }
             .padding(.trailing, CommonConstants.smallStackSpacing)
             Spacer()
-            Image(systemName: "chevron.right")
+            Icons.rightArrow
                 .foregroundColor(Color(ColorScheme.mainText))
         }
         .frame(maxWidth: .infinity)

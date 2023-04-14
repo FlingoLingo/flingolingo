@@ -18,7 +18,7 @@ struct ButtonView: View {
     
     var body: some View {
         Button(action: {
-
+            // TODO: add action
         }, label: {
             Text(Constants.buttonText)
                 .font(Font(Fonts.buttonTitle))
