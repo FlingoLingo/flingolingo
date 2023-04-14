@@ -11,3 +11,8 @@
 "logInButton" = "Войти";
 "signUpButton" = "Зарегистрироваться";
 "guestLogInButton" = "Войти как гость";
+"authorizationViewNavigationBarTitleLabel" = "Авторизация";
+"authorizationViewDescriptionLabel" = "Введите адрес своей электронной почты и пароль";
+"mailTextFieldPlaceholder" = "Почта";
+"passwordTextFieldPlaceholder" = "Пароль";
+"continueButton" = "Продолжить";
