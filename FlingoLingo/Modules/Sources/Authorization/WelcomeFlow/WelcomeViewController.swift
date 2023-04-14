@@ -11,7 +11,6 @@ public final class WelcomeViewController: UIViewController {
     
     // MARK: - Properties
     private lazy var welcomeView: WelcomeView = {
-        
         let view = WelcomeView()
         view.delegate = self
         return view
@@ -27,17 +26,24 @@ public final class WelcomeViewController: UIViewController {
     }
     
     public override func loadView() {
-        
         view = welcomeView
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationController?.isNavigationBarHidden = true
     }
 }
 
 // MARK: - WelcomeViewDelegate
 extension WelcomeViewController: WelcomeViewDelegate {
-    
     func signUpButtonTapped() {}
     
-    func logInButtonTapped() {}
+    func logInButtonTapped() {
+        let authorizationViewController = AuthorizationViewController()
+        navigationController?.pushViewController(authorizationViewController, animated: true)
+    }
     
     func guestLogInButtonTapped() {}
 }
