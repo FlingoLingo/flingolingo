@@ -8,7 +8,7 @@
 import UIKit
 
 public enum Fonts {
-    
+
     // Верхний большой заголовок.
     public static let largeTitle = UIFont.systemFont(ofSize: 32, weight: .bold)
     // Подзаголовок.
