@@ -9,13 +9,16 @@ import UIKit
 
 public class MainButton: UIButton {
     
+    // MARK: - Properties
+    private let buttonCornerRadius: CGFloat = 20
+    
     // MARK: - Initialization
     public convenience init(title: String,
                             titleColor: UIColor,
                             backgroundColor: UIColor) {
         self.init()
 
-        layer.cornerRadius = 20
+        layer.cornerRadius = buttonCornerRadius
         setTitle(title, for: .normal)
         setTitleColor(titleColor, for: .normal)
         titleLabel?.font = Fonts.buttonTitle

@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class WelcomeViewController: UIViewController {
+public final class WelcomeViewController: UIViewController {
     
     // MARK: - Properties
     private lazy var welcomeView: WelcomeView = {
@@ -35,17 +35,9 @@ public class WelcomeViewController: UIViewController {
 // MARK: - WelcomeViewDelegate
 extension WelcomeViewController: WelcomeViewDelegate {
     
-    func signUpButtonTapped() {
-        
-        print(#function)
-    }
+    func signUpButtonTapped() {}
     
-    func logInButtonTapped() {
-
-        print(#function)
-    }
+    func logInButtonTapped() {}
     
-    func guestLogInButtonTapped() {
-        print(#function)
-    }
+    func guestLogInButtonTapped() {}
 }

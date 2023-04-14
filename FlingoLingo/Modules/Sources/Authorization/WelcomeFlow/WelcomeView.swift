@@ -15,12 +15,12 @@ protocol WelcomeViewDelegate: AnyObject {
     func guestLogInButtonTapped()
 }
 
-class WelcomeView: UIView {
+final class WelcomeView: UIView {
     
     // MARK: - Properties
     private lazy var appNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "FlingoLingo"
+        label.text = NSLocalizedString("appNameLabel", comment: "")
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = Fonts.largeTitle
@@ -32,7 +32,7 @@ class WelcomeView: UIView {
     
     private lazy var appDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Приложение для удобного изучения английского языка по карточкам"
+        label.text = NSLocalizedString("appDescriptionLabel", comment: "")
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = Fonts.mainText
@@ -49,70 +49,55 @@ class WelcomeView: UIView {
         stackView.spacing = 25
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
-                
-        addSubview(stackView)
         
         return stackView
     }()
     
     private lazy var logInButton: MainButton = {
-        let button = MainButton(title: "Войти", titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.background)
+        let title = NSLocalizedString("logInButton", comment: "")
+        let button = MainButton(title: title, titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.background)
         button.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(button)
         
         return button
     }()
     
     private lazy var signUpButton: MainButton = {
-        let button = MainButton(title: "Зарегистрироваться", titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.accent)
+        let title = NSLocalizedString("signUpButton", comment: "")
+        let button = MainButton(title: title, titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.accent)
         button.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(button)
         
         return button
     }()
     
     private lazy var guestLogInButton: UIButton = {
+        let title = NSLocalizedString("guestLogInButton", comment: "")
         let button = UIButton()
-        button.setTitle("Войти как гость", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(ColorScheme.secondaryText, for: .normal)
         button.titleLabel?.font = Fonts.mainText
         button.addTarget(self, action: #selector(guestLogInButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(button)
-        
         return button
     }()
     
     weak var delegate: WelcomeViewDelegate?
-    private var didSetupConstraints = false
     
     // MARK: - Initialization
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupViews()
-        self.setNeedsUpdateConstraints()
+        addSubviews()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Lifecycle
-    public override func updateConstraints() {
-        super.updateConstraints()
         
-        if !didSetupConstraints {
-            setupConstraints()
-            didSetupConstraints = true
-        }
-    }
-    
     // MARK: - Module functions
     private func setupViews() {
         
@@ -123,6 +108,14 @@ class WelcomeView: UIView {
         
         setupAppInfoStackViewConstraints()
         setupButtonsConstraints()
+    }
+    
+    private func addSubviews() {
+        
+        addSubview(appInfoStackView)
+        addSubview(logInButton)
+        addSubview(signUpButton)
+        addSubview(guestLogInButton)
     }
     
     // MARK: - Actions
@@ -147,8 +140,8 @@ extension WelcomeView {
         NSLayoutConstraint.activate([
             
             appInfoStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            appInfoStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            appInfoStackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -60)
+            trailingAnchor.constraint(equalTo: appInfoStackView.trailingAnchor, constant: 25),
+            centerYAnchor.constraint(equalTo: appInfoStackView.centerYAnchor, constant: 60)
         ])
     }
     
@@ -157,18 +150,18 @@ extension WelcomeView {
         NSLayoutConstraint.activate([
             
             guestLogInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            guestLogInButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            guestLogInButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -25),
+            trailingAnchor.constraint(equalTo: guestLogInButton.trailingAnchor, constant: 25),
+            safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: guestLogInButton.bottomAnchor, constant: 25),
             guestLogInButton.heightAnchor.constraint(equalToConstant: 44),
             
             signUpButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            signUpButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            signUpButton.bottomAnchor.constraint(equalTo: guestLogInButton.topAnchor, constant: -10),
+            trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 25),
+            guestLogInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 10),
             signUpButton.heightAnchor.constraint(equalToConstant: 60),
             
             logInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            logInButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            logInButton.bottomAnchor.constraint(equalTo: signUpButton.topAnchor, constant: -15),
+            trailingAnchor.constraint(equalTo: logInButton.trailingAnchor, constant: 25),
+            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 15),
             logInButton.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
