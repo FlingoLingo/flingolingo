@@ -15,9 +15,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         view.backgroundColor = .purple
-        let nek = DictionaryViewController()
-        nek.modalPresentationStyle = .fullScreen
-        self.present(nek, animated: true)
+
     }
 
 

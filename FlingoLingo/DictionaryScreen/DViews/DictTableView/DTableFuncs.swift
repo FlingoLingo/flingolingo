@@ -30,10 +30,6 @@ extension DictionaryViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch tableSpacing {
-            case 10 : return tableView.frame.height / 8
-        default:
-            return (tableView.frame.height + 5) / 5
-        }
+        return tableView.frame.height / 8
     }
 }

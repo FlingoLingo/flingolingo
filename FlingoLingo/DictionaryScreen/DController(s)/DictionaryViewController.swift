@@ -62,9 +62,16 @@ class DictionaryViewController: UIViewController, UITextFieldDelegate, UITableVi
         return textField
     }()
     
+    private lazy var suggestionView: SuggestionView = {
+        let suggestionView = SuggestionView()
+        suggestionView.translatesAutoresizingMaskIntoConstraints = false
+        return suggestionView
+    }()
+    
     private var centerConstraint: NSLayoutConstraint?
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?
+    private var suggestionViewConstraint: NSLayoutConstraint?
     
     open var tableSpacing = 10
     
@@ -73,43 +80,38 @@ class DictionaryViewController: UIViewController, UITextFieldDelegate, UITableVi
         return network
     }()
     
-    private var networkFetcher: NetworkFetcher {
+    private lazy var networkFetcher: NetworkFetcher = {
         let networkFetcher = NetworkFetcher(network: network)
         return networkFetcher
-    }
+    }()
     
     
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        networkFetcher.getWord(result: f(_:), lungs: "en-ru", text: "time")
-        networkFetcher.getLangs(result: f2(_:))
-        
-        
-        func f(_ word: Word?) {
+        networkFetcher.getWord(lungs: "en-ru", text: "time") { word in
             print(word)
         }
-        
-        func f2(_ langs: Langs?) {
-            print(langs)
-        }
+        //networkFetcher.getLangs(result: fen2(_:))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .init(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
         
-        [tableView, topLabel, originLanguage, arrow, translatedLanguage, textField].forEach { subView in
+        [tableView, topLabel, originLanguage, arrow, translatedLanguage, suggestionView, textField].forEach { subView in
             view.addSubview(subView)
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
         let centerConstraint = topLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 75)
         let selectedLanguageConstant = originLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15)
         let arrowConstraint = arrow.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let suggestionViewConstraint = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor, constant: 25)
         self.centerConstraint = centerConstraint
         self.selectedLanguageConstant = selectedLanguageConstant
         self.arrowConstraint = arrowConstraint
+        self.suggestionViewConstraint = suggestionViewConstraint
 
         
         let topLabelConstraints = [
@@ -143,6 +145,15 @@ class DictionaryViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         ]
         
+        let suggestionViewConstraints = [
+            
+            suggestionViewConstraint,
+            suggestionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            suggestionView.heightAnchor.constraint(equalToConstant: 40),
+            suggestionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15)
+        
+        ]
+        
         let tableConstraints = [
             
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
@@ -152,14 +163,13 @@ class DictionaryViewController: UIViewController, UITextFieldDelegate, UITableVi
 
             ]
         
-        
         NSLayoutConstraint.activate(topLabelConstraints)
         NSLayoutConstraint.activate(selectedLanguages)
         NSLayoutConstraint.activate(textFieldConstraints)
         NSLayoutConstraint.activate(tableConstraints)
+        NSLayoutConstraint.activate(suggestionViewConstraints)
 
     }
-
 }
 
 
@@ -167,17 +177,13 @@ extension DictionaryViewController {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.opacity = 1
-        tableSpacing = 3
         topLabel.isHidden = true
         centerConstraint?.constant = 0
+        suggestionViewConstraint?.constant = 75
         NSLayoutConstraint.deactivate([self.selectedLanguageConstant!])
-        NSLayoutConstraint.activate([self.arrowConstraint!])
+        NSLayoutConstraint.activate([self.arrowConstraint!, self.suggestionViewConstraint!])
         UIView.animate(withDuration: 0.35) {
             self.view.layoutIfNeeded()
-        }
-        tableView.contentInset.top = -3
-        Timer.scheduledTimer(withTimeInterval: 0.01, repeats: false) { _ in
-            self.tableView.reloadData()
         }
     }
     
@@ -186,8 +192,9 @@ extension DictionaryViewController {
         topLabel.isHidden = false
         centerConstraint!.constant = 75
         selectedLanguageConstant?.constant = 15
-        NSLayoutConstraint.deactivate([self.arrowConstraint!])
-        NSLayoutConstraint.activate([self.selectedLanguageConstant!])
+        NSLayoutConstraint.deactivate([self.arrowConstraint!, self.suggestionViewConstraint!])
+        suggestionViewConstraint? = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor, constant: 25)
+        NSLayoutConstraint.activate([self.selectedLanguageConstant!, self.suggestionViewConstraint!])
         UIView.animate(withDuration: 0.35) {
             self.view.layoutIfNeeded()
         }
@@ -195,10 +202,10 @@ extension DictionaryViewController {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        tableSpacing = 10
         tableView.reloadData()
         return true
     }
 
+    
 }
 
