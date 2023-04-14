@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		3CADB95229E6D134006E92C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CADB95129E6D134006E92C9 /* AppDelegate.swift */; };
 		3CADB95429E6D134006E92C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CADB95329E6D134006E92C9 /* SceneDelegate.swift */; };
-		3CADB95629E6D134006E92C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CADB95529E6D134006E92C9 /* ViewController.swift */; };
 		3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95A29E6D136006E92C9 /* Assets.xcassets */; };
 		3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */; };
 		3CCE816629E7078200EAF382 /* Umbrella in Frameworks */ = {isa = PBXBuildFile; productRef = 3CCE816529E7078200EAF382 /* Umbrella */; };
+		AD5305A429E9736300BB7FA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD5305A629E9736300BB7FA2 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +20,10 @@
 		3CADB94E29E6D134006E92C9 /* FlingoLingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlingoLingo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CADB95129E6D134006E92C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3CADB95329E6D134006E92C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3CADB95529E6D134006E92C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3CADB95A29E6D136006E92C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CADB95D29E6D136006E92C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CADB95F29E6D136006E92C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD5305AA29E9754F00BB7FA2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +61,9 @@
 			children = (
 				3CADB95129E6D134006E92C9 /* AppDelegate.swift */,
 				3CADB95329E6D134006E92C9 /* SceneDelegate.swift */,
-				3CADB95529E6D134006E92C9 /* ViewController.swift */,
 				3CADB95A29E6D136006E92C9 /* Assets.xcassets */,
 				3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */,
+				AD5305A629E9736300BB7FA2 /* Localizable.strings */,
 				3CADB95F29E6D136006E92C9 /* Info.plist */,
 			);
 			path = FlingoLingo;
@@ -116,11 +116,11 @@
 			};
 			buildConfigurationList = 3CADB94929E6D134006E92C9 /* Build configuration list for PBXProject "FlingoLingo" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ru,
 			);
 			mainGroup = 3CADB94529E6D134006E92C9;
 			productRefGroup = 3CADB94F29E6D134006E92C9 /* Products */;
@@ -138,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */,
+				AD5305A429E9736300BB7FA2 /* Localizable.strings in Resources */,
 				3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,7 +150,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CADB95629E6D134006E92C9 /* ViewController.swift in Sources */,
 				3CADB95229E6D134006E92C9 /* AppDelegate.swift in Sources */,
 				3CADB95429E6D134006E92C9 /* SceneDelegate.swift in Sources */,
 			);
@@ -166,6 +166,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		AD5305A629E9736300BB7FA2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD5305AA29E9754F00BB7FA2 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -173,6 +181,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -233,6 +242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
