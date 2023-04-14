@@ -1,0 +1,13 @@
+/*
+  Localizable.strings
+  FlingoLingo
+
+  Created by Alexander Muratov on 4/14/23.
+  
+*/
+
+"appNameLabel" = "FlingoLingo";
+"appDescriptionLabel" = "Приложение для удобного изучения английского языка по карточкам";
+"logInButton" = "Войти";
+"signUpButton" = "Зарегистрироваться";
+"guestLogInButton" = "Войти как гость";
