@@ -10,7 +10,7 @@ import UIComponents
 
 struct DecksPageView: View {
     
-    @StateObject private var viewModel = DecksViewModel(decks: Array(repeating: Deck(id: 1, title: "Для путешествий", wordsCount: 100, learnedWords: 32, repetitionDate: Date.now, cards: []), count: 5))
+    @StateObject private var viewModel = DecksViewModel()
     
     var body: some View {
         ZStack {
@@ -21,7 +21,7 @@ struct DecksPageView: View {
                     VStack(spacing: CommonConstants.smallSpacing) {
                         ForEach (viewModel.decks) { deck in
                             DeckCardView(deck: deck) {
-                                viewModel.deckCardCLicked(id: deck.id)
+                                viewModel.deckCardClicked(id: deck.id)
                             }
                         }
                     }
@@ -35,6 +35,18 @@ struct DecksPageView: View {
 }
 
 struct Previews: PreviewProvider {
+    static let viewModel = {
+        let viewModel = DecksViewModel()
+        viewModel.decks = Array(repeating: Deck(id: 1,
+                                                title: "Для путешествий",
+                                                wordsCount: 100,
+                                                learnedWords: 32,
+                                                repetitionDate: Date.now,
+                                                cards: []),
+                                count: 5)
+        return viewModel
+    }()
+    
     static var previews: some View {
         DecksPageView()
     }

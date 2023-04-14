@@ -18,4 +18,8 @@ public enum CommonConstants {
     // Расстояние в маленьких стеках.
     public static let smallStackSpacing: CGFloat = 5
     public static let bottomPadding: CGFloat = 40
+    
+    // Скругление полей ввода.
+    public static let cornerRadius: CGFloat = 10
+
 }

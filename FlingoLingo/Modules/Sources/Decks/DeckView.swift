@@ -19,7 +19,8 @@ struct DeckView: View {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
             VStack (spacing: CommonConstants.bigSpacing) {
                 DeckBackHeaderView(deck: deck,
-                                   backButtonClicked: {viewModel.backButtonClicked()}, editButtonClicked: {viewModel.editButtonClicked()})
+                                   backButtonClicked: viewModel.backButtonClicked,
+                                   editButtonClicked: viewModel.editButtonClicked)
                 DeckInfoView(deck: deck)
                 SearchView(text: $text)
                 ScrollView {
@@ -35,9 +36,7 @@ struct DeckView: View {
             .padding(.horizontal, CommonConstants.bigSpacing)
             VStack {
                 Spacer()
-                ButtonView(buttonText: "Начать") {
-                    viewModel.startButtonClicked()
-                }
+                ButtonView(buttonText: "Начать", buttonClicked: viewModel.startButtonClicked)
                 .padding(.bottom, CommonConstants.bottomPadding)
                 .padding(.horizontal, CommonConstants.bigSpacing)
             }

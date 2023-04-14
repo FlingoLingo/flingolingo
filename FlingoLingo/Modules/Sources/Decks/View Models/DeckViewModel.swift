@@ -9,7 +9,11 @@ import Foundation
 
 import Foundation
 
-public class DeckViewModel: ObservableObject {
+public final class DeckViewModel: ObservableObject {
+    
+    public init() {
+        
+    }
     
     func startButtonClicked() {
         
@@ -24,10 +28,6 @@ public class DeckViewModel: ObservableObject {
     }
     
     func wordCardClicked() {
-        
-    }
-    
-    public init() {
         
     }
 }

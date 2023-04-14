@@ -16,18 +16,18 @@ struct DeckInfoView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
             Text(formatter.formatWords(deck: deck))
-                .font(Font(Fonts.mainText))
-                .foregroundColor(Color(ColorScheme.mainText))
+                .font(SFonts.mainText)
+                .foregroundColor(SColors.mainText)
             Text(formatter.formatLearnedWords(deck: deck))
-                .font(Font(Fonts.mainText))
-                .foregroundColor(Color(ColorScheme.mainText))
+                .font(SFonts.mainText)
+                .foregroundColor(SColors.mainText)
             Text(formatter.formatDate(deck: deck))
-                .font(Font(Fonts.mainText))
-                .foregroundColor(Color(ColorScheme.mainText))
+                .font(SFonts.mainText)
+                .foregroundColor(SColors.mainText)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.all, CommonConstants.smallSpacing)
-        .background(Color(ColorScheme.darkBackground))
+        .background(SColors.darkBackground)
         .cornerRadius(CommonConstants.cornerRadius)
     }
 }

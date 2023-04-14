@@ -19,14 +19,14 @@ struct DecksHeaderView: View {
     var body: some View {
         HStack {
             Text(Constants.headerName)
-                .font(Font(Fonts.largeTitle))
-                .foregroundColor(Color(ColorScheme.mainText))
+                .font(SFonts.largeTitle)
+                .foregroundColor(SColors.mainText)
             Spacer()
             Button (action: {
                 viewModel.addDeckButtonClicked()
             }, label: {
                 Icons.plus
-                    .foregroundColor(Color(ColorScheme.mainText))
+                    .foregroundColor(SColors.mainText)
             })
         }
     }

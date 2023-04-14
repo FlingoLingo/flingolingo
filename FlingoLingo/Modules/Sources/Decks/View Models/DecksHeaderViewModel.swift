@@ -7,13 +7,13 @@
 
 import Foundation
 
-public class DecksHeaderViewModel: ObservableObject {
+public final class DecksHeaderViewModel: ObservableObject {
     
-    func addDeckButtonClicked() {
+    public init() {
         
     }
     
-    public init() {
+    func addDeckButtonClicked() {
         
     }
 }

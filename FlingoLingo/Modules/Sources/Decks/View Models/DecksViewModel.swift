@@ -7,15 +7,15 @@
 
 import Foundation
 
-public class DecksViewModel: ObservableObject {
+public final class DecksViewModel: ObservableObject {
     
-    @Published var decks: [Deck]
+    @Published var decks: [Deck] = []
     
-    public init(decks: [Deck]) {
-        self.decks = decks
+    public init() {
+        
     }
     
-    func deckCardCLicked(id: Int) {
+    func deckCardClicked(id: Int) {
         
     }
 }

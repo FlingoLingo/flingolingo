@@ -10,26 +10,25 @@ import UIComponents
 
 struct ButtonView: View {
     
-    var buttonText: String
-    var buttonClicked: (() -> Void)?
+    let buttonText: String
+    let buttonClicked: (() -> Void)
     
     var body: some View {
-        Button(action: {
-            buttonClicked?()
-        }, label: {
+        Button(action: buttonClicked,
+               label: {
             Text(buttonText)
-                .font(Font(Fonts.buttonTitle))
-                .foregroundColor(Color(ColorScheme.mainText))
+                .font(SFonts.buttonTitle)
+                .foregroundColor(SColors.mainText))
         })
         .frame(maxWidth: .infinity)
         .padding(.all, CommonConstants.smallSpacing)
-        .background(Color(ColorScheme.accent))
+        .background(SColors.accent)
         .cornerRadius(CommonConstants.cornerRadius)
     }
 }
 
 struct Buttonpr: PreviewProvider {
     static var previews: some View {
-        ButtonView(buttonText: "Начать")
+        ButtonView(buttonText: "Начать", buttonClicked: {})
     }
 }

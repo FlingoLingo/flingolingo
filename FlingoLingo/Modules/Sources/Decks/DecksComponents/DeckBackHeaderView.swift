@@ -10,29 +10,27 @@ import UIComponents
 
 struct DeckBackHeaderView: View {
     
-    var deck: Deck
-    var backButtonClicked: (() -> Void)?
-    var editButtonClicked: (() -> Void)?
+    let deck: Deck
+    let backButtonClicked: (() -> Void)
+    let editButtonClicked: (() -> Void)
     
     var body: some View {
         HStack {
             HStack {
-                Button (action: {
-                    backButtonClicked?()
-                }, label: {
+                Button (action: backButtonClicked,
+                        label: {
                     Icons.leftArrow
-                        .foregroundColor(Color(ColorScheme.mainText))
+                        .foregroundColor(SColors.mainText)
                 })
                 Text(deck.title)
-                    .font(Font(Fonts.subtitle))
-                    .foregroundColor(Color(ColorScheme.mainText))
+                    .font(SFonts.subtitle)
+                    .foregroundColor(SColors.mainText)
                     .padding(.leading, CommonConstants.smallSpacing)
                 Spacer()
-                Button (action: {
-                    editButtonClicked?()
-                }, label: {
+                Button (action: editButtonClicked,
+                        label: {
                     Icons.pencil
-                        .foregroundColor(Color(ColorScheme.mainText))
+                        .foregroundColor(SColors.mainText)
                 })
             }
             .frame(maxWidth: .infinity, alignment: .leading)

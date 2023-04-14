@@ -11,15 +11,14 @@ import UIComponents
 struct SearchView: View {
     // MARK: - Constants
     enum Constants {
-        static let cornerRadius: CGFloat = 10
         static let placeholder: String = "Найти слово в колоде..."
     }
     
     // MARK: - Properties
     @Binding var text: String
     
-    private var isTextEmpty: Color {
-        text.isEmpty ? Color(ColorScheme.inactive) : Color(ColorScheme.mainText)
+    private var borderColor: Color {
+        text.isEmpty ? SColors.inactive : SColors.mainText
     }
     
     var body: some View {
@@ -27,25 +26,25 @@ struct SearchView: View {
             TextField("", text: $text)
                 .placeholder(when: text.isEmpty) {
                     Text(Constants.placeholder)
-                        .font(Font(Fonts.searchText))
-                        .foregroundColor(Color(ColorScheme.inactive))
+                        .font(SFonts.searchText)
+                        .foregroundColor(SColors.inactive)
                 }
-                .foregroundColor(Color(ColorScheme.mainText))
+                .foregroundColor(SColors.mainText)
             Spacer()
             if !text.isEmpty {
                 Button(action: {
                     text = ""
                 }, label: {
                     Icons.xmark
-                        .foregroundColor(Color(ColorScheme.mainText))
+                        .foregroundColor(SColors.mainText)
                 })
             }
             
         }
         .padding(.all, CommonConstants.smallSpacing)
         .overlay(
-            RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                .stroke(isTextEmpty, lineWidth: 1)
+            RoundedRectangle(cornerRadius: CommonConstants.cornerRadius)
+                .stroke(borderColor, lineWidth: 1)
         )
     }
 }
