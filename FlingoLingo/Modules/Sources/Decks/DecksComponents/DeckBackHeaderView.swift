@@ -8,29 +8,28 @@
 import SwiftUI
 import UIComponents
 
-
 struct DeckBackHeaderView: View {
-    // MARK: - Constants
-    enum Constants {
-        static let headerName: String = "Для путешествий"
-    }
+    
+    var deck: Deck
+    var backButtonClicked: (() -> Void)?
+    var editButtonClicked: (() -> Void)?
     
     var body: some View {
         HStack {
             HStack {
                 Button (action: {
-                    // TODO: add action
+                    backButtonClicked?()
                 }, label: {
                     Icons.leftArrow
                         .foregroundColor(Color(ColorScheme.mainText))
                 })
-                Text(Constants.headerName)
+                Text(deck.title)
                     .font(Font(Fonts.subtitle))
                     .foregroundColor(Color(ColorScheme.mainText))
                     .padding(.leading, CommonConstants.smallSpacing)
                 Spacer()
                 Button (action: {
-                    // TODO: add action
+                    editButtonClicked?()
                 }, label: {
                     Icons.pencil
                         .foregroundColor(Color(ColorScheme.mainText))

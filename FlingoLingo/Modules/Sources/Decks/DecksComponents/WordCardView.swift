@@ -9,34 +9,36 @@ import SwiftUI
 import UIComponents
 
 struct WordCardView: View {
-    // MARK: - Constants
-    enum Constants {
-        static let word: String = "apple"
-        static let translation: String = "яблоко"
-    }
+    
+    var card: Card
+    var wordCardClicked: (() -> Void)?
     
     var body: some View {
-        HStack {
-            VStack (alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
-                Text(Constants.word)
-                    .font(Font(Fonts.cardsTitle))
-                    .foregroundColor(Color(ColorScheme.mainText))
-                Text(Constants.translation)
-                    .font(Font(Fonts.cardsText))
-                    .foregroundColor(Color(ColorScheme.secondaryText))
+        Button(action: {
+            wordCardClicked?()
+        }, label: {
+            HStack {
+                VStack (alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
+                    Text(card.eng)
+                        .font(Font(Fonts.cardsTitle))
+                        .foregroundColor(Color(ColorScheme.mainText))
+                    Text(card.rus)
+                        .font(Font(Fonts.cardsText))
+                        .foregroundColor(Color(ColorScheme.secondaryText))
+                }
+                .padding(.trailing, CommonConstants.smallSpacing)
+                Spacer()
+                Button(action: {
+                    wordCardClicked?()
+                }, label: {
+                    Icons.xmark
+                        .foregroundColor(Color(ColorScheme.mainText))
+                })
             }
-            .padding(.trailing, CommonConstants.smallSpacing)
-            Spacer()
-            Button(action: {
-                // TODO: add action
-            }, label: {
-                Icons.xmark
-                    .foregroundColor(Color(ColorScheme.mainText))
-            })
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.all, CommonConstants.smallSpacing)
-        .background(Color(ColorScheme.darkBackground))
-        .cornerRadius(CommonConstants.cornerRadius)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.all, CommonConstants.smallSpacing)
+            .background(Color(ColorScheme.darkBackground))
+            .cornerRadius(CommonConstants.cornerRadius)
+        })
     }
 }

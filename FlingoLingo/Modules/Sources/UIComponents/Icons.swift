@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 public enum Icons {
-    
     public static let rightArrow: Image = Image(systemName: "chevron.right")
     public static let leftArrow: Image = Image(systemName: "chevron.left")
     public static let pencil: Image = Image(systemName: "pencil")
@@ -18,6 +17,3 @@ public enum Icons {
     public static let trash: Image = Image(systemName: "trash.fill")
     public static let xmark: Image = Image(systemName: "xmark")
 }
-
-
-

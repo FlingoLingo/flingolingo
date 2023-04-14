@@ -9,22 +9,19 @@ import SwiftUI
 import UIComponents
 
 struct DeckInfoView: View {
-    // MARK: - Constants
-    enum Constants {
-        static let wordsCount: Int = 22
-        static let wordsLearned: Int = 14
-        static let repetitionDate: Date = Date.now
-    }
     
-    var body: some View {
+    var deck: Deck
+    private let formatter: Formatter = .init()
+    
+    public var body: some View {
         VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
-            Text("Всего слов: \(Constants.wordsCount)")
+            Text(formatter.formatWords(deck: deck))
                 .font(Font(Fonts.mainText))
                 .foregroundColor(Color(ColorScheme.mainText))
-            Text("Слов изучено: \(Constants.wordsLearned)")
+            Text(formatter.formatLearnedWords(deck: deck))
                 .font(Font(Fonts.mainText))
                 .foregroundColor(Color(ColorScheme.mainText))
-            Text("Последний раз повторяли: \(Constants.repetitionDate.formatted(.dateTime.day().month().year()))")
+            Text(formatter.formatDate(deck: deck))
                 .font(Font(Fonts.mainText))
                 .foregroundColor(Color(ColorScheme.mainText))
         }

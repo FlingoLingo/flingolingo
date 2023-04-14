@@ -8,12 +8,14 @@
 import SwiftUI
 import UIComponents
 
-struct HeaderView: View {
+struct DecksHeaderView: View {
     // MARK: - Constants
     enum Constants {
         static let headerName: String = "Колоды"
     }
-        
+    
+    private let viewModel = DecksHeaderViewModel()
+    
     var body: some View {
         HStack {
             Text(Constants.headerName)
@@ -21,12 +23,11 @@ struct HeaderView: View {
                 .foregroundColor(Color(ColorScheme.mainText))
             Spacer()
             Button (action: {
-                // TODO: add action
+                viewModel.addDeckButtonClicked()
             }, label: {
                 Icons.plus
                     .foregroundColor(Color(ColorScheme.mainText))
             })
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

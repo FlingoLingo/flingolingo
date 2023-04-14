@@ -9,34 +9,36 @@ import SwiftUI
 import UIComponents
 
 struct DeckCardView: View {
-    // MARK: - Constants
-    enum Constants {
-        static let deckName: String = "Колода для путешествий по миру"
-        static let deckCardsNumber: String = "78 cлов"
-        static let deckComplition: String = "Выучено: 68 из 78"
-    }
+    
+    var deck: Deck
+    var deckCardClicked: (() -> Void)?
+    private let formatter: Formatter = .init()
     
     var body: some View {
-        HStack {
-            VStack (alignment: .leading, spacing: 5) {
-                Text(Constants.deckName)
-                    .font(Font(Fonts.cardsTitle))
+        Button(action: {
+            deckCardClicked?()
+        }, label: {
+            HStack {
+                VStack (alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
+                    Text(deck.title)
+                        .font(Font(Fonts.cardsTitle))
+                        .foregroundColor(Color(ColorScheme.mainText))
+                    Text(formatter.formatWords(deck: deck))
+                        .font(Font(Fonts.mainText))
+                        .foregroundColor(Color(ColorScheme.secondaryText))
+                    Text(formatter.formatLearnedWords(deck: deck))
+                        .font(Font(Fonts.mainText))
+                        .foregroundColor(Color(ColorScheme.secondaryText))
+                }
+                .padding(.trailing, CommonConstants.smallStackSpacing)
+                Spacer()
+                Icons.rightArrow
                     .foregroundColor(Color(ColorScheme.mainText))
-                Text(Constants.deckCardsNumber)
-                    .font(Font(Fonts.cardsText))
-                    .foregroundColor(Color(ColorScheme.secondaryText))
-                Text(Constants.deckComplition)
-                    .font(Font(Fonts.cardsText))
-                    .foregroundColor(Color(ColorScheme.secondaryText))
             }
-            .padding(.trailing, CommonConstants.smallStackSpacing)
-            Spacer()
-            Icons.rightArrow
-                .foregroundColor(Color(ColorScheme.mainText))
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.all, CommonConstants.smallSpacing)
-        .background(Color(ColorScheme.darkBackground))
-        .cornerRadius(CommonConstants.cornerRadius)
+            .frame(maxWidth: .infinity)
+            .padding(.all, CommonConstants.smallSpacing)
+            .background(Color(ColorScheme.darkBackground))
+            .cornerRadius(CommonConstants.cornerRadius)
+        })
     }
 }

@@ -8,19 +8,16 @@
 import SwiftUI
 import UIComponents
 
-
 struct ButtonView: View {
-    // MARK: - Constants
-    enum Constants {
-        static let buttonText: String = "Начать"
-        static let translation: String = "яблоко"
-    }
+    
+    var buttonText: String
+    var buttonClicked: (() -> Void)?
     
     var body: some View {
         Button(action: {
-            // TODO: add action
+            buttonClicked?()
         }, label: {
-            Text(Constants.buttonText)
+            Text(buttonText)
                 .font(Font(Fonts.buttonTitle))
                 .foregroundColor(Color(ColorScheme.mainText))
         })
@@ -33,6 +30,6 @@ struct ButtonView: View {
 
 struct Buttonpr: PreviewProvider {
     static var previews: some View {
-        ButtonView()
+        ButtonView(buttonText: "Начать")
     }
 }
