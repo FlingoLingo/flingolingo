@@ -17,6 +17,8 @@
 "allWordsDescription" = "Всего слов:";
 "learnedWordsDescription" = "Выучено:";
 "lastRepeatDescription" = "Последний раз повторяли:";
+"profile" = "Профиль";
+"dictionary" = "Словарь";
 "authorizationViewNavigationBarTitleLabel" = "Авторизация";
 "authorizationViewDescriptionLabel" = "Введите адрес своей электронной почты и пароль";
 "mailTextFieldPlaceholder" = "Почта";
