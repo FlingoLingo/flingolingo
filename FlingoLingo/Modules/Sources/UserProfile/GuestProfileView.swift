@@ -4,32 +4,29 @@ import UIComponents
 struct GuestProfileView: View {
 
     @ObservedObject var viewModel = UserViewModel()
-
-    enum Constants {
-        static let user: String = "гость"
-        static let statictics: String = "Для формирования статистики, зарегистрируйтесь в приложении"
-    }
+    private let formatter: ProfileFormatter = .init()
 
     var body: some View {
         ZStack {
-            Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
-            VStack(alignment: .leading, spacing: 25) {
+            SColors.background.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
                 ProfileHeaderView()
-                Text(Constants.user)
+                Text(formatter.formatGuest())
                     .font(Font(Fonts.subtitle))
-                    .foregroundColor(Color(ColorScheme.accent))
+                    .foregroundColor(SColors.accent)
                 Group {
-                    Text("Для формирования статистики")
-                        .foregroundColor(Color(ColorScheme.mainText)) + Text(" зарегистрируйтесь ")
-                        .foregroundColor(Color(ColorScheme.accent)).bold() +
-                  Text("в приложении")
-                        .foregroundColor(Color(ColorScheme.mainText))
+                    Text(formatter.formatStatFirstText())
+                        .foregroundColor(SColors.mainText) + Text(formatter.formatStatSecondText())
+                        .foregroundColor(SColors.accent).bold() +
+                  Text(formatter.formatStatThirdText())
+                        .foregroundColor(SColors.mainText)
                 }
                 .font(Font(Fonts.mainText))
                 Spacer()
-                ButtonView(buttonText: "Войти", buttonClicked: viewModel.openWelcomeView).padding(.bottom, 40)
+                ButtonView(buttonText: formatter.formatLogIn(), buttonClicked: viewModel.openWelcomeView)
+                    .padding(.bottom, CommonConstants.bottomPadding)
             }
-            .padding(.horizontal, 25)
+            .padding(.horizontal, CommonConstants.bigSpacing)
         }
     }
 }

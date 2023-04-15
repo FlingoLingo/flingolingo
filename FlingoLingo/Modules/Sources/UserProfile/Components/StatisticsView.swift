@@ -4,41 +4,34 @@ import UIComponents
 struct StatisticsView: View {
 
     @StateObject private var viewModel: UserViewModel = UserViewModel()
-
-    enum Constants {
-        static let email: String = "hello@world.ru"
-        static let days: Int = 0
-        static let words: Int = 3
-        static let decks: Int = 20
-        static let times: Int = 136
-    }
+    private let formatter: ProfileFormatter = .init()
 
     var body: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: 15) {
+            VStack(alignment: .leading, spacing: CommonConstants.smallSpacing) {
                 HStack {
-                    Text("Вы с нами уже ")
-                        .foregroundColor(Color(ColorScheme.mainText))
+                    Text(formatter.formatDaysStudying())
+                        .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: "\(viewModel.user.daysOfUse) дней")
+                    BubbleView(bubbleText: formatter.formatNumberDaysStudying(user: viewModel.user))
                 }
                 HStack {
-                    Text("Выучили ")
-                        .foregroundColor(Color(ColorScheme.mainText))
+                    Text(formatter.formatWordsLearned())
+                        .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: "\(viewModel.user.wordsLearned) слов")
+                    BubbleView(bubbleText: formatter.formatNumberWordsLearned(user: viewModel.user))
                 }
                 HStack {
-                    Text("Создали ")
-                        .foregroundColor(Color(ColorScheme.mainText))
+                    Text(formatter.formatDecksCreated())
+                        .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: "\(viewModel.user.decksCount) колод")
+                    BubbleView(bubbleText: formatter.formatNumberDecksCreated(user: viewModel.user))
                 }
                 HStack {
-                    Text("Повторили слова ")
-                        .foregroundColor(Color(ColorScheme.mainText))
+                    Text(formatter.formatTimesRepeated())
+                        .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: "\(viewModel.user.timesRepeated) раз")
+                    BubbleView(bubbleText: formatter.formatNumberTimesRepeated(user: viewModel.user))
                 }
             }
         }

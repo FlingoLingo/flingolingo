@@ -9,7 +9,7 @@ struct PasswordTextField: View {
     @State private var isSecured: Bool = true
 
     private var placeholderColor: Color {
-        password.isEmpty ? Color(ColorScheme.inactive) : Color(ColorScheme.mainText)
+        password.isEmpty ? SColors.inactive : SColors.mainText
     }
 
     var body: some View {
@@ -24,6 +24,7 @@ struct PasswordTextField: View {
                         .padding(.vertical, 10)
                         .padding(.horizontal, 15)
                         .foregroundColor(placeholderColor)
+                        .frame(height: 45)
                 } else {
                     TextField("", text: $password)
                         .placeholder(when: password.isEmpty) {
@@ -33,13 +34,14 @@ struct PasswordTextField: View {
                         .padding(.vertical, 10)
                         .padding(.horizontal, 15)
                         .foregroundColor(placeholderColor)
+                        .frame(height: 45)
                 }
             }
 
             Button(action: {
                 isSecured.toggle()
             }, label: {
-                Image(systemName: self.isSecured ? "eye.slash" : "eye")
+                (self.isSecured ? Icons.eyeSlash : Icons.eye)
                     .accentColor(.gray)
                     .padding(.trailing, 15)
             })

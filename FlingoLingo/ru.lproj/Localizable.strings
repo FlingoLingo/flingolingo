@@ -1,11 +1,3 @@
-/*
-  Localizable.strings
-  FlingoLingo
-
-  Created by Alexander Muratov on 4/14/23.
-  
-*/
-
 "appNameLabel" = "FlingoLingo";
 "appDescriptionLabel" = "Приложение для удобного изучения английского языка по карточкам";
 "logInButton" = "Войти";
@@ -17,3 +9,30 @@
 "allWordsDescription" = "Всего слов:";
 "learnedWordsDescription" = "Выучено:";
 "lastRepeatDescription" = "Последний раз повторяли:";
+"profile" = "Профиль";
+"userDays" = "Вы с нами уже ";
+"wordsLearned" = "Выучили ";
+"timesRepeated" = "Повторили слова ";
+"decksCreated" = "Создали ";
+"day1" = "день";
+"day2-4" = "дня";
+"day05-9" = "дней";
+"word1" = "слово";
+"word2-4" = "слова";
+"word05-9" = "слов";
+"time015-9" = "раз";
+"time2-4" = "раза";
+"deck1" = "колоду";
+"deck2-4" = "колоды";
+"deck05-9" = "колод";
+"changePassword" = "Изменение пароля";
+"oldPassword" = "старый пароль...";
+"newPassword" = "новый пароль...";
+"confirmPassword" = "подтвердите пароль...";
+"change" = "Изменить";
+"logOut" = "Выйти";
+"guest" = "гость";
+"stat1" = "Для формирования статистики";
+"stat2" = " зарегистрируйтесь ";
+"stat3" = "в приложении";
+

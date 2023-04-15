@@ -3,22 +3,20 @@ import UIComponents
 
 struct SubHeaderView: View {
 
-    enum Constants {
-        static let headerName: String = "Изменение пароля"
-    }
+    private let formatter: ProfileFormatter = .init()
 
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: CommonConstants.smallSpacing) {
             Button(action: {
 
             },
                    label: {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(Color(ColorScheme.mainText))
+                Icons.leftArrow
+                    .foregroundColor(SColors.mainText)
             })
-            Text(Constants.headerName)
+            Text(formatter.formatChangePassword())
                 .font(Font(Fonts.subtitle))
-                .foregroundColor(Color(ColorScheme.mainText))
+                .foregroundColor(SColors.mainText)
             Spacer()
         }
     }

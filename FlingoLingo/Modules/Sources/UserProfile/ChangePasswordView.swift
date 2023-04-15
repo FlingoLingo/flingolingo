@@ -4,20 +4,21 @@ import UIComponents
 struct ChangePasswordView: View {
 
     @ObservedObject var viewModel: UserViewModel
+    private let formatter: ProfileFormatter = .init()
 
     var body: some View {
         ZStack {
-            Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
-            VStack(alignment: .leading, spacing: 25) {
+            SColors.background.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
                 SubHeaderView()
-                VStack(spacing: 15) {
+                VStack(spacing: CommonConstants.smallSpacing) {
                     PasswordsView(viewModel: viewModel)
                     Spacer()
-                    ButtonView(buttonText: "Изменить", buttonClicked: viewModel.changePassword)
-                        .padding(.bottom, 40)
+                    ButtonView(buttonText: formatter.formatChange(), buttonClicked: viewModel.changePassword)
+                        .padding(.bottom, CommonConstants.bottomPadding)
                 }
             }
-            .padding(.horizontal, 25)
+            .padding(.horizontal, CommonConstants.bigSpacing)
         }
     }
 }

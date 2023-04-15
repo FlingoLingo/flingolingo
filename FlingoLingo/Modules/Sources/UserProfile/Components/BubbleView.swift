@@ -7,12 +7,12 @@ struct BubbleView: View {
     var body: some View {
         VStack {
             Text(bubbleText)
-                .foregroundColor(Color(ColorScheme.accent))
+                .foregroundColor(SColors.accent)
                 .font(Font(Fonts.cardsText))
                 .padding(.vertical, 9)
                 .padding(.horizontal, 15)
         }
-        .background(Color(ColorScheme.accent).opacity(0.25))
-        .cornerRadius(20)
+        .background(SColors.accent).opacity(0.25)
+        .cornerRadius(CommonConstants.cornerRadius)
     }
 }

@@ -4,22 +4,24 @@ import UIComponents
 struct UserProfileView: View {
 
     @ObservedObject var viewModel: UserViewModel
+    private let formatter: ProfileFormatter = .init()
 
     var body: some View {
         ZStack {
-            Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
-            VStack(alignment: .leading, spacing: 25) {
+            SColors.background.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
                 ProfileHeaderView()
                 Text(viewModel.user.email)
                     .font(Font(Fonts.subtitle))
-                    .foregroundColor(Color(ColorScheme.accent))
+                    .foregroundColor(SColors.accent)
 
                 StatisticsView()
 
                 Spacer()
-                ButtonView(buttonText: "Выйти", buttonClicked: viewModel.logOut).padding(.bottom, 40)
+                ButtonView(buttonText: formatter.formatLogOut(), buttonClicked: viewModel.logOut)
+                    .padding(.bottom, CommonConstants.bottomPadding)
             }
-            .padding(.horizontal, 25)
+            .padding(.horizontal, CommonConstants.bigSpacing)
         }
     }
 }

@@ -9,11 +9,11 @@ struct ButtonView: View {
         Button(action: buttonClicked, label: {
             Text(buttonText)
                 .font(Font(Fonts.buttonTitle))
-                .foregroundColor(Color(ColorScheme.mainText))
+                .foregroundColor(SColors.mainText)
         })
         .frame(maxWidth: .infinity)
-        .padding(.all, 15)
-        .background(Color(ColorScheme.accent))
-        .cornerRadius(19)
+        .padding(.all, CommonConstants.smallSpacing)
+        .background(SColors.accent)
+        .cornerRadius(CommonConstants.cornerRadius)
     }
 }

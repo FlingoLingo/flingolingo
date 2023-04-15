@@ -3,22 +3,20 @@ import UIComponents
 
 struct ProfileHeaderView: View {
 
-    enum Constants {
-        static let headerName: String = "Профиль"
-    }
+    private let formatter: ProfileFormatter = .init()
 
     var body: some View {
         HStack {
-            Text(Constants.headerName)
+            Text(formatter.formatProfile())
                 .font(Font(Fonts.largeTitle))
-                .foregroundColor(Color(ColorScheme.mainText))
+                .foregroundColor(SColors.mainText)
             Spacer()
             Button(action: {
 
             },
                    label: {
-                Image(systemName: "gearshape.fill")
-                    .foregroundColor(Color(ColorScheme.mainText))
+                Icons.settings
+                    .foregroundColor(SColors.mainText)
             })
         }
     }
