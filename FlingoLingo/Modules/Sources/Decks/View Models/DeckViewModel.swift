@@ -12,9 +12,11 @@ final class DeckViewModel: ObservableObject {
 
     @Published var text: String = ""
     let deck: Deck
+    private let backAction: () -> Void
 
-    init(deck: Deck) {
+    init(deck: Deck, backAction: @escaping () -> Void) {
         self.deck = deck
+        self.backAction = backAction
     }
 
     func startButtonClicked() {
@@ -22,7 +24,7 @@ final class DeckViewModel: ObservableObject {
     }
 
     func backButtonClicked() {
-
+        backAction()
     }
 
     func editButtonClicked() {
