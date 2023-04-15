@@ -5,12 +5,14 @@ import PackageDescription
 
 let package = Package(
     name: "Modules",
+    platforms: [.iOS(.v16)],
     products: [
         .library(
             name: "Umbrella",
             targets: [
                 "Authorization",
-                "UIComponents"
+                "UIComponents",
+                "Decks",
             ]
         )
     ],
@@ -26,6 +28,12 @@ let package = Package(
         .target(
             name: "UIComponents",
             dependencies: [
+            ]
+        ),
+		.target(
+            name: "Decks",
+            dependencies: [
+                "UIComponents"
             ]
         ),
     ]
