@@ -27,18 +27,18 @@ final class CustomTabBarController: UITabBarController {
 
     // MARK: - Configurations
     private func configureTabBar() {
-        let dictionaryController = configureViewControllers(
+        let dictionaryController = configureViewController(
             controller: UIViewController(),
             title: NSLocalizedString("dictionary", comment: ""),
             image: Constants.dictionary ?? .add
         )
         let decksViewFactory = DecksViewControllerFactory()
-        let decksController = configureViewControllers(
+        let decksController = configureViewController(
             controller: decksViewFactory.decksViewController(viewModel: DecksViewModel()),
             title: NSLocalizedString("decksHeader", comment: ""),
             image: Constants.decks ?? .add
         )
-        let profileController = configureViewControllers(
+        let profileController = configureViewController(
             controller: UIViewController(),
             title: NSLocalizedString("profile", comment: ""),
             image: Constants.profile ?? .add
@@ -54,7 +54,7 @@ final class CustomTabBarController: UITabBarController {
     }
 
     // MARK: - Generation
-    private func configureViewControllers(controller: UIViewController,
+    private func configureViewController(controller: UIViewController,
                                           title: String,
                                           image: UIImage) -> UIViewController {
         controller.tabBarItem.title = title
