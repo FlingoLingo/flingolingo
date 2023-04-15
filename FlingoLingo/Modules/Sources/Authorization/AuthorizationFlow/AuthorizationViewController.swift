@@ -37,7 +37,5 @@ extension AuthorizationViewController: AuthorizationViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    func continueButtonTapped(mail: String, password: String) {
-        print("mail: \(mail), password: \(password)")
-    }
+    func continueButtonTapped(mail: String, password: String) {}
 }
