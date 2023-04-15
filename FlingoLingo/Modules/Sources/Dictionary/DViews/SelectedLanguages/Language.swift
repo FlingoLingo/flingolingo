@@ -18,11 +18,11 @@ class Language: UIButton {
         let font = UIFont(name: "Futura Bold", size: Constants().smallFontSize)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: UIColor.white]
-        let attributedTitle = NSAttributedString(string: title ?? "не выбрано", attributes: attributes as [NSAttributedString.Key : Any])
+        let attributedTitle = NSAttributedString(string: title ?? "не выбрано", attributes: attributes as [NSAttributedString.Key: Any])
         setAttributedTitle(attributedTitle, for: .normal)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }
