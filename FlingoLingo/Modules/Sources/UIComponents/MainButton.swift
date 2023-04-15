@@ -8,10 +8,9 @@
 import UIKit
 
 public final class MainButton: UIButton {
-    
     // MARK: - Properties
     private let buttonCornerRadius: CGFloat = 20
-    
+
     // MARK: - Initialization
     public convenience init(title: String,
                             titleColor: UIColor,

@@ -11,6 +11,12 @@
 "logInButton" = "Войти";
 "signUpButton" = "Зарегистрироваться";
 "guestLogInButton" = "Войти как гость";
+"startButton" = "Начать";
+"decksHeader" = "Колоды";
+"searchWordInDeckPlaceholder" = "Найти слово в колоде...";
+"allWordsDescription" = "Всего слов:";
+"learnedWordsDescription" = "Выучено:";
+"lastRepeatDescription" = "Последний раз повторяли:";
 "authorizationViewNavigationBarTitleLabel" = "Авторизация";
 "authorizationViewDescriptionLabel" = "Введите адрес своей электронной почты и пароль";
 "mailTextFieldPlaceholder" = "Почта";
