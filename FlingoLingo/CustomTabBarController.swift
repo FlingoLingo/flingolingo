@@ -9,7 +9,7 @@ import UIComponents
 import Decks
 import UIKit
 
-class CustomTabBarController: UITabBarController {
+final class CustomTabBarController: UITabBarController {
     // MARK: - Constants
     private enum Constants {
         static let dictionary = UIImage(named: "dictTabItem")
