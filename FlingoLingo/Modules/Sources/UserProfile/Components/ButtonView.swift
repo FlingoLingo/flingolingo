@@ -3,11 +3,10 @@ import UIComponents
 
 struct ButtonView: View {
     var buttonText: String
+    let buttonClicked: (() -> Void)
 
     var body: some View {
-        Button(action: {
-
-        }, label: {
+        Button(action: buttonClicked, label: {
             Text(buttonText)
                 .font(Font(Fonts.buttonTitle))
                 .foregroundColor(Color(ColorScheme.mainText))

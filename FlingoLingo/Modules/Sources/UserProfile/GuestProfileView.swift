@@ -3,6 +3,8 @@ import UIComponents
 
 struct GuestProfileView: View {
 
+    @ObservedObject var viewModel = UserViewModel()
+
     enum Constants {
         static let user: String = "гость"
         static let statictics: String = "Для формирования статистики, зарегистрируйтесь в приложении"
@@ -25,7 +27,7 @@ struct GuestProfileView: View {
                 }
                 .font(Font(Fonts.mainText))
                 Spacer()
-                ButtonView(buttonText: "Выйти").padding(.bottom, 40)
+                ButtonView(buttonText: "Войти", buttonClicked: viewModel.openWelcomeView).padding(.bottom, 40)
             }
             .padding(.horizontal, 25)
         }

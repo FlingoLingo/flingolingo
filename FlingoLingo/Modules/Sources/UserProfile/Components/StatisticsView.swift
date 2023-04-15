@@ -3,7 +3,7 @@ import UIComponents
 
 struct StatisticsView: View {
 
-    @StateObject var viewModel: UsersViewModel
+    @StateObject private var viewModel: UserViewModel = UserViewModel()
 
     enum Constants {
         static let email: String = "hello@world.ru"
@@ -20,25 +20,25 @@ struct StatisticsView: View {
                     Text("Вы с нами уже ")
                         .foregroundColor(Color(ColorScheme.mainText))
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: "\(viewModel.users[0].daysOfUse ?? 0) дней")
+                    BubbleView(bubbleText: "\(viewModel.user.daysOfUse) дней")
                 }
                 HStack {
                     Text("Выучили ")
                         .foregroundColor(Color(ColorScheme.mainText))
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: "\(viewModel.users[0].wordsLearned ?? 0) слов")
+                    BubbleView(bubbleText: "\(viewModel.user.wordsLearned) слов")
                 }
                 HStack {
                     Text("Создали ")
                         .foregroundColor(Color(ColorScheme.mainText))
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: "\(viewModel.users[0].decksCount ?? 0) колод")
+                    BubbleView(bubbleText: "\(viewModel.user.decksCount) колод")
                 }
                 HStack {
                     Text("Повторили слова ")
                         .foregroundColor(Color(ColorScheme.mainText))
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: "\(viewModel.users[0].timesRepeated ?? 0) раз")
+                    BubbleView(bubbleText: "\(viewModel.user.timesRepeated) раз")
                 }
             }
         }

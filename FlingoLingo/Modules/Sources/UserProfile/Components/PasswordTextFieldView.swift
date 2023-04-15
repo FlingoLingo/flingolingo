@@ -5,10 +5,10 @@ struct PasswordTextField: View {
 
     public var placeholder: String
 
-    @State private var password: String = ""
+    @Binding var password: String
     @State private var isSecured: Bool = true
 
-    private var isTextEmpty: Color {
+    private var placeholderColor: Color {
         password.isEmpty ? Color(ColorScheme.inactive) : Color(ColorScheme.mainText)
     }
 
@@ -18,21 +18,21 @@ struct PasswordTextField: View {
                 if isSecured {
                     SecureField("", text: $password)
                         .placeholder(when: password.isEmpty) {
-                            Text(placeholder).foregroundColor(Color(ColorScheme.inactive))
+                            Text(placeholder).foregroundColor(placeholderColor)
                         }
                         .font(Font(Fonts.searchText))
                         .padding(.vertical, 10)
                         .padding(.horizontal, 15)
-                        .foregroundColor(Color(ColorScheme.mainText))
+                        .foregroundColor(placeholderColor)
                 } else {
                     TextField("", text: $password)
                         .placeholder(when: password.isEmpty) {
-                            Text(placeholder).foregroundColor(Color(ColorScheme.inactive))
+                            Text(placeholder).foregroundColor(placeholderColor)
                         }
                         .font(Font(Fonts.searchText))
                         .padding(.vertical, 10)
                         .padding(.horizontal, 15)
-                        .foregroundColor(Color(ColorScheme.mainText))
+                        .foregroundColor(placeholderColor)
                 }
             }
 

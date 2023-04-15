@@ -2,13 +2,12 @@ import SwiftUI
 import UIKit
 
 public struct ChangePasswordViewControllerFactory {
-    @ObservedObject private var viewModel = UsersViewModel()
 
     public init() {
 
     }
 
-    public func changePasswordViewController() -> UIViewController {
+    public func changePasswordViewController(viewModel: UserViewModel) -> UIViewController {
         return UIHostingController(rootView: ChangePasswordView(viewModel: viewModel))
     }
 }

@@ -3,7 +3,7 @@ import UIComponents
 
 struct ChangePasswordView: View {
 
-    @StateObject var viewModel: UsersViewModel
+    @ObservedObject var viewModel: UserViewModel
 
     var body: some View {
         ZStack {
@@ -11,9 +11,9 @@ struct ChangePasswordView: View {
             VStack(alignment: .leading, spacing: 25) {
                 SubHeaderView()
                 VStack(spacing: 15) {
-                    PasswordsView()
+                    PasswordsView(viewModel: viewModel)
                     Spacer()
-                    ButtonView(buttonText: "Изменить")
+                    ButtonView(buttonText: "Изменить", buttonClicked: viewModel.changePassword)
                         .padding(.bottom, 40)
                 }
             }
@@ -24,14 +24,13 @@ struct ChangePasswordView: View {
 
 struct ChangePasswordPreviews: PreviewProvider {
     static let viewModel = {
-        let viewModel = UsersViewModel()
-        viewModel.users = Array(repeating: User(id: 1,
-                                                email: "test@mail.ru",
-                                                passwordHash: "123345544",
-                                                daysOfUse: 5,
-                                                wordsLearned: 159,
-                                                decksCount: 10,
-                                                timesRepeated: 14680489390), count: 2)
+        let viewModel = UserViewModel()
+        viewModel.user = User(id: 1,
+                              email: "test@mail.ru",
+                              daysOfUse: 5,
+                              wordsLearned: 159,
+                              decksCount: 10,
+                              timesRepeated: 14680489390)
         return viewModel
     }()
 

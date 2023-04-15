@@ -30,6 +30,8 @@ let package = Package(
             dependencies: []),
         .target(
             name: "UserProfile",
-            dependencies: ["UIComponents"])
+            dependencies: [
+                "UIComponents"
+            ])
     ]
 )
