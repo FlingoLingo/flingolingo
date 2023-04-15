@@ -10,17 +10,20 @@ import UIComponents
 
 struct SearchView: View {
     // MARK: - Properties
-    @Binding var text: String
-
+    @Binding private var text: String
     private var borderColor: Color {
         text.isEmpty ? SColors.inactive : SColors.mainText
+    }
+
+    init(text: Binding<String>) {
+        self._text = text
     }
 
     var body: some View {
         HStack {
             TextField("", text: $text)
                 .placeholder(when: text.isEmpty) {
-                    Text(LocalizedStringKey("searchWordInDeckPlaceholder"))
+                    Text("searchWordInDeckPlaceholder")
                         .font(SFonts.searchText)
                         .foregroundColor(SColors.inactive)
                 }

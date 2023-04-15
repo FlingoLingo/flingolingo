@@ -18,7 +18,7 @@ struct DecksHeaderView: View {
 
     var body: some View {
         HStack {
-            Text(LocalizedStringKey("decksHeader"))
+            Text("decksHeader")
                 .font(SFonts.largeTitle)
                 .foregroundColor(SColors.mainText)
             Spacer()

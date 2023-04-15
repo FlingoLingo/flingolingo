@@ -10,12 +10,12 @@ import UIComponents
 
 struct DeckBackHeaderView: View {
 
-    private let deck: Deck
+    private let title: String
     private let backButtonClicked: (() -> Void)
     private let editButtonClicked: (() -> Void)
 
-    init(deck: Deck, backButtonClicked: @escaping () -> Void, editButtonClicked: @escaping () -> Void) {
-        self.deck = deck
+    init(title: String, backButtonClicked: @escaping () -> Void, editButtonClicked: @escaping () -> Void) {
+        self.title = title
         self.backButtonClicked = backButtonClicked
         self.editButtonClicked = editButtonClicked
     }
@@ -27,7 +27,7 @@ struct DeckBackHeaderView: View {
                     Icons.leftArrow
                         .foregroundColor(SColors.mainText)
                 }
-                Text(deck.title)
+                Text(title)
                     .font(SFonts.subtitle)
                     .foregroundColor(SColors.mainText)
                     .padding(.leading, CommonConstants.smallSpacing)

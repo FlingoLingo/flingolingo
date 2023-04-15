@@ -20,7 +20,7 @@ struct DeckView: View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
             VStack(spacing: CommonConstants.bigSpacing) {
-                DeckBackHeaderView(deck: viewModel.deck,
+                DeckBackHeaderView(title: viewModel.deck.title,
                                    backButtonClicked: viewModel.backButtonClicked,
                                    editButtonClicked: viewModel.editButtonClicked)
                 DeckInfoView(deck: viewModel.deck)

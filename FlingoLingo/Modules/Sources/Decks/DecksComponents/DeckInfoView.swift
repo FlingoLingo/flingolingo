@@ -11,7 +11,7 @@ import UIComponents
 struct DeckInfoView: View {
 
     private let deck: Deck
-    private let formatter: Formatter = .init()
+    private let formatter: DeckFormatter = .init()
 
     init(deck: Deck) {
         self.deck = deck

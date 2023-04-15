@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Formatter {
+struct DeckFormatter {
 
     func formatWords(deck: Deck) -> String {
         "\(NSLocalizedString("allWordsDescription", comment: "")): " +
