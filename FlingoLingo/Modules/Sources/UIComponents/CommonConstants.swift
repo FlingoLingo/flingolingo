@@ -1,23 +1,27 @@
+
 //
-//  File.swift
-//  
+//  CommonConstants.swift
 //
-//  Created by Alexander Muratov on 4/14/23.
+//
+//  Created by Алиса Вышегородцева on 13.04.2023.
 //
 
 import UIKit
 
 public enum CommonConstants {
-    
+
     public static let bigSpacing: CGFloat = 25
     public static let smallSpacing: CGFloat = 15
-    
+
     // Скругление плашек и кнопки.
     public static let cornerRadius: CGFloat = 19
-    
+
     // Расстояние в маленьких стеках.
     public static let smallStackSpacing: CGFloat = 5
     public static let bottomPadding: CGFloat = 40
+
+    // Скругление полей ввода.
+    public static let textFieldCornerRadius: CGFloat = 10
     
     // Значение safeAreaInsets.top.
     public static let safeAreaInsetsTop: CGFloat = {
@@ -30,9 +34,6 @@ public enum CommonConstants {
     
     // Высота текстового поля поиска.
     public static let textFieldHeight: CGFloat = 45
-    
-    // Скругление текстового поля.
-    public static let textFieldCornerRadius: CGFloat = 10
     
     // Высота кнопки.
     public static let buttonHeight: CGFloat = 60

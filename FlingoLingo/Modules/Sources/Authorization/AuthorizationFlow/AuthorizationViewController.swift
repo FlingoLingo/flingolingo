@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class AuthorizationViewController: UIViewController {
+public final class AuthorizationViewController: UIViewController {
     
     // MARK: - Properties
     private lazy var authorizationView: AuthorizationView = {
@@ -37,5 +37,15 @@ extension AuthorizationViewController: AuthorizationViewDelegate {
         navigationController?.popViewController(animated: true)
     }
     
-    func continueButtonTapped(mail: String, password: String) {}
+    func continueButtonTapped(mail: String, password: String) {
+        if !ValidationChecker.isValidEmail(mail) {
+            let errorTextFieldInfo = ErrorTextFieldInfo(type: .mail, error: NSLocalizedString("mailErrorLabel", comment: ""))
+            authorizationView.applyState(.error(errorTextFieldInfo))
+        }
+        
+        if !ValidationChecker.isValidPassword(password) {
+            let errorTextFieldInfo = ErrorTextFieldInfo(type: .password, error: NSLocalizedString("passwordErrorLabel", comment: ""))
+            authorizationView.applyState(.error(errorTextFieldInfo))
+        }
+    }
 }

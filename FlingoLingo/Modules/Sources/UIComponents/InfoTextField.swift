@@ -7,21 +7,9 @@
 
 import UIKit
 
-public class InformationTextField: UITextField {
+public final class InformationTextField: UITextField {
     
     let padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-    
-    override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-    
-    override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
-    
-    override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
-    }
     
     // MARK: - Initialization
     public convenience init(placeholderText: String) {
@@ -37,5 +25,17 @@ public class InformationTextField: UITextField {
         layer.borderWidth = 1.0
         layer.cornerRadius = CommonConstants.textFieldCornerRadius
         contentVerticalAlignment = .center
+    }
+    
+    override public func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+    
+    override public func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
+    }
+    
+    override public func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: padding)
     }
 }

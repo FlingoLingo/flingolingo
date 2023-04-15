@@ -13,7 +13,20 @@ protocol AuthorizationViewDelegate: AnyObject {
     func continueButtonTapped(mail: String, password: String)
 }
 
-class AuthorizationView: UIView {
+struct ErrorTextFieldInfo {
+    enum TextFieldType {
+        case mail
+        case password
+    }
+    
+    let type: TextFieldType
+    let error: String
+}
+
+final class AuthorizationView: UIView {
+    enum State {
+        case error(ErrorTextFieldInfo)
+    }
     
     // MARK: - Properties
     private lazy var navigationBarView: UIView = {
@@ -59,19 +72,39 @@ class AuthorizationView: UIView {
     private lazy var mailTextField: InformationTextField = {
         let placeholderText = NSLocalizedString("mailTextFieldPlaceholder", comment: "")
         let textField = InformationTextField(placeholderText: placeholderText)
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
     }()
     
+    private lazy var mailErrorLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = Fonts.cardsText
+        label.textColor = ColorScheme.secondaryText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     private lazy var passwordTextField: InformationTextField = {
         let placeholderText = NSLocalizedString("passwordTextFieldPlaceholder", comment: "")
         let textField = InformationTextField(placeholderText: placeholderText)
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
+    }()
+    
+    private lazy var passwordErrorLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = Fonts.cardsText
+        label.textColor = ColorScheme.secondaryText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
     }()
     
     private lazy var continueButton: MainButton = {
@@ -84,13 +117,12 @@ class AuthorizationView: UIView {
     }()
     
     weak var delegate: AuthorizationViewDelegate?
-    private var didSetupConstraints = false
     
     // MARK: - Initialization
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupViews()
+        configureView()
         addSubviews()
         setupConstraints()
         addViewGestureRecognizer()
@@ -102,7 +134,21 @@ class AuthorizationView: UIView {
     
     
     // MARK: - Module functions
-    private func setupViews() {
+    func applyState(_ state: State) {
+        switch state {
+        case .error(let errorTextFieldInfo):
+                switch errorTextFieldInfo.type {
+                case .mail:
+                    mailErrorLabel.text = errorTextFieldInfo.error
+                    mailTextField.layer.borderColor = UIColor.red.cgColor
+                case .password:
+                    passwordErrorLabel.text = errorTextFieldInfo.error
+                    passwordTextField.layer.borderColor = UIColor.red.cgColor
+                }
+        }
+    }
+        
+    private func configureView() {
         backgroundColor = ColorScheme.background
     }
     
@@ -119,7 +165,9 @@ class AuthorizationView: UIView {
         navigationBarView.addSubview(navigationBarTitleLabel)
         addSubview(descriptionLabel)
         addSubview(mailTextField)
+        addSubview(mailErrorLabel)
         addSubview(passwordTextField)
+        addSubview(passwordErrorLabel)
         addSubview(continueButton)
     }
     
@@ -140,15 +188,6 @@ class AuthorizationView: UIView {
     
     @objc func dismissKeyboard() {
         endEditing(true)
-    }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text else { return }
-        if text.isEmpty {
-            textField.layer.borderColor = ColorScheme.inactive.cgColor
-        } else {
-            textField.layer.borderColor = ColorScheme.mainText.cgColor
-        }
     }
 }
 
@@ -187,10 +226,18 @@ extension AuthorizationView {
             mailTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: CommonConstants.bigSpacing),
             mailTextField.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
             
+            mailErrorLabel.topAnchor.constraint(equalTo: mailTextField.bottomAnchor, constant: CommonConstants.smallStackSpacing),
+            mailErrorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
+            trailingAnchor.constraint(equalTo: mailErrorLabel.trailingAnchor, constant: CommonConstants.bigSpacing),
+            
             passwordTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
             trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: CommonConstants.bigSpacing),
-            passwordTextField.topAnchor.constraint(equalTo: mailTextField.bottomAnchor, constant: CommonConstants.smallSpacing),
+            passwordTextField.topAnchor.constraint(equalTo: mailErrorLabel.bottomAnchor, constant: CommonConstants.smallSpacing),
             passwordTextField.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
+            
+            passwordErrorLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: CommonConstants.smallStackSpacing),
+            passwordErrorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
+            trailingAnchor.constraint(equalTo: passwordErrorLabel.trailingAnchor, constant: CommonConstants.bigSpacing),
         ])
     }
     
@@ -201,5 +248,24 @@ extension AuthorizationView {
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: CommonConstants.bigSpacing),
             continueButton.heightAnchor.constraint(equalToConstant: CommonConstants.buttonHeight)
         ])
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension AuthorizationView: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        
+        if textField === mailTextField {
+            mailErrorLabel.text = ""
+        } else if textField === passwordTextField {
+            passwordErrorLabel.text = ""
+        }
+        
+        if text.isEmpty {
+            textField.layer.borderColor = ColorScheme.inactive.cgColor
+        } else {
+            textField.layer.borderColor = ColorScheme.mainText.cgColor
+        }
     }
 }

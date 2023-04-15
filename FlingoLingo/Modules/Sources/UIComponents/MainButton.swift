@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class MainButton: UIButton {
+public final class MainButton: UIButton {
     
     // MARK: - Properties
     private let buttonCornerRadius: CGFloat = 20

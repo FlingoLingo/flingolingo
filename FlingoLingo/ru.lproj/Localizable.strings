@@ -16,3 +16,5 @@
 "mailTextFieldPlaceholder" = "Почта";
 "passwordTextFieldPlaceholder" = "Пароль";
 "continueButton" = "Продолжить";
+"mailErrorLabel" = "Почта должна быть настоящей и уникальной.";
+"passwordErrorLabel" = "Пароль должен содержать от 8 символов.";
