@@ -35,6 +35,6 @@ let package = Package(
             dependencies: [
                 "UIComponents"
             ]
-		),
+        ),
     ]
 )
