@@ -18,6 +18,6 @@ struct ValidationChecker {
 
     func isValidPassword(_ password: String?) -> Bool {
         guard let password = password else { return false }
-        return password.count >= 8 ? true : false
+        return password.count >= 8
     }
 }
