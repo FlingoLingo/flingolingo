@@ -22,7 +22,7 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         configureTabBar()
         configureAppearance()
-        self.selectedIndex = 1
+        selectedIndex = 1
     }
 
     // MARK: - Configurations
@@ -36,12 +36,12 @@ class CustomTabBarController: UITabBarController {
         let decksController = configureViewControllers(
             controller: decksViewFactory.decksViewController(viewModel: DecksViewModel()),
             title: NSLocalizedString("decksHeader", comment: ""),
-            image: Constants.decks  ?? .add
+            image: Constants.decks ?? .add
         )
         let profileController = configureViewControllers(
             controller: UIViewController(),
             title: NSLocalizedString("profile", comment: ""),
-            image: Constants.profile  ?? .add
+            image: Constants.profile ?? .add
         )
         viewControllers = [dictionaryController, decksController, profileController]
     }
