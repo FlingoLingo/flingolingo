@@ -19,3 +19,10 @@
 "lastRepeatDescription" = "Последний раз повторяли:";
 "profile" = "Профиль";
 "dictionary" = "Словарь";
+"authorizationViewNavigationBarTitleLabel" = "Авторизация";
+"authorizationViewDescriptionLabel" = "Введите адрес своей электронной почты и пароль";
+"mailTextFieldPlaceholder" = "Почта";
+"passwordTextFieldPlaceholder" = "Пароль";
+"continueButton" = "Продолжить";
+"mailErrorLabel" = "Почта должна быть настоящей и уникальной.";
+"passwordErrorLabel" = "Пароль должен содержать не менее 8 символов.";
