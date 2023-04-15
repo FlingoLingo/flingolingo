@@ -10,22 +10,24 @@ import UIComponents
 
 struct DeckView: View {
 
-    @State private var text: String = ""
-    private let viewModel = DeckViewModel()
-    var deck: Deck
+    @ObservedObject private var viewModel: DeckViewModel
+
+    init(viewModel: DeckViewModel) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
             VStack(spacing: CommonConstants.bigSpacing) {
-                DeckBackHeaderView(deck: deck,
+                DeckBackHeaderView(deck: viewModel.deck,
                                    backButtonClicked: viewModel.backButtonClicked,
                                    editButtonClicked: viewModel.editButtonClicked)
-                DeckInfoView(deck: deck)
-                SearchView(text: $text)
+                DeckInfoView(deck: viewModel.deck)
+                SearchView(text: $viewModel.text)
                 ScrollView {
                     VStack(spacing: CommonConstants.smallSpacing) {
-                        ForEach(deck.cards) { card in
+                        ForEach(viewModel.deck.cards) { card in
                             WordCardView(card: card) {
                                 viewModel.wordCardClicked()
                             }
@@ -42,17 +44,5 @@ struct DeckView: View {
                 .padding(.horizontal, CommonConstants.bigSpacing)
             }
         }
-    }
-}
-
-struct DeckViewPr: PreviewProvider {
-    static var previews: some View {
-        DeckView(deck: Deck(
-            id: 1,
-            title: "Для путешествий",
-            wordsCount: 27,
-            learnedWords: 12,
-            repetitionDate: Date.now,
-            cards: Array(repeating: Card(id: 1, eng: "apple", rus: "яблоко", examples: []), count: 4)))
     }
 }

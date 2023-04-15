@@ -10,8 +10,12 @@ import UIComponents
 
 struct DeckInfoView: View {
 
-    var deck: Deck
+    private let deck: Deck
     private let formatter: Formatter = .init()
+
+    init(deck: Deck) {
+        self.deck = deck
+    }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {

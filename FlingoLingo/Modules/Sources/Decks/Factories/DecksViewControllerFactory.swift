@@ -11,13 +11,11 @@ import SwiftUI
 
 public struct DecksViewControllerFactory {
 
-    @ObservedObject private var viewModel = DecksViewModel()
-
     public init() {
 
     }
 
-    public func decksViewController() -> UIViewController {
+    public func decksViewController(viewModel: DecksViewModel) -> UIViewController {
         return UIHostingController(rootView: DecksPageView(viewModel: viewModel))
     }
 }

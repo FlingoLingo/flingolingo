@@ -16,6 +16,7 @@ public struct DeckViewControllerFactory {
     }
 
     public func deckViewController(deck: Deck) -> UIViewController {
-        return UIHostingController(rootView: DeckView(deck: deck))
+        let viewModel = DeckViewModel(deck: deck)
+        return UIHostingController(rootView: DeckView(viewModel: viewModel))
     }
 }

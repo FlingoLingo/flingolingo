@@ -10,13 +10,17 @@ import UIComponents
 
 struct DeckCardView: View {
 
-    var deck: Deck
-    var deckCardClicked: (() -> Void)
+    private let deck: Deck
+    private let deckCardClicked: (() -> Void)
     private let formatter: Formatter = .init()
 
+    init(deck: Deck, deckCardClicked: @escaping () -> Void) {
+        self.deck = deck
+        self.deckCardClicked = deckCardClicked
+    }
+
     var body: some View {
-        Button(action: deckCardClicked,
-               label: {
+        Button(action: deckCardClicked) {
             HStack {
                 VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                     Text(deck.title)
@@ -38,6 +42,6 @@ struct DeckCardView: View {
             .padding(.all, CommonConstants.smallSpacing)
             .background(SColors.darkBackground)
             .cornerRadius(CommonConstants.cornerRadius)
-        })
+        }
     }
 }

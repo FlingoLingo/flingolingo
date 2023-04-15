@@ -18,4 +18,8 @@ public final class DecksViewModel: ObservableObject {
     func deckCardClicked(id: Int) {
 
     }
+
+    func addDeckButtonCLicked() {
+
+    }
 }

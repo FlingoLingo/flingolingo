@@ -9,7 +9,6 @@ import SwiftUI
 import UIComponents
 
 struct SearchView: View {
-
     // MARK: - Properties
     @Binding var text: String
 
@@ -21,7 +20,7 @@ struct SearchView: View {
         HStack {
             TextField("", text: $text)
                 .placeholder(when: text.isEmpty) {
-                    Text(NSLocalizedString("searchWordInDeckPlaceholder", comment: ""))
+                    Text(LocalizedStringKey("searchWordInDeckPlaceholder"))
                         .font(SFonts.searchText)
                         .foregroundColor(SColors.inactive)
                 }
@@ -35,7 +34,6 @@ struct SearchView: View {
                         .foregroundColor(SColors.mainText)
                 })
             }
-
         }
         .padding(.all, CommonConstants.smallSpacing)
         .overlay(
@@ -50,7 +48,6 @@ private extension View {
         when shouldShow: Bool,
         alignment: Alignment = .leading,
         @ViewBuilder placeholder: () -> Content) -> some View {
-
             ZStack(alignment: alignment) {
                 placeholder().opacity(shouldShow ? 1 : 0)
                 self

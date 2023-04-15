@@ -10,13 +10,17 @@ import UIComponents
 
 struct DecksPageView: View {
 
-    let viewModel: DecksViewModel
+    private let viewModel: DecksViewModel
+
+    init(viewModel: DecksViewModel) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
-                DecksHeaderView()
+                DecksHeaderView(addDeckButtonClicked: viewModel.addDeckButtonCLicked)
                 ScrollView {
                     VStack(spacing: CommonConstants.smallSpacing) {
                         ForEach(viewModel.decks) { deck in

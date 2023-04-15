@@ -10,20 +10,22 @@ import UIComponents
 
 struct DecksHeaderView: View {
 
-    private let viewModel = DecksHeaderViewModel()
+    private let addDeckButtonClicked: (() -> Void)
+
+    init(addDeckButtonClicked: @escaping () -> Void) {
+        self.addDeckButtonClicked = addDeckButtonClicked
+    }
 
     var body: some View {
         HStack {
-            Text(NSLocalizedString("decksHeader", comment: ""))
+            Text(LocalizedStringKey("decksHeader"))
                 .font(SFonts.largeTitle)
                 .foregroundColor(SColors.mainText)
             Spacer()
-            Button(action: {
-                viewModel.addDeckButtonClicked()
-            }, label: {
+            Button(action: addDeckButtonClicked) {
                 Icons.plus
                     .foregroundColor(SColors.mainText)
-            })
+            }
         }
     }
 }

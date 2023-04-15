@@ -21,5 +21,4 @@ public enum CommonConstants {
 
     // Скругление полей ввода.
     public static let textFieldCornerRadius: CGFloat = 10
-
 }

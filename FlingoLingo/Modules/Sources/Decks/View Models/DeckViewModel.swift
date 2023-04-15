@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
-public final class DeckViewModel: ObservableObject {
+final class DeckViewModel: ObservableObject {
 
-    public init() {
+    @Published var text: String = ""
+    let deck: Deck
 
+    init(deck: Deck) {
+        self.deck = deck
     }
 
     func startButtonClicked() {

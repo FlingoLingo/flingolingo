@@ -10,12 +10,16 @@ import UIComponents
 
 struct WordCardView: View {
 
-    var card: Card
-    var wordCardClicked: (() -> Void)
+    private let card: Card
+    private let wordCardClicked: (() -> Void)
+
+    init(card: Card, wordCardClicked: @escaping () -> Void) {
+        self.card = card
+        self.wordCardClicked = wordCardClicked
+    }
 
     var body: some View {
-        Button(action: wordCardClicked,
-               label: {
+        Button(action: wordCardClicked) {
             HStack {
                 VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                     Text(card.eng)
@@ -37,6 +41,6 @@ struct WordCardView: View {
             .padding(.all, CommonConstants.smallSpacing)
             .background(SColors.darkBackground)
             .cornerRadius(CommonConstants.cornerRadius)
-        })
+        }
     }
 }
