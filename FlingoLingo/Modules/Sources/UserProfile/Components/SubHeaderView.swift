@@ -4,7 +4,11 @@ import UIComponents
 struct SubHeaderView: View {
 
     private let formatter: ProfileFormatter = .init()
-    let buttonClicked: (() -> Void)
+    private let buttonClicked: (() -> Void)
+
+    public init(buttonClicked: @escaping () -> Void) {
+        self.buttonClicked = buttonClicked
+    }
 
     var body: some View {
         HStack(spacing: CommonConstants.smallSpacing) {

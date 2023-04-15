@@ -3,8 +3,12 @@ import UIComponents
 
 struct PasswordsView: View {
 
-    @ObservedObject var viewModel: UserViewModel
+    @ObservedObject private var viewModel: UserViewModel
     private let formatter: ProfileFormatter = .init()
+
+    public init(viewModel: UserViewModel) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         VStack(spacing: 15) {
