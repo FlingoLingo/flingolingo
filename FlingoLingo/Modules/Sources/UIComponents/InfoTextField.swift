@@ -9,7 +9,7 @@ import UIKit
 
 public final class InformationTextField: UITextField {
 
-    let padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+    private let padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
 
     // MARK: - Initialization
     public convenience init(placeholderText: String) {
@@ -18,7 +18,7 @@ public final class InformationTextField: UITextField {
         font = Fonts.searchText
         attributedPlaceholder = NSAttributedString(
             string: placeholderText,
-            attributes: [NSAttributedString.Key.foregroundColor: ColorScheme.inactive]
+            attributes: [.foregroundColor: ColorScheme.inactive]
         )
         textColor = ColorScheme.mainText
         layer.borderColor = ColorScheme.inactive.cgColor

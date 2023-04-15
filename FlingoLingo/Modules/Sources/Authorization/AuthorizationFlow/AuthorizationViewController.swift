@@ -15,6 +15,7 @@ public final class AuthorizationViewController: UIViewController {
         view.delegate = self
         return view
     }()
+    private let validationChecker = ValidationChecker()
 
     // MARK: - Lifecycle
     public init() {
@@ -37,16 +38,20 @@ extension AuthorizationViewController: AuthorizationViewDelegate {
         navigationController?.popViewController(animated: true)
     }
 
-    func continueButtonTapped(mail: String, password: String) {
-        if !ValidationChecker.isValidEmail(mail) {
-            let errorTextFieldInfo = ErrorTextFieldInfo(type: .mail,
-                                                        error: NSLocalizedString("mailErrorLabel", comment: ""))
+    func continueButtonTapped(mail: String?, password: String?) {
+        if !validationChecker.isValidEmail(mail) {
+            let errorTextFieldInfo = ErrorTextFieldInfo(
+                type: .mail,
+                error: NSLocalizedString("mailErrorLabel", comment: "")
+            )
             authorizationView.applyState(.error(errorTextFieldInfo))
         }
 
-        if !ValidationChecker.isValidPassword(password) {
-            let errorTextFieldInfo = ErrorTextFieldInfo(type: .password,
-                                                        error: NSLocalizedString("passwordErrorLabel", comment: ""))
+        if !validationChecker.isValidPassword(password) {
+            let errorTextFieldInfo = ErrorTextFieldInfo(
+                type: .password,
+                error: NSLocalizedString("passwordErrorLabel", comment: "")
+            )
             authorizationView.applyState(.error(errorTextFieldInfo))
         }
     }

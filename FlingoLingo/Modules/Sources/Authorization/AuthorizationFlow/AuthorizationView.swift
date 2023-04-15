@@ -10,7 +10,7 @@ import UIComponents
 
 protocol AuthorizationViewDelegate: AnyObject {
     func backButtonTapped()
-    func continueButtonTapped(mail: String, password: String)
+    func continueButtonTapped(mail: String?, password: String?)
 }
 
 struct ErrorTextFieldInfo {
@@ -72,6 +72,8 @@ final class AuthorizationView: UIView {
     private lazy var mailTextField: InformationTextField = {
         let placeholderText = NSLocalizedString("mailTextFieldPlaceholder", comment: "")
         let textField = InformationTextField(placeholderText: placeholderText)
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
 
@@ -91,6 +93,9 @@ final class AuthorizationView: UIView {
     private lazy var passwordTextField: InformationTextField = {
         let placeholderText = NSLocalizedString("passwordTextFieldPlaceholder", comment: "")
         let textField = InformationTextField(placeholderText: placeholderText)
+        textField.autocapitalizationType = .none
+        textField.isSecureTextEntry = true
+        textField.autocorrectionType = .no
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
 
@@ -181,11 +186,10 @@ final class AuthorizationView: UIView {
     }
 
     @objc private func continueButtonTapped() {
-        guard let mail = mailTextField.text, let password = passwordTextField.text else { return }
-        delegate?.continueButtonTapped(mail: mail, password: password)
+        delegate?.continueButtonTapped(mail: mailTextField.text, password: passwordTextField.text)
     }
 
-    @objc func dismissKeyboard() {
+    @objc private func dismissKeyboard() {
         endEditing(true)
     }
 }
@@ -200,22 +204,28 @@ extension AuthorizationView {
             navigationBarView.topAnchor.constraint(equalTo: topAnchor),
             navigationBarView.heightAnchor.constraint(equalToConstant: CommonConstants.safeAreaInsetsTop + 44 + 40),
 
-            navigationBarBackButton.leadingAnchor.constraint(equalTo: navigationBarView.leadingAnchor,
-                                                             constant: CommonConstants.bigSpacing),
+            navigationBarBackButton.leadingAnchor.constraint(
+                equalTo: navigationBarView.leadingAnchor,
+                constant: CommonConstants.bigSpacing
+            ),
             navigationBarBackButton.heightAnchor.constraint(equalToConstant: CommonConstants.navigationBarIconSide),
             navigationBarBackButton.widthAnchor.constraint(equalToConstant: CommonConstants.navigationBarIconSide),
             navigationBarBackButton.centerYAnchor.constraint(equalTo: navigationBarTitleLabel.centerYAnchor),
 
-            navigationBarTitleLabel.leadingAnchor.constraint(equalTo: navigationBarBackButton.trailingAnchor,
-                                                             constant: CommonConstants.smallSpacing),
+            navigationBarTitleLabel.leadingAnchor.constraint(
+                equalTo: navigationBarBackButton.trailingAnchor,
+                constant: CommonConstants.smallSpacing
+            ),
             navigationBarTitleLabel.bottomAnchor.constraint(equalTo: navigationBarView.bottomAnchor),
         ])
     }
 
     private func setupDescriptionLabelConstraints() {
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: navigationBarView.bottomAnchor,
-                                                  constant: CommonConstants.smallSpacing),
+            descriptionLabel.topAnchor.constraint(
+                equalTo: navigationBarView.bottomAnchor,
+                constant: CommonConstants.smallSpacing
+            ),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
             trailingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant: CommonConstants.bigSpacing)
         ])
@@ -225,23 +235,31 @@ extension AuthorizationView {
         NSLayoutConstraint.activate([
             mailTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
             trailingAnchor.constraint(equalTo: mailTextField.trailingAnchor, constant: CommonConstants.bigSpacing),
-            mailTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor,
-                                               constant: CommonConstants.bigSpacing),
+            mailTextField.topAnchor.constraint(
+                equalTo: descriptionLabel.bottomAnchor,
+                constant: CommonConstants.bigSpacing
+            ),
             mailTextField.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
 
-            mailErrorLabel.topAnchor.constraint(equalTo: mailTextField.bottomAnchor,
-                                                constant: CommonConstants.smallStackSpacing),
+            mailErrorLabel.topAnchor.constraint(
+                equalTo: mailTextField.bottomAnchor,
+                constant: CommonConstants.smallStackSpacing
+            ),
             mailErrorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
             trailingAnchor.constraint(equalTo: mailErrorLabel.trailingAnchor, constant: CommonConstants.bigSpacing),
 
             passwordTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
             trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor, constant: CommonConstants.bigSpacing),
-            passwordTextField.topAnchor.constraint(equalTo: mailErrorLabel.bottomAnchor,
-                                                   constant: CommonConstants.smallSpacing),
+            passwordTextField.topAnchor.constraint(
+                equalTo: mailErrorLabel.bottomAnchor,
+                constant: CommonConstants.smallSpacing
+            ),
             passwordTextField.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
 
-            passwordErrorLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor,
-                                                    constant: CommonConstants.smallStackSpacing),
+            passwordErrorLabel.topAnchor.constraint(
+                equalTo: passwordTextField.bottomAnchor,
+                constant: CommonConstants.smallStackSpacing
+            ),
             passwordErrorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
             trailingAnchor.constraint(equalTo: passwordErrorLabel.trailingAnchor, constant: CommonConstants.bigSpacing),
         ])
@@ -251,8 +269,10 @@ extension AuthorizationView {
         NSLayoutConstraint.activate([
             continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
             trailingAnchor.constraint(equalTo: continueButton.trailingAnchor, constant: CommonConstants.bigSpacing),
-            safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: continueButton.bottomAnchor,
-                                                        constant: CommonConstants.bigSpacing),
+            safeAreaLayoutGuide.bottomAnchor.constraint(
+                equalTo: continueButton.bottomAnchor,
+                constant: CommonConstants.bigSpacing
+            ),
             continueButton.heightAnchor.constraint(equalToConstant: CommonConstants.buttonHeight)
         ])
     }
@@ -269,10 +289,6 @@ extension AuthorizationView: UITextFieldDelegate {
             passwordErrorLabel.text = ""
         }
 
-        if text.isEmpty {
-            textField.layer.borderColor = ColorScheme.inactive.cgColor
-        } else {
-            textField.layer.borderColor = ColorScheme.mainText.cgColor
-        }
+        textField.layer.borderColor = text.isEmpty ? ColorScheme.inactive.cgColor : ColorScheme.mainText.cgColor
     }
 }
