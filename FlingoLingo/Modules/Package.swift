@@ -28,13 +28,13 @@ let package = Package(
         .target(
             name: "UIComponents",
             dependencies: [
-			]
+            ]
         ),
 		.target(
             name: "Decks",
             dependencies: [
-				"UIComponents"
-			]
+                "UIComponents"
+            ]
 		),
     ]
 )
