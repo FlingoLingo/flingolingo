@@ -4,8 +4,13 @@ import UIComponents
 struct ProfileHeaderView: View {
 
     private let formatter: ProfileFormatter = .init()
-    let buttonClicked: (() -> Void)
-    let guest: Bool
+    private let buttonClicked: (() -> Void)
+    private let guest: Bool
+
+    public init(buttonClicked: @escaping () -> Void = {}, guest: Bool) {
+        self.buttonClicked = buttonClicked
+        self.guest = guest
+    }
 
     var body: some View {
         HStack {

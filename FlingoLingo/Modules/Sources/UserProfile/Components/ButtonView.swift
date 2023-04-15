@@ -2,8 +2,13 @@ import SwiftUI
 import UIComponents
 
 struct ButtonView: View {
-    var buttonText: String
-    let buttonClicked: (() -> Void)
+    private var buttonText: String
+    private let buttonClicked: (() -> Void)
+
+    public init(buttonText: String, buttonClicked: @escaping () -> Void) {
+        self.buttonText = buttonText
+        self.buttonClicked = buttonClicked
+    }
 
     var body: some View {
         Button(action: buttonClicked, label: {
