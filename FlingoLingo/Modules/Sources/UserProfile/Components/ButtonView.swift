@@ -3,11 +3,10 @@ import UIComponents
 
 struct ButtonView: View {
     var buttonText: String
-    
-    
+
     var body: some View {
         Button(action: {
-            // TODO: add action
+
         }, label: {
             Text(buttonText)
                 .font(Font(Fonts.buttonTitle))

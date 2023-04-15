@@ -2,13 +2,12 @@ import SwiftUI
 import UIComponents
 
 struct GuestProfileView: View {
-    
-    
+
     enum Constants {
         static let email: String = "гость"
         static let statictics: String = "Для формирования статистики, зарегистрируйтесь в приложении"
     }
-    
+
     var body: some View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)

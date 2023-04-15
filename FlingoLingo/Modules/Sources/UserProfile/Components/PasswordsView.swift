@@ -2,7 +2,7 @@ import SwiftUI
 import UIComponents
 
 struct PasswordsView: View {
-    
+
     var body: some View {
         VStack(spacing: 15) {
             PasswordTextField(placeholder: "старый пароль...")

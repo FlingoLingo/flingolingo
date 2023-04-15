@@ -2,16 +2,16 @@ import SwiftUI
 import UIComponents
 
 struct PasswordTextField: View {
-    
+
     public var placeholder: String
-    
+
     @State private var password: String = ""
     @State private var isSecured: Bool = true
-    
+
     private var isTextEmpty: Color {
         password.isEmpty ? Color(ColorScheme.inactive) : Color(ColorScheme.mainText)
     }
-    
+
     var body: some View {
         ZStack(alignment: .trailing) {
             Group {
@@ -35,14 +35,15 @@ struct PasswordTextField: View {
                         .foregroundColor(Color(ColorScheme.mainText))
                 }
             }
-            
+
             Button(action: {
                 isSecured.toggle()
-            }) {
+            }, label: {
                 Image(systemName: self.isSecured ? "eye.slash" : "eye")
                     .accentColor(.gray)
-            }
-            .padding(.trailing, 15)
+                    .padding(.trailing, 15)
+            })
+
         }
     }
 }
@@ -52,7 +53,7 @@ extension View {
         when shouldShow: Bool,
         alignment: Alignment = .leading,
         @ViewBuilder placeholder: () -> Content) -> some View {
-            
+
             ZStack(alignment: alignment) {
                 placeholder().opacity(shouldShow ? 1 : 0)
                 self

@@ -2,7 +2,7 @@ import SwiftUI
 import UIComponents
 
 struct ChangePasswordView: View {
-    
+
     enum Constants {
         static let email: String = "hello@world.ru"
         static let days: Int = 0
@@ -10,7 +10,7 @@ struct ChangePasswordView: View {
         static let decks: Int = 20
         static let times: Int = 136
     }
-    
+
     var body: some View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)

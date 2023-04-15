@@ -3,7 +3,7 @@ import UIComponents
 
 struct BubbleView: View {
     var bubbleText: String
-    
+
     var body: some View {
         VStack {
             Text(bubbleText)
@@ -16,4 +16,3 @@ struct BubbleView: View {
         .cornerRadius(20)
     }
 }
-

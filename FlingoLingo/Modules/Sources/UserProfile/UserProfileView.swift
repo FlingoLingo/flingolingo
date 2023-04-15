@@ -2,7 +2,7 @@ import SwiftUI
 import UIComponents
 
 struct UserProfileView: View {
-    
+
     enum Constants {
         static let email: String = "hello@world.ru"
         static let days: Int = 0
@@ -10,7 +10,7 @@ struct UserProfileView: View {
         static let decks: Int = 20
         static let times: Int = 136
     }
-    
+
     var body: some View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
@@ -19,9 +19,9 @@ struct UserProfileView: View {
                 Text(Constants.email)
                     .font(Font(Fonts.subtitle))
                     .foregroundColor(Color(ColorScheme.accent))
-                
+
                 StatisticsView()
-                
+
                 Spacer()
                 ButtonView(buttonText: "Выйти").padding(.bottom, 40)
             }

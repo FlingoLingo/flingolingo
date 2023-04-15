@@ -11,6 +11,7 @@ let package = Package(
             name: "Umbrella",
             targets: [
                 "Authorization",
+                "UserProfile",
                 "UIComponents"
             ]
         )
