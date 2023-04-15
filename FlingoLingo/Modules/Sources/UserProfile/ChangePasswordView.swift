@@ -3,13 +3,7 @@ import UIComponents
 
 struct ChangePasswordView: View {
 
-    enum Constants {
-        static let email: String = "hello@world.ru"
-        static let days: Int = 0
-        static let words: Int = 3
-        static let decks: Int = 20
-        static let times: Int = 136
-    }
+    @StateObject private var viewModel = UsersViewModel()
 
     var body: some View {
         ZStack {
@@ -29,8 +23,19 @@ struct ChangePasswordView: View {
 }
 
 struct ChangePasswordPreviews: PreviewProvider {
+    static let viewModel = {
+        let viewModel = UsersViewModel()
+        viewModel.users = Array(repeating: User(id: 1,
+                                                email: "test@mail.ru",
+                                                passwordHash: "123345544",
+                                                daysOfUse: 5,
+                                                wordsLearned: 159,
+                                                decksCount: 10,
+                                                timesRepeated: 14680489390), count: 2)
+        return viewModel
+    }()
+
     static var previews: some View {
-        SubHeaderView()
         ChangePasswordView()
     }
 }

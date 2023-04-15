@@ -4,7 +4,7 @@ import UIComponents
 struct GuestProfileView: View {
 
     enum Constants {
-        static let email: String = "гость"
+        static let user: String = "гость"
         static let statictics: String = "Для формирования статистики, зарегистрируйтесь в приложении"
     }
 
@@ -13,7 +13,7 @@ struct GuestProfileView: View {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: 25) {
                 ProfileHeaderView()
-                Text(Constants.email)
+                Text(Constants.user)
                     .font(Font(Fonts.subtitle))
                     .foregroundColor(Color(ColorScheme.accent))
                 Group {

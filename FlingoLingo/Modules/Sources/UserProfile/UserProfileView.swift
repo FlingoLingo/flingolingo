@@ -3,24 +3,18 @@ import UIComponents
 
 struct UserProfileView: View {
 
-    enum Constants {
-        static let email: String = "hello@world.ru"
-        static let days: Int = 0
-        static let words: Int = 3
-        static let decks: Int = 20
-        static let times: Int = 136
-    }
+    @StateObject var viewModel: UsersViewModel
 
     var body: some View {
         ZStack {
             Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: 25) {
                 ProfileHeaderView()
-                Text(Constants.email)
+                Text(viewModel.users[0].email)
                     .font(Font(Fonts.subtitle))
                     .foregroundColor(Color(ColorScheme.accent))
 
-                StatisticsView()
+                StatisticsView(viewModel: viewModel)
 
                 Spacer()
                 ButtonView(buttonText: "Выйти").padding(.bottom, 40)
@@ -31,8 +25,19 @@ struct UserProfileView: View {
 }
 
 struct UserProfilePreviews: PreviewProvider {
+    static let viewModel = {
+        let viewModel = UsersViewModel()
+        viewModel.users = Array(repeating: User(id: 1,
+                                                email: "test@mail.ru",
+                                                passwordHash: "123345544",
+                                                daysOfUse: 5,
+                                                wordsLearned: 159,
+                                                decksCount: 10,
+                                                timesRepeated: 14680489390), count: 2)
+        return viewModel
+    }()
+
     static var previews: some View {
-        ProfileHeaderView()
-        UserProfileView()
+        UserProfileView(viewModel: viewModel)
     }
 }
