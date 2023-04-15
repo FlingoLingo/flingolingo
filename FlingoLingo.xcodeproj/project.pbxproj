@@ -12,8 +12,9 @@
 		3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95A29E6D136006E92C9 /* Assets.xcassets */; };
 		3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */; };
 		3CCE816629E7078200EAF382 /* Umbrella in Frameworks */ = {isa = PBXBuildFile; productRef = 3CCE816529E7078200EAF382 /* Umbrella */; };
-		F431B5F9AD728C57BC1D6C10 /* Pods_FlingoLingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785A1D2192B6CD60EB676546 /* Pods_FlingoLingo.framework */; };
+		48EB159629EAD7D6004B7680 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB159529EAD7D6004B7680 /* CustomTabBarController.swift */; };
 		AD5305A429E9736300BB7FA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD5305A629E9736300BB7FA2 /* Localizable.strings */; };
+		F431B5F9AD728C57BC1D6C10 /* Pods_FlingoLingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785A1D2192B6CD60EB676546 /* Pods_FlingoLingo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +25,11 @@
 		3CADB95A29E6D136006E92C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CADB95D29E6D136006E92C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CADB95F29E6D136006E92C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48EB159529EAD7D6004B7680 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		785A1D2192B6CD60EB676546 /* Pods_FlingoLingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlingoLingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD5305AA29E9754F00BB7FA2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B34A12241BE5D2F1E2640162 /* Pods-FlingoLingo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlingoLingo.release.xcconfig"; path = "Target Support Files/Pods-FlingoLingo/Pods-FlingoLingo.release.xcconfig"; sourceTree = "<group>"; };
 		C963C3BA42699468E7B4D7CA /* Pods-FlingoLingo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlingoLingo.debug.xcconfig"; path = "Target Support Files/Pods-FlingoLingo/Pods-FlingoLingo.debug.xcconfig"; sourceTree = "<group>"; };
-		AD5305AA29E9754F00BB7FA2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */,
 				AD5305A629E9736300BB7FA2 /* Localizable.strings */,
 				3CADB95F29E6D136006E92C9 /* Info.plist */,
+				48EB159529EAD7D6004B7680 /* CustomTabBarController.swift */,
 			);
 			path = FlingoLingo;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			files = (
 				3CADB95229E6D134006E92C9 /* AppDelegate.swift in Sources */,
 				3CADB95429E6D134006E92C9 /* SceneDelegate.swift in Sources */,
+				48EB159629EAD7D6004B7680 /* CustomTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
