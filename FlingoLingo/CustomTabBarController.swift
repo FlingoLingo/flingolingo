@@ -11,7 +11,7 @@ import UIKit
 
 class CustomTabBarController: UITabBarController {
     // MARK: - Constants
-    enum Constants {
+    private enum Constants {
         static let dictionary = UIImage(named: "dictTabItem")
         static let decks = UIImage(named: "decksTabItem")
         static let profile = UIImage(named: "profileTabItem")
