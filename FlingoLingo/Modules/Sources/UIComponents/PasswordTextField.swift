@@ -1,18 +1,23 @@
 import SwiftUI
-import UIComponents
 
-struct PasswordTextField: View {
+public struct PasswordTextField: View {
 
-    public var placeholder: String
+    public let placeholder: String
 
-    @Binding var password: String
-    @State private var isSecured: Bool = true
+    @Binding public var password: String
+    @State public var isSecured: Bool = true
 
-    private var placeholderColor: Color {
+    public var placeholderColor: Color {
         password.isEmpty ? SColors.inactive : SColors.mainText
     }
 
-    var body: some View {
+    public init(placeholder: String, password: Binding<String>, isSecured: Bool = true) {
+        self.placeholder = placeholder
+        self.isSecured = isSecured
+        self._password = password
+    }
+
+    public var body: some View {
         ZStack(alignment: .trailing) {
             Group {
                 if isSecured {
