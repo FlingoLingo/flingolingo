@@ -21,7 +21,7 @@ public enum CommonConstants {
 
     // Скругление полей ввода.
     public static let textFieldCornerRadius: CGFloat = 10
-    
+
     // Значение safeAreaInsets.top.
     public static let safeAreaInsetsTop: CGFloat = {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
@@ -30,13 +30,13 @@ public enum CommonConstants {
             return 0
         }
     }()
-    
+
     // Высота текстового поля поиска.
     public static let textFieldHeight: CGFloat = 45
-    
+
     // Высота кнопки.
     public static let buttonHeight: CGFloat = 60
-    
+
     // Высота кнопки в навигации.
     public static let navigationBarIconSide: CGFloat = 17
 }
