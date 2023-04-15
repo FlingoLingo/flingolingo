@@ -6,18 +6,22 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Formatter {
 
     func formatWords(deck: Deck) -> String {
-        "Всего слов: \(deck.wordsCount)"
+        "\(NSLocalizedString("allWordsDescription", comment: "")): " +
+        "\(deck.wordsCount)"
     }
 
     func formatLearnedWords(deck: Deck) -> String {
-        "Выучено: \(deck.learnedWords)"
+        "\(NSLocalizedString("learnedWordsDescription", comment: "")): " +
+        "\(deck.learnedWords)"
     }
 
     func formatDate(deck: Deck) -> String {
-        "Последний раз повторяли: \(deck.repetitionDate.formatted(.dateTime.day().month().year()))"
+        "\(NSLocalizedString("lastRepeatDescription", comment: "")): " +
+        "\(deck.repetitionDate.formatted(.dateTime.day().month().year()))"
     }
 }

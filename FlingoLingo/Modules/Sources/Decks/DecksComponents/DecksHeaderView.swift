@@ -9,16 +9,12 @@ import SwiftUI
 import UIComponents
 
 struct DecksHeaderView: View {
-    // MARK: - Constants
-    enum Constants {
-        static let headerName: String = "Колоды"
-    }
 
     private let viewModel = DecksHeaderViewModel()
 
     var body: some View {
         HStack {
-            Text(Constants.headerName)
+            Text(NSLocalizedString("decksHeader", comment: ""))
                 .font(SFonts.largeTitle)
                 .foregroundColor(SColors.mainText)
             Spacer()

@@ -7,6 +7,7 @@
 
 import UIKit
 import Authorization
+import Decks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

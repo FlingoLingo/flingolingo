@@ -9,10 +9,6 @@ import SwiftUI
 import UIComponents
 
 struct SearchView: View {
-    // MARK: - Constants
-    enum Constants {
-        static let placeholder: String = "Найти слово в колоде..."
-    }
 
     // MARK: - Properties
     @Binding var text: String
@@ -25,7 +21,7 @@ struct SearchView: View {
         HStack {
             TextField("", text: $text)
                 .placeholder(when: text.isEmpty) {
-                    Text(Constants.placeholder)
+                    Text(NSLocalizedString("searchWordInDeckPlaceholder", comment: ""))
                         .font(SFonts.searchText)
                         .foregroundColor(SColors.inactive)
                 }

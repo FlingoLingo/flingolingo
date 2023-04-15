@@ -10,7 +10,7 @@ import UIComponents
 
 struct DecksPageView: View {
 
-    @StateObject private var viewModel = DecksViewModel()
+    let viewModel: DecksViewModel
 
     var body: some View {
         ZStack {
@@ -48,6 +48,6 @@ struct Previews: PreviewProvider {
     }()
 
     static var previews: some View {
-        DecksPageView()
+        DecksPageView(viewModel: viewModel)
     }
 }

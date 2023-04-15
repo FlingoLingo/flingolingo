@@ -36,7 +36,8 @@ struct DeckView: View {
             .padding(.horizontal, CommonConstants.bigSpacing)
             VStack {
                 Spacer()
-                ButtonView(buttonText: "Начать", buttonClicked: viewModel.startButtonClicked)
+                ButtonView(buttonText: NSLocalizedString("startButton", comment: ""),
+                           buttonClicked: viewModel.startButtonClicked)
                 .padding(.bottom, CommonConstants.bottomPadding)
                 .padding(.horizontal, CommonConstants.bigSpacing)
             }
