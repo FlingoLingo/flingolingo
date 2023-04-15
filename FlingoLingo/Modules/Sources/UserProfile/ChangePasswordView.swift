@@ -10,7 +10,7 @@ struct ChangePasswordView: View {
         ZStack {
             SColors.background.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
-                SubHeaderView()
+                SubHeaderView(buttonClicked: viewModel.goBack)
                 VStack(spacing: CommonConstants.smallSpacing) {
                     PasswordsView(viewModel: viewModel)
                     Spacer()

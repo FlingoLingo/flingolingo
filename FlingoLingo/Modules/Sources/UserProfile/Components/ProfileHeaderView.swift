@@ -4,6 +4,8 @@ import UIComponents
 struct ProfileHeaderView: View {
 
     private let formatter: ProfileFormatter = .init()
+    let buttonClicked: (() -> Void)
+    let guest: Bool
 
     var body: some View {
         HStack {
@@ -11,13 +13,12 @@ struct ProfileHeaderView: View {
                 .font(Font(Fonts.largeTitle))
                 .foregroundColor(SColors.mainText)
             Spacer()
-            Button(action: {
-
-            },
+            Button(action: buttonClicked,
                    label: {
                 Icons.settings
                     .foregroundColor(SColors.mainText)
             })
+            .opacity(guest ? 0 : 1)
         }
     }
 }

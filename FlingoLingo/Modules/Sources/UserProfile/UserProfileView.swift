@@ -10,7 +10,7 @@ struct UserProfileView: View {
         ZStack {
             SColors.background.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
-                ProfileHeaderView()
+                ProfileHeaderView(buttonClicked: viewModel.openSettings, guest: false)
                 Text(viewModel.user.email)
                     .font(Font(Fonts.subtitle))
                     .foregroundColor(SColors.accent)

@@ -10,19 +10,19 @@ struct ProfileFormatter {
     func formatChangePassword() -> String {
         NSLocalizedString("changePassword", comment: "")
     }
-    
+
     func formatOldPassword() -> String {
         NSLocalizedString("oldPassword", comment: "")
     }
-    
+
     func formatNewPassword() -> String {
         NSLocalizedString("newPassword", comment: "")
     }
-    
+
     func formatConfirmPassword() -> String {
         NSLocalizedString("confirmPassword", comment: "")
     }
-    
+
     func formatChange() -> String {
         NSLocalizedString("change", comment: "")
     }
@@ -30,23 +30,23 @@ struct ProfileFormatter {
     func formatLogIn() -> String {
         NSLocalizedString("logInButton", comment: "")
     }
-    
+
     func formatLogOut() -> String {
         NSLocalizedString("logOut", comment: "")
     }
-    
+
     func formatGuest() -> String {
         NSLocalizedString("guest", comment: "")
     }
-    
+
     func formatStatFirstText() -> String {
         NSLocalizedString("stat1", comment: "")
     }
-    
+
     func formatStatSecondText() -> String {
         NSLocalizedString("stat2", comment: "")
     }
-    
+
     func formatStatThirdText() -> String {
         NSLocalizedString("stat3", comment: "")
     }

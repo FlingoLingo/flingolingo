@@ -10,7 +10,7 @@ struct GuestProfileView: View {
         ZStack {
             SColors.background.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
-                ProfileHeaderView()
+                ProfileHeaderView(buttonClicked: {}, guest: true)
                 Text(formatter.formatGuest())
                     .font(Font(Fonts.subtitle))
                     .foregroundColor(SColors.accent)

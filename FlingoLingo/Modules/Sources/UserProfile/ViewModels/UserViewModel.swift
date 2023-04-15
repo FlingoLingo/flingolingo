@@ -33,4 +33,12 @@ public final class UserViewModel: ObservableObject {
     public func openWelcomeView() {
 
     }
+
+    public func openSettings() {
+
+    }
+
+    public func goBack() {
+
+    }
 }
