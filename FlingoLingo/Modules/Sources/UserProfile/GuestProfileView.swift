@@ -34,7 +34,6 @@ struct GuestProfileView: View {
 
 struct GuestProfilePreviews: PreviewProvider {
     static var previews: some View {
-        ProfileHeaderView()
         GuestProfileView()
     }
 }

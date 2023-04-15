@@ -3,7 +3,7 @@ import UIComponents
 
 struct ChangePasswordView: View {
 
-    @StateObject private var viewModel = UsersViewModel()
+    @StateObject var viewModel: UsersViewModel
 
     var body: some View {
         ZStack {
@@ -36,6 +36,6 @@ struct ChangePasswordPreviews: PreviewProvider {
     }()
 
     static var previews: some View {
-        ChangePasswordView()
+        ChangePasswordView(viewModel: viewModel)
     }
 }
