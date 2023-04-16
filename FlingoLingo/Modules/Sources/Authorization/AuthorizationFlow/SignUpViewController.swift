@@ -11,7 +11,7 @@ public final class SignUpViewController: UIViewController {
 
     // MARK: - Properties
     private lazy var authorizationView: AuthorizationView = {
-        let view = AuthorizationView(.registration)
+        let view = AuthorizationView(.logIn)
         view.delegate = self
         return view
     }()
@@ -29,53 +29,52 @@ public final class SignUpViewController: UIViewController {
     public override func loadView() {
         view = authorizationView
     }
+
+    // MARK: - Module functions
+    func checkValidation(mail: String?, password: String?, repeatPassword: String?) -> Bool {
+        var isValid = true
+
+        if !validationChecker.isValidEmail(mail) {
+            let errorTextFieldInfo = ErrorTextFieldInfo(
+                type: .mail,
+                error: NSLocalizedString("mailErrorLabel", comment: "")
+            )
+            authorizationView.applyState(.error(errorTextFieldInfo))
+
+            isValid = false
+        }
+
+        if !validationChecker.isValidPassword(password) {
+            let errorTextFieldInfo = ErrorTextFieldInfo(
+                type: .password,
+                error: NSLocalizedString("passwordErrorLabel", comment: "")
+            )
+            authorizationView.applyState(.error(errorTextFieldInfo))
+
+            isValid = false
+        }
+
+        if !validationChecker.isValidRepeatPassword(repeatPassword, password: password) {
+            let errorTextFieldInfo = ErrorTextFieldInfo(
+                type: .repeatPassword,
+                error: NSLocalizedString("repeatPasswordErrorLabel", comment: "")
+            )
+            authorizationView.applyState(.error(errorTextFieldInfo))
+
+            isValid = false
+        }
+
+        return isValid
+    }
 }
 
 // MARK: - AuthorizationViewDelegate
 extension SignUpViewController: AuthorizationViewDelegate {
-    func checkForValid(mail: String?) {
-        if !validationChecker.isValidEmail(mail) {
-            let errorTextFieldInfo = ErrorTextFieldInfo(
-                type: .mail,
-                error: NSLocalizedString("mailErrorLabel", comment: "")
-            )
-            authorizationView.applyState(.error(errorTextFieldInfo))
-        }
-    }
-
-    func checkForValid(password: String?) {
-        if !validationChecker.isValidPassword(password) {
-            let errorTextFieldInfo = ErrorTextFieldInfo(
-                type: .password,
-                error: NSLocalizedString("passwordErrorLabel", comment: "")
-            )
-            authorizationView.applyState(.error(errorTextFieldInfo))
-        }
-    }
-
-    func checkForValid(password: String?, repeatPassword: String?) {
-        guard repeatPassword != "" else { return }
-    }
-
     func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
 
-    func continueButtonTapped(mail: String?, password: String?) {
-        if !validationChecker.isValidEmail(mail) {
-            let errorTextFieldInfo = ErrorTextFieldInfo(
-                type: .mail,
-                error: NSLocalizedString("mailErrorLabel", comment: "")
-            )
-            authorizationView.applyState(.error(errorTextFieldInfo))
-        }
-
-        if !validationChecker.isValidPassword(password) {
-            let errorTextFieldInfo = ErrorTextFieldInfo(
-                type: .password,
-                error: NSLocalizedString("passwordErrorLabel", comment: "")
-            )
-            authorizationView.applyState(.error(errorTextFieldInfo))
-        }
+    func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
+        if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {}
     }
 }
