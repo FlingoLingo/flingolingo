@@ -4,7 +4,6 @@ import UIComponents
 struct UserProfileView: View {
 
     @ObservedObject var viewModel: UserViewModel
-    private let formatter: ProfileFormatter = .init()
 
     var body: some View {
         ZStack {
@@ -18,7 +17,7 @@ struct UserProfileView: View {
                 StatisticsView()
 
                 Spacer()
-                ButtonView(buttonText: formatter.formatLogOut(), buttonClicked: viewModel.logOut)
+                ButtonView(buttonText: NSLocalizedString("logOut", comment: ""), buttonClicked: viewModel.logOut)
                     .padding(.bottom, CommonConstants.bottomPadding)
             }
             .padding(.horizontal, CommonConstants.bigSpacing)

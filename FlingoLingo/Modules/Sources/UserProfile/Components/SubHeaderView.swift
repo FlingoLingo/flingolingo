@@ -3,7 +3,6 @@ import UIComponents
 
 struct SubHeaderView: View {
 
-    private let formatter: ProfileFormatter = .init()
     private let buttonClicked: (() -> Void)
 
     public init(buttonClicked: @escaping () -> Void) {
@@ -17,7 +16,7 @@ struct SubHeaderView: View {
                 Icons.leftArrow
                     .foregroundColor(SColors.mainText)
             })
-            Text(formatter.formatChangePassword())
+            Text(NSLocalizedString("changePassword", comment: ""))
                 .font(Font(Fonts.subtitle))
                 .foregroundColor(SColors.mainText)
             Spacer()

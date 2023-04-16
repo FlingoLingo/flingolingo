@@ -7,7 +7,8 @@ public struct ChangePasswordViewControllerFactory {
 
     }
 
-    public func changePasswordViewController(viewModel: UserViewModel) -> UIViewController {
+    public func changePasswordViewController(user: User) -> UIViewController {
+        let viewModel = UserViewModel(user: user)
         return UIHostingController(rootView: ChangePasswordView(viewModel: viewModel))
     }
 }

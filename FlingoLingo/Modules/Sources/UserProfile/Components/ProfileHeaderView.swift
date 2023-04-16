@@ -3,7 +3,6 @@ import UIComponents
 
 struct ProfileHeaderView: View {
 
-    private let formatter: ProfileFormatter = .init()
     private let buttonClicked: (() -> Void)
     private let guest: Bool
 
@@ -14,7 +13,7 @@ struct ProfileHeaderView: View {
 
     var body: some View {
         HStack {
-            Text(formatter.formatProfile())
+            Text(NSLocalizedString("profile", comment: ""))
                 .font(Font(Fonts.largeTitle))
                 .foregroundColor(SColors.mainText)
             Spacer()

@@ -2,7 +2,7 @@ import SwiftUI
 import UIComponents
 
 struct BubbleView: View {
-    private var bubbleText: String
+    private let bubbleText: String
 
     public init(bubbleText: String) {
         self.bubbleText = bubbleText

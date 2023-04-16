@@ -2,7 +2,7 @@ import SwiftUI
 import UIComponents
 
 struct ButtonView: View {
-    private var buttonText: String
+    private let buttonText: String
     private let buttonClicked: (() -> Void)
 
     public init(buttonText: String, buttonClicked: @escaping () -> Void) {

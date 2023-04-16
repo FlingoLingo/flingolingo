@@ -4,7 +4,6 @@ import UIComponents
 struct ChangePasswordView: View {
 
     @ObservedObject var viewModel: UserViewModel
-    private let formatter: ProfileFormatter = .init()
 
     var body: some View {
         ZStack {
@@ -14,7 +13,8 @@ struct ChangePasswordView: View {
                 VStack(spacing: CommonConstants.smallSpacing) {
                     PasswordsView(viewModel: viewModel)
                     Spacer()
-                    ButtonView(buttonText: formatter.formatChange(), buttonClicked: viewModel.changePassword)
+                    ButtonView(buttonText: NSLocalizedString("change", comment: ""),
+                               buttonClicked: viewModel.changePassword)
                         .padding(.bottom, CommonConstants.bottomPadding)
                 }
             }

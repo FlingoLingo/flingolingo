@@ -2,12 +2,12 @@ import SwiftUI
 
 public struct PasswordTextField: View {
 
-    public let placeholder: String
+    private let placeholder: String
 
     @Binding public var password: String
-    @State public var isSecured: Bool = true
+    @State private var isSecured: Bool = true
 
-    public var placeholderColor: Color {
+    private var placeholderColor: Color {
         password.isEmpty ? SColors.inactive : SColors.mainText
     }
 
