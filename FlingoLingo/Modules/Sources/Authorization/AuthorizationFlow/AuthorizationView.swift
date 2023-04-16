@@ -10,13 +10,14 @@ import UIComponents
 
 protocol AuthorizationViewDelegate: AnyObject {
     func backButtonTapped()
-    func continueButtonTapped(mail: String?, password: String?)
+    func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?)
 }
 
 struct ErrorTextFieldInfo {
     enum TextFieldType {
         case mail
         case password
+        case repeatPassword
     }
 
     let type: TextFieldType
@@ -28,6 +29,11 @@ final class AuthorizationView: UIView {
         case error(ErrorTextFieldInfo)
     }
 
+    enum AuthState {
+        case signUp
+        case logIn
+    }
+
     // MARK: - Properties
     private lazy var navigationBarView: UIView = {
         let view = UIView()
@@ -37,8 +43,8 @@ final class AuthorizationView: UIView {
         return view
     }()
 
-    private lazy var navigationBarBackButton: UIButton = {
-        let button = UIButton()
+    private lazy var navigationBarBackButton: MainButton = {
+        let button = MainButton()
         button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         button.tintColor = ColorScheme.mainText
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -49,7 +55,6 @@ final class AuthorizationView: UIView {
 
     private lazy var navigationBarTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = NSLocalizedString("authorizationViewNavigationBarTitleLabel", comment: "")
         label.font = Fonts.largeTitle
         label.numberOfLines = 1
         label.textColor = ColorScheme.mainText
@@ -60,7 +65,6 @@ final class AuthorizationView: UIView {
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = NSLocalizedString("authorizationViewDescriptionLabel", comment: "")
         label.numberOfLines = 0
         label.font = Fonts.mainText
         label.textColor = ColorScheme.secondaryText
@@ -72,6 +76,7 @@ final class AuthorizationView: UIView {
     private lazy var mailTextField: InformationTextField = {
         let placeholderText = NSLocalizedString("mailTextFieldPlaceholder", comment: "")
         let textField = InformationTextField(placeholderText: placeholderText)
+        textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.keyboardType = .emailAddress
         textField.delegate = self
@@ -112,9 +117,34 @@ final class AuthorizationView: UIView {
         return label
     }()
 
+    private lazy var repeatPasswordTextField: InformationTextField = {
+        let placeholderText = NSLocalizedString("repeatPasswordTextFieldPlaceholder", comment: "")
+        let textField = InformationTextField(placeholderText: placeholderText)
+        textField.autocapitalizationType = .none
+        textField.isSecureTextEntry = true
+        textField.autocorrectionType = .no
+        textField.delegate = self
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.isHidden = true
+
+        return textField
+    }()
+
+    private lazy var repeatPasswordErrorLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = Fonts.cardsText
+        label.textColor = ColorScheme.secondaryText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+
+        return label
+    }()
+
     private lazy var continueButton: MainButton = {
         let title = NSLocalizedString("continueButton", comment: "")
         let button = MainButton(title: title, titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.accent)
+        button.isEnabled = true
         button.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
@@ -137,6 +167,21 @@ final class AuthorizationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public convenience init(_ authState: AuthState) {
+        self.init()
+
+        switch authState {
+        case .signUp:
+            navigationBarTitleLabel.text = NSLocalizedString("authorizationViewNavigationBarTitleLabel", comment: "")
+            descriptionLabel.text = NSLocalizedString("authorizationViewDescriptionLabel", comment: "")
+        case .logIn:
+            navigationBarTitleLabel.text = NSLocalizedString("registrationViewNavigationBarTitleLabel", comment: "")
+            descriptionLabel.text = NSLocalizedString("registrationViewDescriptionLabel", comment: "")
+            repeatPasswordTextField.isHidden = false
+            repeatPasswordErrorLabel.isHidden = false
+        }
+    }
+
     // MARK: - Module functions
     func applyState(_ state: State) {
         switch state {
@@ -148,6 +193,9 @@ final class AuthorizationView: UIView {
                 case .password:
                     passwordErrorLabel.text = errorTextFieldInfo.error
                     passwordTextField.layer.borderColor = UIColor.red.cgColor
+                case .repeatPassword:
+                    repeatPasswordErrorLabel.text = errorTextFieldInfo.error
+                    repeatPasswordTextField.layer.borderColor = UIColor.red.cgColor
                 }
         }
     }
@@ -161,6 +209,7 @@ final class AuthorizationView: UIView {
         setupDescriptionLabelConstraints()
         setupTextFieldsConstraints()
         setupContinueButtonConstraints()
+        setupRepeatPasswordTextFieldConstraints()
     }
 
     private func addSubviews() {
@@ -172,6 +221,8 @@ final class AuthorizationView: UIView {
         addSubview(mailErrorLabel)
         addSubview(passwordTextField)
         addSubview(passwordErrorLabel)
+        addSubview(repeatPasswordTextField)
+        addSubview(repeatPasswordErrorLabel)
         addSubview(continueButton)
     }
 
@@ -186,7 +237,11 @@ final class AuthorizationView: UIView {
     }
 
     @objc private func continueButtonTapped() {
-        delegate?.continueButtonTapped(mail: mailTextField.text, password: passwordTextField.text)
+        let mail = mailTextField.text
+        let password = passwordTextField.text
+        let repeatPassword = repeatPasswordTextField.isHidden ? nil : repeatPasswordTextField.text
+
+        delegate?.continueButtonTapped(mail: mail, password: password, repeatPassword: repeatPassword)
     }
 
     @objc private func dismissKeyboard() {
@@ -208,8 +263,6 @@ extension AuthorizationView {
                 equalTo: navigationBarView.leadingAnchor,
                 constant: CommonConstants.bigSpacing
             ),
-            navigationBarBackButton.heightAnchor.constraint(equalToConstant: CommonConstants.navigationBarIconSide),
-            navigationBarBackButton.widthAnchor.constraint(equalToConstant: CommonConstants.navigationBarIconSide),
             navigationBarBackButton.centerYAnchor.constraint(equalTo: navigationBarTitleLabel.centerYAnchor),
 
             navigationBarTitleLabel.leadingAnchor.constraint(
@@ -265,6 +318,37 @@ extension AuthorizationView {
         ])
     }
 
+    private func setupRepeatPasswordTextFieldConstraints() {
+        NSLayoutConstraint.activate([
+            repeatPasswordTextField.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: CommonConstants.bigSpacing
+            ),
+            trailingAnchor.constraint(
+                equalTo: repeatPasswordTextField.trailingAnchor,
+                constant: CommonConstants.bigSpacing
+            ),
+            repeatPasswordTextField.topAnchor.constraint(
+                equalTo: passwordErrorLabel.bottomAnchor,
+                constant: CommonConstants.smallSpacing
+            ),
+            repeatPasswordTextField.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
+
+            repeatPasswordErrorLabel.topAnchor.constraint(
+                equalTo: repeatPasswordTextField.bottomAnchor,
+                constant: CommonConstants.smallStackSpacing
+            ),
+            repeatPasswordErrorLabel.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: CommonConstants.bigSpacing
+            ),
+            trailingAnchor.constraint(
+                equalTo: repeatPasswordErrorLabel.trailingAnchor,
+                constant: CommonConstants.bigSpacing
+            ),
+        ])
+    }
+
     private func setupContinueButtonConstraints() {
         NSLayoutConstraint.activate([
             continueButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
@@ -273,7 +357,6 @@ extension AuthorizationView {
                 equalTo: continueButton.bottomAnchor,
                 constant: CommonConstants.bigSpacing
             ),
-            continueButton.heightAnchor.constraint(equalToConstant: CommonConstants.buttonHeight)
         ])
     }
 }
@@ -287,6 +370,8 @@ extension AuthorizationView: UITextFieldDelegate {
             mailErrorLabel.text = ""
         } else if textField === passwordTextField {
             passwordErrorLabel.text = ""
+        } else if textField === repeatPasswordTextField {
+            repeatPasswordErrorLabel.text = ""
         }
 
         textField.layer.borderColor = text.isEmpty ? ColorScheme.inactive.cgColor : ColorScheme.mainText.cgColor
