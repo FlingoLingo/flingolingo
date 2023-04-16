@@ -17,14 +17,14 @@ struct GuestProfileView: View {
                     Text(NSLocalizedString("stat1", comment: ""))
                         .foregroundColor(SColors.mainText) + Text(NSLocalizedString("stat2", comment: ""))
                         .foregroundColor(SColors.accent).bold() +
-                  Text(NSLocalizedString("stat3", comment: ""))
+                    Text(NSLocalizedString("stat3", comment: ""))
                         .foregroundColor(SColors.mainText)
                 }
                 .font(Font(Fonts.mainText))
                 Spacer()
                 ButtonView(buttonText: NSLocalizedString("logInButton", comment: ""),
                            buttonClicked: viewModel.openWelcomeView)
-                    .padding(.bottom, CommonConstants.bottomPadding)
+                .padding(.bottom, CommonConstants.bottomPadding)
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
         }
