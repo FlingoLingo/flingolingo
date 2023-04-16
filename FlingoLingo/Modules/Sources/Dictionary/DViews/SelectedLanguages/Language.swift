@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import UIComponents
 
 class Language: UIButton {
     override init(frame: CGRect) {
@@ -15,7 +16,7 @@ class Language: UIButton {
     }
     // задаем красивый заголовок 
     func setTitle(_ title: String?) {
-        let font = UIFont(name: "Futura Bold", size: Constants().smallFontSize)
+        let font = Fonts.mainText
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: UIColor.white]
         let attributedTitle = NSAttributedString(string: title ?? "не выбрано", attributes: attributes as [NSAttributedString.Key: Any])

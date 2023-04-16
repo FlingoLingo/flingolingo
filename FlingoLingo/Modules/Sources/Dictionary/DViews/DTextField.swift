@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import UIComponents
 
 class DTextField: UITextField {
 
@@ -16,11 +17,11 @@ class DTextField: UITextField {
         layer.borderWidth = 1.5
         layer.borderColor = UIColor.white.cgColor
         layer.opacity = 0.4
-        layer.cornerRadius = Constants().screenWidth * 0.025
+        layer.cornerRadius = 10
 
         placeholder = "Введите слово..."
 
-        leftView = UIView(frame: CGRect(x: 0, y: 0, width: Constants().leadingAnchor * 0.5, height: Constants().screenHeight * 0.05))
+        leftView = UIView(frame: CGRect(x: 0, y: 0, width: CommonConstants.bigSpacing * 0.5, height: 45))
         leftViewMode = .always
 
         textColor = .white
@@ -32,7 +33,7 @@ class DTextField: UITextField {
         rightView = rw
         rightViewMode = .always
 
-        let font = UIFont(name: "Futura", size: 17)
+        let font = Fonts.searchText
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: UIColor.white]
         let attributedTitle = NSAttributedString(string: placeholder!, attributes: attributes as [NSAttributedString.Key: Any])
@@ -49,49 +50,6 @@ class DTextField: UITextField {
     }
 }
 
-class ClearView: UIView {
-    let button = ClearButton()
-    override init(frame: CGRect) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        setting()
-    }
-
-    func setting() {
-        self.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-
-            button.centerXAnchor.constraint(equalTo: self.centerXAnchor), button.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-
-            self.widthAnchor.constraint(equalToConstant: Constants().screenWidth * 0.1)
-
-        ])
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-class ClearButton: UIButton {
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .clear
-        tintColor = .white
-        setImage()
-    }
-
-    func setImage() {
-        self.setImage(UIImage(systemName: "xmark"), for: .normal)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-}
-
 class SuggestionView: UIButton {
 
     open var suggest = ""
@@ -101,7 +59,7 @@ class SuggestionView: UIButton {
         layer.borderWidth = 1.5
         layer.borderColor = UIColor.white.cgColor
         layer.opacity = 0.4
-        layer.cornerRadius = Constants().screenWidth * 0.025
+        layer.cornerRadius = CommonConstants.textFieldCornerRadius
 
     }
 
@@ -111,8 +69,7 @@ class SuggestionView: UIButton {
 
     override func setTitle(_ title: String?,
                            for state: UIControl.State) {
-        let font = UIFont(name: "Futura",
-                          size: 17)
+        let font = Fonts.searchText
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: UIColor.white]
         let attributedTitle = NSAttributedString(string: suggest,

@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import UIComponents
 
-public class DictionaryViewController: UIViewController {
+public final class DictionaryViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -28,11 +29,10 @@ public class DictionaryViewController: UIViewController {
 
     private lazy var topLabel: UILabel = {
         let topLabel = UILabel()
-        // шрифт потом общий
-        topLabel.font = UIFont(name: "Futura Bold", size: 32)
+        topLabel.font = Fonts.largeTitle
         topLabel.translatesAutoresizingMaskIntoConstraints = false
         topLabel.text = "Словарь"
-        topLabel.textColor = .white
+        topLabel.textColor = ColorScheme.mainText
 
         return topLabel
     }()
@@ -49,8 +49,14 @@ public class DictionaryViewController: UIViewController {
         return translatedLanguage
     }()
 
-    private lazy var arrow: Arrow = {
-        let arrow = Arrow()
+    private lazy var arrow: UIButton = {
+        let arrow = UIButton()
+        arrow.backgroundColor = .clear
+        arrow.tintColor = ColorScheme.mainText
+        setImage()
+        func setImage() {
+            arrow.setImage(UIImage(systemName: "arrow.left.arrow.right"), for: .normal)
+        }
         return arrow
     }()
 
@@ -82,74 +88,69 @@ public class DictionaryViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .init(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
         self.navigationController?.isNavigationBarHidden = true
-
         [tableView, topLabel, originLanguage, arrow, translatedLanguage, suggestionView, textField].forEach { subView in
             view.addSubview(subView)
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
         let centerConstraint = topLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 75)
-        let selectedLanguageConstant = originLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15)
+        let selectedLanguageConstant = originLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                                               constant: CommonConstants.smallSpacing)
         let arrowConstraint = arrow.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        let suggestionViewConstraint = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor, constant: 25)
+        let suggestionViewConstraint = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor,
+                                                                           constant: CommonConstants.bigSpacing)
         self.centerConstraint = centerConstraint
         self.selectedLanguageConstant = selectedLanguageConstant
         self.arrowConstraint = arrowConstraint
         self.suggestionViewConstraint = suggestionViewConstraint
-
         let topLabelConstraints = [
             centerConstraint,
-            topLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            topLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CommonConstants.smallSpacing),
             topLabel.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
-
             ]
 
         let selectedLanguages = [
-
             selectedLanguageConstant,
 
-            originLanguage.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 15),
-
-                arrow.leadingAnchor.constraint(equalTo: originLanguage.trailingAnchor, constant: 15),
+            originLanguage.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: CommonConstants.smallSpacing),
+                arrow.leadingAnchor.constraint(equalTo: originLanguage.trailingAnchor,
+                                               constant: CommonConstants.smallSpacing),
                 arrow.centerYAnchor.constraint(equalTo: originLanguage.centerYAnchor),
 
-            translatedLanguage.leadingAnchor.constraint(equalTo: arrow.trailingAnchor, constant: 15),
-            translatedLanguage.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 15)
-
+            translatedLanguage.leadingAnchor.constraint(equalTo: arrow.trailingAnchor,
+                                                        constant: CommonConstants.smallSpacing),
+            translatedLanguage.topAnchor.constraint(equalTo: topLabel.bottomAnchor,
+                                                    constant: CommonConstants.smallSpacing)
         ]
 
         let textFieldConstraints = [
-
-            textField.heightAnchor.constraint(equalToConstant: 40),
-            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            textField.topAnchor.constraint(equalTo: originLanguage.bottomAnchor, constant: 25)
-
+            textField.heightAnchor.constraint(equalToConstant: CommonConstants.bottomPadding),
+            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CommonConstants.smallSpacing),
+            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -CommonConstants.smallSpacing),
+            textField.topAnchor.constraint(equalTo: originLanguage.bottomAnchor, constant: CommonConstants.bigSpacing)
         ]
 
         let suggestionViewConstraints = [
-
             suggestionViewConstraint,
-            suggestionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            suggestionView.heightAnchor.constraint(equalToConstant: 40),
-            suggestionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15)
-
+            suggestionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                    constant: CommonConstants.smallSpacing),
+            suggestionView.heightAnchor.constraint(equalToConstant: CommonConstants.bottomPadding),
+            suggestionView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                     constant: -CommonConstants.smallSpacing)
         ]
 
         let tableConstraints = [
-
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            tableView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 15),
-            tableView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -15)
-
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CommonConstants.smallSpacing),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -CommonConstants.smallSpacing),
+            tableView.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: CommonConstants.smallSpacing),
+            tableView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor,
+                                              constant: -CommonConstants.smallSpacing)
             ]
 
-        NSLayoutConstraint.activate(topLabelConstraints)
-        NSLayoutConstraint.activate(selectedLanguages)
-        NSLayoutConstraint.activate(textFieldConstraints)
-        NSLayoutConstraint.activate(tableConstraints)
-        NSLayoutConstraint.activate(suggestionViewConstraints)
-
+        NSLayoutConstraint.activate([topLabelConstraints,
+                                     selectedLanguages,
+                                     textFieldConstraints,
+                                     tableConstraints,
+                                     suggestionViewConstraints].flatMap { $0 })
     }
 }
 
@@ -160,8 +161,17 @@ extension DictionaryViewController: UITextFieldDelegate {
         topLabel.isHidden = true
         centerConstraint?.constant = 0
         suggestionViewConstraint?.constant = 75
-        NSLayoutConstraint.deactivate([self.selectedLanguageConstant!])
-        NSLayoutConstraint.activate([self.arrowConstraint!, self.suggestionViewConstraint!])
+        guard let selectedLanguageConstant = self.selectedLanguageConstant else {
+            return
+        }
+        guard let arrowConstraint = self.arrowConstraint else {
+            return
+        }
+        guard let suggestionViewConstraint = self.suggestionViewConstraint else {
+            return
+        }
+        NSLayoutConstraint.deactivate([selectedLanguageConstant])
+        NSLayoutConstraint.activate([arrowConstraint, suggestionViewConstraint])
         UIView.animate(withDuration: 0.35) {
             self.view.layoutIfNeeded()
         }
@@ -171,10 +181,20 @@ extension DictionaryViewController: UITextFieldDelegate {
         textField.layer.opacity = 0.4
         topLabel.isHidden = false
         centerConstraint!.constant = 75
-        selectedLanguageConstant?.constant = 15
-        NSLayoutConstraint.deactivate([self.arrowConstraint!, self.suggestionViewConstraint!])
-        suggestionViewConstraint? = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor, constant: 25)
-        NSLayoutConstraint.activate([self.selectedLanguageConstant!, self.suggestionViewConstraint!])
+        selectedLanguageConstant?.constant = CommonConstants.smallSpacing
+        guard let selectedLanguageConstant = self.selectedLanguageConstant else {
+            return
+        }
+        guard let arrowConstraint = self.arrowConstraint else {
+            return
+        }
+        guard var suggestionViewConstraint = self.suggestionViewConstraint else {
+            return
+        }
+        NSLayoutConstraint.deactivate([arrowConstraint, suggestionViewConstraint])
+        suggestionViewConstraint = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor,
+                                                                        constant: CommonConstants.bigSpacing)
+        NSLayoutConstraint.activate([selectedLanguageConstant, suggestionViewConstraint])
         UIView.animate(withDuration: 0.35) {
             self.view.layoutIfNeeded()
         }
