@@ -8,6 +8,7 @@
 import UIKit
 import Authorization
 import Decks
+import Dictionary
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
