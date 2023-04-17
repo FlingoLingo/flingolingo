@@ -1,11 +1,11 @@
 //
 //  CommonConstants.swift
-//  
+//
 //
 //  Created by Алиса Вышегородцева on 13.04.2023.
 //
 
-import Foundation
+import UIKit
 
 public enum CommonConstants {
 
@@ -21,4 +21,22 @@ public enum CommonConstants {
 
     // Скругление полей ввода.
     public static let textFieldCornerRadius: CGFloat = 10
+
+    // Значение safeAreaInsets.top.
+    public static let safeAreaInsetsTop: CGFloat = {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            return windowScene.windows.first?.safeAreaInsets.top ?? 0
+        } else {
+            return 0
+        }
+    }()
+
+    // Высота текстового поля поиска.
+    public static let textFieldHeight: CGFloat = 45
+
+    // Высота кнопки.
+    public static let buttonHeight: CGFloat = 60
+
+    // Высота кнопки в навигации.
+    public static let navigationBarIconSide: CGFloat = 17
 }
