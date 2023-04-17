@@ -35,6 +35,11 @@ struct DeckView: View {
                     }
                 }
             }
+            .alert(NSLocalizedString("editDeckName", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
+                TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.deckName)
+                Button(NSLocalizedString("save", comment: ""), action: viewModel.editDeckName)
+                Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
+            })
             .padding(.horizontal, CommonConstants.bigSpacing)
             VStack {
                 Spacer()

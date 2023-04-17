@@ -20,4 +20,9 @@ struct ValidationChecker {
         guard let password = password else { return false }
         return password.count >= 8
     }
+
+    func isValidRepeatPassword(_ repeatPassword: String?, password: String?) -> Bool {
+        guard let repeatPassword = repeatPassword, let password = password else { return false }
+        return repeatPassword == password
+    }
 }
