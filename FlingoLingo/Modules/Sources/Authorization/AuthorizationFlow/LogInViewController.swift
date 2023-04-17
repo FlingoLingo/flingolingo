@@ -7,11 +7,11 @@
 
 import UIKit
 
-public final class AuthorizationViewController: UIViewController {
+public final class LogInViewController: UIViewController {
 
     // MARK: - Properties
     private lazy var authorizationView: AuthorizationView = {
-        let view = AuthorizationView()
+        let view = AuthorizationView(.signUp)
         view.delegate = self
         return view
     }()
@@ -29,30 +29,42 @@ public final class AuthorizationViewController: UIViewController {
     public override func loadView() {
         view = authorizationView
     }
-}
 
-// MARK: - AuthorizationViewDelegate
-extension AuthorizationViewController: AuthorizationViewDelegate {
+    // MARK: - Module functions
+    func checkValidation(mail: String?, password: String?) -> Bool {
+        var isValid = true
 
-    func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-
-    func continueButtonTapped(mail: String?, password: String?) {
         if !validationChecker.isValidEmail(mail) {
             let errorTextFieldInfo = ErrorTextFieldInfo(
                 type: .mail,
-                error: NSLocalizedString("mailErrorLabel", comment: "")
+                error: NSLocalizedString("logInMailErrorLabel", comment: "")
             )
             authorizationView.applyState(.error(errorTextFieldInfo))
+
+            isValid = false
         }
 
         if !validationChecker.isValidPassword(password) {
             let errorTextFieldInfo = ErrorTextFieldInfo(
                 type: .password,
-                error: NSLocalizedString("passwordErrorLabel", comment: "")
+                error: NSLocalizedString("logInPasswordErrorLabel", comment: "")
             )
             authorizationView.applyState(.error(errorTextFieldInfo))
+
+            isValid = false
         }
+
+        return isValid
+    }
+}
+
+// MARK: - AuthorizationViewDelegate
+extension LogInViewController: AuthorizationViewDelegate {
+    func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+
+    func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
+        if checkValidation(mail: mail, password: password) {}
     }
 }

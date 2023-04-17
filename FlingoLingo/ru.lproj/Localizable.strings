@@ -24,8 +24,14 @@
 "mailTextFieldPlaceholder" = "Почта";
 "passwordTextFieldPlaceholder" = "Пароль";
 "continueButton" = "Продолжить";
-"mailErrorLabel" = "Почта должна быть настоящей и уникальной.";
-"passwordErrorLabel" = "Пароль должен содержать не менее 8 символов.";
+"mailErrorLabel" = "Укажите почту";
+"passwordErrorLabel" = "Придумайте пароль, содержащий не менее 8 символов";
+"registrationViewNavigationBarTitleLabel" = "Регистрация";
+"registrationViewDescriptionLabel" = "Введите адрес своей электронной почты, пароль и подтверждение пароля";
+"repeatPasswordTextFieldPlaceholder" = "Подтверждение пароля";
+"repeatPasswordErrorLabel" = "Введенные пароли не совпадают, попробуйте еще раз";
+"logInMailErrorLabel" = "Укажите почту";
+"logInPasswordErrorLabel" = "Укажите пароль";
 "addDeckTitle" = "Добавить новую колоду";
 "deckNamePh" = "Введите название";
 "create" = "Создать";
