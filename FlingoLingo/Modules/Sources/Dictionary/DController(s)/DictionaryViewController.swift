@@ -35,26 +35,23 @@ public final class DictionaryViewController: UIViewController {
         return topLabel
     }()
 
-    private lazy var originLanguage: Language = {
-        let originLanguage = Language()
+    private lazy var originLanguage: LanguageButton = {
+        let originLanguage = LanguageButton()
         originLanguage.setTitle("Английский")
         return originLanguage
     }()
 
-    private lazy var translatedLanguage: Language = {
-        let translatedLanguage = Language()
+    private lazy var translatedLanguage: LanguageButton = {
+        let translatedLanguage = LanguageButton()
         translatedLanguage.setTitle("Русский")
         return translatedLanguage
     }()
 
-    private lazy var arrow: UIButton = {
+    private lazy var arrowButton: UIButton = {
         let arrow = UIButton()
         arrow.backgroundColor = .clear
         arrow.tintColor = ColorScheme.mainText
-        setImage()
-        func setImage() {
-            arrow.setImage(UIImage(systemName: "arrow.left.arrow.right"), for: .normal)
-        }
+        arrow.setImage(UIImage(systemName: "arrow.left.arrow.right"), for: .normal)
         return arrow
     }()
 
@@ -84,14 +81,14 @@ public final class DictionaryViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.background
         self.navigationController?.isNavigationBarHidden = true
-        [tableView, topLabel, originLanguage, arrow, translatedLanguage, suggestionView, textField].forEach { subView in
+        [tableView, topLabel, originLanguage, arrowButton, translatedLanguage, suggestionView, textField].forEach { subView in
             view.addSubview(subView)
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
         let centerConstraint = topLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 75)
         let selectedLanguageConstant = originLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                                                constant: CommonConstants.smallSpacing)
-        let arrowConstraint = arrow.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let arrowConstraint = arrowButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         let suggestionViewConstraint = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor,
                                                                            constant: CommonConstants.bigSpacing)
         self.centerConstraint = centerConstraint
@@ -108,11 +105,11 @@ public final class DictionaryViewController: UIViewController {
             selectedLanguageConstant,
 
             originLanguage.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: CommonConstants.smallSpacing),
-                arrow.leadingAnchor.constraint(equalTo: originLanguage.trailingAnchor,
+            arrowButton.leadingAnchor.constraint(equalTo: originLanguage.trailingAnchor,
                                                constant: CommonConstants.smallSpacing),
-                arrow.centerYAnchor.constraint(equalTo: originLanguage.centerYAnchor),
+            arrowButton.centerYAnchor.constraint(equalTo: originLanguage.centerYAnchor),
 
-            translatedLanguage.leadingAnchor.constraint(equalTo: arrow.trailingAnchor,
+            translatedLanguage.leadingAnchor.constraint(equalTo: arrowButton.trailingAnchor,
                                                         constant: CommonConstants.smallSpacing),
             translatedLanguage.topAnchor.constraint(equalTo: topLabel.bottomAnchor,
                                                     constant: CommonConstants.smallSpacing)

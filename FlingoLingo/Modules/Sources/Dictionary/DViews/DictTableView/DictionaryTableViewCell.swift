@@ -8,7 +8,7 @@
 import UIKit
 import UIComponents
 
-class DictionaryTableViewCell: UITableViewCell {
+final class DictionaryTableViewCell: UITableViewCell {
 
     private let wordLabel = UILabel()
     override func awakeFromNib() {

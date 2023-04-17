@@ -28,9 +28,9 @@ final class DTextField: UITextField {
 
         keyboardType = .webSearch
 
-        let rw = ClearView()
-        rw.button.addTarget(self, action: #selector(clear), for: .touchUpInside)
-        rightView = rw
+        let rightViewButton = ClearView()
+        rightViewButton.button.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        rightView = rightViewButton
         rightViewMode = .always
 
         let font = Fonts.searchText
