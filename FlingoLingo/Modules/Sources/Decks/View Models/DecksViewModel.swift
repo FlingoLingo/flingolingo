@@ -9,7 +9,7 @@ import Foundation
 
 public final class DecksViewModel: ObservableObject {
 
-    @Published var decks: [Deck] = []
+    @Published var decks: [Deck] = [.init(id: 1, title: "AAAAAAAA", wordsCount: 10, learnedWords: 10, repetitionDate: Date.now, cards: [])]
     @Published var isShowingAlert = false
     @Published var newDeckName = ""
 
