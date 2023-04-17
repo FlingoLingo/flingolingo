@@ -18,7 +18,7 @@ struct DecksPageView: View {
 
     var body: some View {
         ZStack {
-            Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
+            (SColors.background).edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                 DecksHeaderView(addDeckButtonClicked: viewModel.addDeckButtonCLicked)
                 ScrollView {

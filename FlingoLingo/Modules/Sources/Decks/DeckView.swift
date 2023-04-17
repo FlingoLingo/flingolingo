@@ -18,7 +18,7 @@ struct DeckView: View {
 
     var body: some View {
         ZStack {
-            Color(ColorScheme.background).edgesIgnoringSafeArea(.all)
+            (SColors.background).edgesIgnoringSafeArea(.all)
             VStack(spacing: CommonConstants.bigSpacing) {
                 DeckBackHeaderView(title: viewModel.deck.title,
                                    backButtonClicked: viewModel.backButtonClicked,
