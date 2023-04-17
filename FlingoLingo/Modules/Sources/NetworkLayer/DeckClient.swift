@@ -10,7 +10,7 @@
 
 import Foundation
 
-class AuthClient {
+class DeckClient {
     struct Card: Decodable {
         var id: Int
         var front: String
