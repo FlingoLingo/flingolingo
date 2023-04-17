@@ -10,11 +10,11 @@ public struct User: Identifiable {
     public let timesRepeated: Int
 
     public init(id: Int = 0,
-                email: String = "",
-                daysOfUse: Int = 0,
-                wordsLearned: Int = 0,
-                decksCount: Int = 0,
-                timesRepeated: Int = 0) {
+                email: String = "testtest",
+                daysOfUse: Int = 2,
+                wordsLearned: Int = 5,
+                decksCount: Int = 6,
+                timesRepeated: Int = 9) {
         self.id = id
         self.email = email
         self.daysOfUse = daysOfUse

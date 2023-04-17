@@ -1,10 +1,6 @@
 import SwiftUI
 import UIComponents
 
-enum Hint: String {
-    case password = "use alphanumeric characters in a range from 6 to 12"
-}
-
 struct ChangePasswordView: View {
 
     @ObservedObject var viewModel: UserViewModel
@@ -27,5 +23,6 @@ struct ChangePasswordView: View {
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
         }
+        .navigationBarBackButtonHidden()
     }
 }

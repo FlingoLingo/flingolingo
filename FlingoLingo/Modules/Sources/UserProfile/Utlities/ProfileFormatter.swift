@@ -43,7 +43,7 @@ struct ProfileFormatter {
     func formatNumberDecksCreated(user: User) -> String {
         var word = ""
         if user.timesRepeated % 10 == 0 || user.timesRepeated % 10 >= 5 {
-            word = NSLocalizedString("deck-509", comment: "")
+            word = NSLocalizedString("deck05-9", comment: "")
         } else if user.decksCount == 1 {
             word = NSLocalizedString("deck1", comment: "")
         } else if user.decksCount >= 2 && user.decksCount <= 4 {

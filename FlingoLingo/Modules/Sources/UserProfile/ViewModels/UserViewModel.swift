@@ -13,11 +13,13 @@ public final class UserViewModel: ObservableObject {
     @Published var newPassword: String = ""
     @Published var confirmPassword: String = ""
     @Published var validatePasswords: [TextField: String] = [:]
-    
+
     private let router: UserProfileRouter
     private let backAction: () -> Void
 
-    public init(user: User = User(), backAction: @escaping () -> Void = {}, router: UserProfileRouter = UserProfileRouter()) {
+    public init(user: User = User(),
+                backAction: @escaping () -> Void = {},
+                router: UserProfileRouter = UserProfileRouter()) {
         self.user = user
         self.backAction = backAction
         self.router = router
@@ -25,7 +27,7 @@ public final class UserViewModel: ObservableObject {
 
     public func changePassword() {
         var error = false
-        
+
         if oldPassword.count < 6 {
             validatePasswords[.old] = "Пароль должен состоять как минимум  из 6 символов"
             error = true
@@ -74,7 +76,7 @@ public final class UserViewModel: ObservableObject {
     }
 
     public func openSettings() {
-
+        router.changePassword(user: user)
     }
 
     public func goBack() {

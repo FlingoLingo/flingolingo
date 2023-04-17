@@ -7,7 +7,7 @@ public struct UserProfileViewControllerFactory {
 
     }
 
-    public func userProfileViewController(viewModel: UserViewModel) -> UIViewController {
+    public func userProfileViewController() -> UIViewController {
         let router = UserProfileRouter()
         let viewModel = UserViewModel(router: router)
         let controller = UIHostingController(rootView: UserProfileView(viewModel: viewModel))
