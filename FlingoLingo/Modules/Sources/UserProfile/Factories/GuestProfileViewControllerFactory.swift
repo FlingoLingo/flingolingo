@@ -8,6 +8,6 @@ public struct GuestProfileViewControllerFactory {
     }
 
     public func changePasswordViewController() -> UIViewController {
-        return UIHostingController(rootView: GuestProfileView())
+        return UIHostingController(rootView: GuestProfileView(viewModel: UserViewModel()))
     }
 }

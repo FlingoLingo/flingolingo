@@ -8,6 +8,10 @@ public struct UserProfileViewControllerFactory {
     }
 
     public func userProfileViewController(viewModel: UserViewModel) -> UIViewController {
-        return UIHostingController(rootView: UserProfileView(viewModel: viewModel))
+        let router = UserProfileRouter()
+        let viewModel = UserViewModel(router: router)
+        let controller = UIHostingController(rootView: UserProfileView(viewModel: viewModel))
+        router.presentingViewController = controller
+        return controller
     }
 }

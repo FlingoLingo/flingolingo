@@ -3,7 +3,7 @@ import UIComponents
 
 struct StatisticsView: View {
 
-    @StateObject private var viewModel: UserViewModel = UserViewModel()
+    @StateObject var viewModel: UserViewModel
     private let formatter: ProfileFormatter = .init()
 
     var body: some View {

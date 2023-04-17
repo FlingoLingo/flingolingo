@@ -1,9 +1,16 @@
 import SwiftUI
 import UIComponents
 
+enum Hint: String {
+    case password = "use alphanumeric characters in a range from 6 to 12"
+}
+
 struct ChangePasswordView: View {
 
     @ObservedObject var viewModel: UserViewModel
+    @State private var isValidPassword: Bool = false
+    @State private var arePasswordsEqual: Bool = false
+    @State private var isFocused: Bool?
 
     var body: some View {
         ZStack {
@@ -20,22 +27,5 @@ struct ChangePasswordView: View {
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
         }
-    }
-}
-
-struct ChangePasswordPreviews: PreviewProvider {
-    static let viewModel = {
-        let viewModel = UserViewModel()
-        viewModel.user = User(id: 1,
-                              email: "test@mail.ru",
-                              daysOfUse: 5,
-                              wordsLearned: 159,
-                              decksCount: 10,
-                              timesRepeated: 14680489390)
-        return viewModel
-    }()
-
-    static var previews: some View {
-        ChangePasswordView(viewModel: viewModel)
     }
 }

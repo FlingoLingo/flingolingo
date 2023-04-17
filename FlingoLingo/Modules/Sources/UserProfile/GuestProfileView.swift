@@ -3,7 +3,7 @@ import UIComponents
 
 struct GuestProfileView: View {
 
-    @ObservedObject var viewModel = UserViewModel()
+    @ObservedObject var viewModel: UserViewModel
 
     var body: some View {
         ZStack {
@@ -28,11 +28,5 @@ struct GuestProfileView: View {
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
         }
-    }
-}
-
-struct GuestProfilePreviews: PreviewProvider {
-    static var previews: some View {
-        GuestProfileView()
     }
 }

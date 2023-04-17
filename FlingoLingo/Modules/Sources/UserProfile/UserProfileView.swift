@@ -14,7 +14,7 @@ struct UserProfileView: View {
                     .font(Font(Fonts.subtitle))
                     .foregroundColor(SColors.accent)
 
-                StatisticsView()
+                StatisticsView(viewModel: viewModel)
 
                 Spacer()
                 ButtonView(buttonText: NSLocalizedString("logOut", comment: ""), buttonClicked: viewModel.logOut)
@@ -22,22 +22,5 @@ struct UserProfileView: View {
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
         }
-    }
-}
-
-struct UserProfilePreviews: PreviewProvider {
-    static let viewModel = {
-        let viewModel = UserViewModel()
-        viewModel.user = User(id: 1,
-                              email: "test@mail.ru",
-                              daysOfUse: 5,
-                              wordsLearned: 159,
-                              decksCount: 10,
-                              timesRepeated: 14680489390)
-        return viewModel
-    }()
-
-    static var previews: some View {
-        UserProfileView(viewModel: viewModel)
     }
 }
