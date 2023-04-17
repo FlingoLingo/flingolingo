@@ -33,6 +33,6 @@ extension DictionaryViewController: UITableViewDataSource {
 
 extension DictionaryViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.height / 8
+        return 50
     }
 }

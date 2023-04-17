@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import UIComponents
 
-class Language: UIButton {
+final class Language: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear

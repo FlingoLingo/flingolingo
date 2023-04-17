@@ -15,15 +15,13 @@ public final class DictionaryViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(DictionaryTableViewCell.self, forCellReuseIdentifier: "DTableViewCell")
         tableView.separatorColor = .clear
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         tableView.clipsToBounds = true
-        tableView.layer.cornerRadius = 10
+        tableView.layer.cornerRadius = CommonConstants.textFieldCornerRadius
         tableView.allowsSelection = false
-        tableView.delegate = self
         return tableView
     }()
 
@@ -77,16 +75,14 @@ public final class DictionaryViewController: UIViewController {
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?
     private var suggestionViewConstraint: NSLayoutConstraint?
-
-    private var tableSpacing = 10
-
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .init(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
+        view.backgroundColor = ColorScheme.background
         self.navigationController?.isNavigationBarHidden = true
         [tableView, topLabel, originLanguage, arrow, translatedLanguage, suggestionView, textField].forEach { subView in
             view.addSubview(subView)

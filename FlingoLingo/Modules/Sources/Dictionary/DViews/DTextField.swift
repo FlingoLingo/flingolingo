@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import UIComponents
 
-class DTextField: UITextField {
+final class DTextField: UITextField {
 
     override init(frame: CGRect) {
 
@@ -50,9 +50,9 @@ class DTextField: UITextField {
     }
 }
 
-class SuggestionView: UIButton {
+final class SuggestionView: UIButton {
 
-    open var suggest = ""
+    public var suggest = ""
     override init(frame: CGRect) {
 
         super.init(frame: frame)
