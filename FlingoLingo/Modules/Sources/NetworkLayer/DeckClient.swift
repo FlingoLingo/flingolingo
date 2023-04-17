@@ -60,7 +60,7 @@ class DeckClient {
         }
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let decks = try? JSONDecoder().decode(Decks.self, from: data) else {
+        guard let decks = try? decoder.decode(Decks.self, from: data) else {
             completion(.failure(.jsonParseError))
         return
         }

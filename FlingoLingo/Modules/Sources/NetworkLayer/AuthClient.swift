@@ -49,7 +49,7 @@ class AuthClient {
             }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            guard let resp = try? JSONDecoder().decode(SignUpResponse.self, from: data) else {
+            guard let resp = try? decoder.decode(SignUpResponse.self, from: data) else {
                 completion(.failure(.jsonParseError))
                 return
             }
@@ -102,3 +102,5 @@ class AuthClient {
 // пример использования
 //let client = AuthClient()
 //client.registerUser(username: "bob", password: "roberts", completion: {res in print(res)})
+//client.registerUser(username: "bobson1", password: "robertson1", completion: {res in print(res)})
+//client.getToken(username: "bobson", password: "robertson", completion: {res in print(res)})
