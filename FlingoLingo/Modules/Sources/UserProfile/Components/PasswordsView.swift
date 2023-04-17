@@ -24,7 +24,7 @@ struct PasswordsView: View {
 
             PasswordTextField(placeholder: NSLocalizedString("newPassword", comment: ""),
                               password: $viewModel.newPassword,
-                              isPasswordIncorrect: viewModel.newPasswordCorrect)
+                              isPasswordIncorrect: viewModel.hasError(for: .new))
             .overlay(RoundedRectangle(cornerRadius: CommonConstants.textFieldCornerRadius)
                 .stroke(viewModel.hasError(for: .new) ? Color.red : SColors.inactive, lineWidth: 1))
             if let error = viewModel.getErrorText(for: .new) {
@@ -35,7 +35,7 @@ struct PasswordsView: View {
 
             PasswordTextField(placeholder: NSLocalizedString("confirmPassword", comment: ""),
                               password: $viewModel.confirmPassword,
-                              isPasswordIncorrect: viewModel.confirmPasswordCorrect)
+                              isPasswordIncorrect: viewModel.hasError(for: .confirm))
             .overlay(RoundedRectangle(cornerRadius: CommonConstants.textFieldCornerRadius)
                 .stroke(viewModel.hasError(for: .confirm) ? Color.red : SColors.inactive, lineWidth: 1))
             if let error = viewModel.getErrorText(for: .confirm) {
