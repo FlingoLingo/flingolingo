@@ -10,6 +10,9 @@ import Foundation
 public final class DecksViewModel: ObservableObject {
 
     @Published var decks: [Deck] = []
+    @Published var isShowingAlert = false
+    @Published var newDeckName = ""
+
     private let router: DecksRouter
 
     init(router: DecksRouter) {
@@ -17,13 +20,17 @@ public final class DecksViewModel: ObservableObject {
     }
 
     func deckCardClicked(id: Int) {
-        guard let deck = decks.first(where: { $0.id == id}) else {
+        guard let deck = decks.first(where: { $0.id == id }) else {
             return
         }
         router.viewDetails(deck: deck)
     }
 
     func addDeckButtonCLicked() {
+        isShowingAlert = true
+    }
+
+    func createDeck() {
 
     }
 }

@@ -13,7 +13,8 @@ let package = Package(
                 "Authorization",
                 "UIComponents",
                 "UserProfile",
-                "Decks"
+                "Decks",
+				"Dictionary"
             ]
         )
     ],
@@ -37,6 +38,12 @@ let package = Package(
         ),
 		.target(
             name: "Decks",
+            dependencies: [
+                "UIComponents"
+            ]
+        ),
+        .target(
+            name: "Dictionary",
             dependencies: [
                 "UIComponents"
             ]

@@ -8,6 +8,7 @@
 import UIKit
 import Authorization
 import Decks
+import Dictionary
 import UserProfile
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -19,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let navigationConroller = UINavigationController(rootViewController: ChangePasswordViewControllerFactory()
-            .changePasswordViewController(user: User()))
+        let navigationConroller = UINavigationController(rootViewController: CustomTabBarController())
+        navigationConroller.navigationBar.isHidden = true
         window.rootViewController = navigationConroller
         self.window = window
         window.makeKeyAndVisible()

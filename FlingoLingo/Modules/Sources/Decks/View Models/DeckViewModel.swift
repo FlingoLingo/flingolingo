@@ -10,7 +10,9 @@ import SwiftUI
 
 final class DeckViewModel: ObservableObject {
 
-    @Published var text: String = ""
+    @Published var text = ""
+    @Published var deckName = ""
+    @Published var isShowingAlert = false
     let deck: Deck
     private let backAction: () -> Void
 
@@ -28,6 +30,11 @@ final class DeckViewModel: ObservableObject {
     }
 
     func editButtonClicked() {
+        deckName = deck.title
+        isShowingAlert = true
+    }
+
+    func editDeckName() {
 
     }
 

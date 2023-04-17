@@ -8,19 +8,30 @@
 import UIKit
 
 public final class MainButton: UIButton {
-    // MARK: - Properties
-    private let buttonCornerRadius: CGFloat = 20
 
     // MARK: - Initialization
-    public convenience init(title: String,
-                            titleColor: UIColor,
-                            backgroundColor: UIColor) {
+    public convenience init(title: String, titleColor: UIColor, backgroundColor: UIColor) {
         self.init()
 
-        layer.cornerRadius = buttonCornerRadius
-        setTitle(title, for: .normal)
-        setTitleColor(titleColor, for: .normal)
-        titleLabel?.font = Fonts.buttonTitle
-        self.backgroundColor = backgroundColor
+        var configuration = UIButton.Configuration.filled()
+        configuration.contentInsets = .init(
+            top: CommonConstants.smallSpacing,
+            leading: CommonConstants.smallSpacing,
+            bottom: CommonConstants.smallSpacing,
+            trailing: CommonConstants.smallSpacing
+        )
+        configuration.background.backgroundColor = backgroundColor
+        configuration.background.cornerRadius = CommonConstants.cornerRadius
+
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = Fonts.buttonTitle
+            outgoing.foregroundColor = titleColor
+
+            return outgoing
+          }
+
+        configuration.title = title
+        self.configuration = configuration
     }
 }

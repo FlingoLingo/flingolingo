@@ -10,7 +10,7 @@ import UIComponents
 
 struct DecksPageView: View {
 
-    private let viewModel: DecksViewModel
+    @ObservedObject private var viewModel: DecksViewModel
 
     init(viewModel: DecksViewModel) {
         self.viewModel = viewModel
@@ -32,6 +32,11 @@ struct DecksPageView: View {
                 }
                 .padding(.top, CommonConstants.bigSpacing)
             }
+            .alert(NSLocalizedString("addDeckTitle", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
+                TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.newDeckName)
+                Button(NSLocalizedString("create", comment: ""), action: viewModel.createDeck)
+                Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
+            })
             .padding(.horizontal, CommonConstants.bigSpacing)
             .cornerRadius(CommonConstants.cornerRadius)
         }

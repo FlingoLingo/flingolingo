@@ -71,9 +71,9 @@ final class WelcomeView: UIView {
         return button
     }()
 
-    private lazy var guestLogInButton: UIButton = {
+    private lazy var guestLogInButton: MainButton = {
         let title = NSLocalizedString("guestLogInButton", comment: "")
-        let button = UIButton()
+        let button = MainButton()
         button.setTitle(title, for: .normal)
         button.setTitleColor(ColorScheme.secondaryText, for: .normal)
         button.titleLabel?.font = Fonts.mainText
@@ -152,17 +152,15 @@ extension WelcomeView {
             guestLogInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: guestLogInButton.trailingAnchor, constant: 25),
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: guestLogInButton.bottomAnchor, constant: 25),
-            guestLogInButton.heightAnchor.constraint(equalToConstant: 44),
+            guestLogInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
 
             signUpButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 25),
             guestLogInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 10),
-            signUpButton.heightAnchor.constraint(equalToConstant: 60),
 
             logInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: logInButton.trailingAnchor, constant: 25),
             signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 15),
-            logInButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 }
