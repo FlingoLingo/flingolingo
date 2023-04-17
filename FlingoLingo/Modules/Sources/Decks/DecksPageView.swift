@@ -11,7 +11,6 @@ import UIComponents
 struct DecksPageView: View {
 
     @ObservedObject private var viewModel: DecksViewModel
-    @State private var isShowingContextMenu = false
 
     init(viewModel: DecksViewModel) {
         self.viewModel = viewModel
