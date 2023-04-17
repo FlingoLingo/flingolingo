@@ -11,17 +11,17 @@ import SwiftUI
 struct DeckFormatter {
 
     func formatWords(deck: Deck) -> String {
-        "\(NSLocalizedString("allWordsDescription", comment: "")): " +
+        "\(NSLocalizedString("allWordsDescription", comment: "")) " +
         "\(deck.wordsCount)"
     }
 
     func formatLearnedWords(deck: Deck) -> String {
-        "\(NSLocalizedString("learnedWordsDescription", comment: "")): " +
+        "\(NSLocalizedString("learnedWordsDescription", comment: "")) " +
         "\(deck.learnedWords)"
     }
 
     func formatDate(deck: Deck) -> String {
-        "\(NSLocalizedString("lastRepeatDescription", comment: "")): " +
+        "\(NSLocalizedString("lastRepeatDescription", comment: "")) " +
         "\(deck.repetitionDate.formatted(.dateTime.day().month().year()))"
     }
 }

@@ -32,18 +32,15 @@ final class CustomTabBarController: UITabBarController {
             title: NSLocalizedString("dictionary", comment: ""),
             image: Constants.dictionary ?? .add
         )
-        let decksViewFactory = DecksViewControllerFactory()
-        let decksController = configureViewController(
-            controller: decksViewFactory.decksViewController(viewModel: DecksViewModel()),
-            title: NSLocalizedString("decksHeader", comment: ""),
-            image: Constants.decks ?? .add
-        )
+
+        let decksViewController = createDecksNavigationController()
+
         let profileController = configureViewController(
             controller: UIViewController(),
             title: NSLocalizedString("profile", comment: ""),
             image: Constants.profile ?? .add
         )
-        viewControllers = [dictionaryController, decksController, profileController]
+        viewControllers = [dictionaryController, decksViewController, profileController]
     }
 
     private func configureAppearance() {
@@ -53,10 +50,26 @@ final class CustomTabBarController: UITabBarController {
         tabBar.isTranslucent = false
     }
 
+    private func createDecksNavigationController() -> UIViewController {
+        let decksViewControllerFactory = DecksViewControllerFactory()
+        let decksController = configureViewController(
+            controller: decksViewControllerFactory.decksViewController(),
+            title: NSLocalizedString("decksHeader", comment: ""),
+            image: Constants.decks ?? .add
+        )
+
+        let decksNavigationController = UINavigationController(rootViewController: decksController)
+        decksNavigationController.isNavigationBarHidden = true
+        return decksNavigationController
+
+    }
+
     // MARK: - Generation
-    private func configureViewController(controller: UIViewController,
-                                          title: String,
-                                          image: UIImage) -> UIViewController {
+    private func configureViewController(
+        controller: UIViewController,
+        title: String,
+        image: UIImage
+    ) -> UIViewController {
         controller.tabBarItem.title = title
         controller.tabBarItem.image = image
         return controller
