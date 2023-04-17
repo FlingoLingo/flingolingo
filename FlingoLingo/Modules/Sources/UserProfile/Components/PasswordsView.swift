@@ -12,15 +12,15 @@ struct PasswordsView: View {
     var body: some View {
         VStack(spacing: 15) {
             PasswordTextField(placeholder: NSLocalizedString("oldPassword", comment: ""),
-                              password: $viewModel.oldPassword)
+                              password: $viewModel.oldPassword, isPasswordCorrect: $viewModel.isPasswordCorrect)
                 .overlay(RoundedRectangle(cornerRadius: CommonConstants.textFieldCornerRadius)
                 .stroke(SColors.inactive, lineWidth: 1))
             PasswordTextField(placeholder: NSLocalizedString("newPassword", comment: ""),
-                              password: $viewModel.newPassword)
+                              password: $viewModel.newPassword, isPasswordCorrect: $viewModel.isPasswordCorrect)
                 .overlay(RoundedRectangle(cornerRadius: CommonConstants.textFieldCornerRadius)
                 .stroke(SColors.inactive, lineWidth: 1))
             PasswordTextField(placeholder: NSLocalizedString("confirmPassword", comment: ""),
-                              password: $viewModel.confirmPassword)
+                              password: $viewModel.confirmPassword, isPasswordCorrect: $viewModel.isPasswordCorrect)
                 .overlay(RoundedRectangle(cornerRadius: CommonConstants.textFieldCornerRadius)
                 .stroke(SColors.inactive, lineWidth: 1))
         }

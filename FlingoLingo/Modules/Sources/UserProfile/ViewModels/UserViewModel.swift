@@ -6,6 +6,7 @@ public final class UserViewModel: ObservableObject {
     @Published var oldPassword: String = ""
     @Published var newPassword: String = ""
     @Published var confirmPassword: String = ""
+    @Published var isPasswordCorrect: Bool = true
 
     public init(user: User = User()) {
         self.user = user

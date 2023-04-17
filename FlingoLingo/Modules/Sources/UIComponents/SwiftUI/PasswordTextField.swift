@@ -6,15 +6,17 @@ public struct PasswordTextField: View {
 
     @Binding public var password: String
     @State private var isSecured: Bool = true
+    @Binding private var isPasswordCorrect: Bool
 
     private var placeholderColor: Color {
         password.isEmpty ? SColors.inactive : SColors.mainText
     }
 
-    public init(placeholder: String, password: Binding<String>, isSecured: Bool = true) {
+    public init(placeholder: String, password: Binding<String>, isSecured: Bool = true, isPasswordCorrect: Binding<Bool>) {
         self.placeholder = placeholder
         self.isSecured = isSecured
         self._password = password
+        self._isPasswordCorrect = isPasswordCorrect
     }
 
     public var body: some View {
@@ -29,6 +31,7 @@ public struct PasswordTextField: View {
                         .padding(.vertical, 10)
                         .padding(.horizontal, 15)
                         .foregroundColor(placeholderColor)
+                        .autocapitalization(.none)
                         .frame(height: 45)
                 } else {
                     TextField("", text: $password)
@@ -39,6 +42,7 @@ public struct PasswordTextField: View {
                         .padding(.vertical, 10)
                         .padding(.horizontal, 15)
                         .foregroundColor(placeholderColor)
+                        .autocapitalization(.none)
                         .frame(height: 45)
                 }
             }
