@@ -12,73 +12,74 @@ public final class UserViewModel: ObservableObject {
     @Published var oldPassword: String = ""
     @Published var newPassword: String = ""
     @Published var confirmPassword: String = ""
+    @Published var oldPasswordCorrect: Bool = true
+    @Published var newPasswordCorrect: Bool = true
+    @Published var confirmPasswordCorrect: Bool = true
     @Published var validatePasswords: [TextField: String] = [:]
 
     private let router: UserProfileRouter
     private let backAction: () -> Void
 
-    public init(user: User = User(),
-                backAction: @escaping () -> Void = {},
-                router: UserProfileRouter = UserProfileRouter()) {
+    init(user: User = User(),
+         backAction: @escaping () -> Void = {},
+         router: UserProfileRouter = UserProfileRouter()) {
         self.user = user
         self.backAction = backAction
         self.router = router
     }
 
-    public func changePassword() {
-        var error = false
+    func changePassword() {
 
         if oldPassword.count < 6 {
             validatePasswords[.old] = "Пароль должен состоять как минимум  из 6 символов"
-            error = true
+            oldPasswordCorrect = false
         } else {
-            validatePasswords[.old] = ""
+            validatePasswords[.old] = nil
+            oldPasswordCorrect = true
         }
 
         if newPassword.count < 6 {
             validatePasswords[.new] = "Пароль должен состоять как минимум  из 6 символов"
-            error = true
+            newPasswordCorrect = false
         } else {
-            validatePasswords[.new] = ""
+            validatePasswords[.new] = nil
+            newPasswordCorrect = true
         }
 
         if confirmPassword != newPassword {
             validatePasswords[.confirm] = "Пароли не совпадают"
-            error = true
+            confirmPasswordCorrect = false
         } else {
-            validatePasswords[.confirm] = ""
+            validatePasswords[.confirm] = nil
+            confirmPasswordCorrect = true
         }
 
-        if !error {
+        if oldPasswordCorrect && newPasswordCorrect && confirmPasswordCorrect {
             // change password
         }
-    }
-
-    public func isPasswordCorrect(password: String?) -> Bool {
-        password?.count ?? 0 >= 6
     }
 
     func getErrorText(for type: TextField) -> String? {
         validatePasswords[type]
     }
 
-    public func arePasswordsEqual(first: String?, second: String?) -> Bool {
-        !(first?.isEmpty ?? true) && !(second?.isEmpty ?? true) && first == second
+    func hasError(for type: TextField) -> Bool {
+        validatePasswords[type] != nil
     }
 
-    public func logOut() {
-
-    }
-
-    public func openWelcomeView() {
+    func logOut() {
 
     }
 
-    public func openSettings() {
+    func openWelcomeView() {
+
+    }
+
+    func openSettings() {
         router.changePassword(user: user)
     }
 
-    public func goBack() {
+    func goBack() {
         backAction()
     }
 

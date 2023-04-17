@@ -11,7 +11,8 @@ public final class UserProfileRouter {
 
     func changePassword(user: User) {
         let changePasswordFactory = ChangePasswordViewControllerFactory()
-        let changePasswordController = changePasswordFactory.changePasswordViewController(user: user, backAction: goBack)
+        let changePasswordController = changePasswordFactory.changePasswordViewController(user: user,
+                                                                                          backAction: goBack)
         presentingViewController?.navigationController?.pushViewController(changePasswordController, animated: true)
     }
 

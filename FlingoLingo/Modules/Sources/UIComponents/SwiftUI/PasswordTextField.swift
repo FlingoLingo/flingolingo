@@ -6,15 +6,17 @@ public struct PasswordTextField: View {
 
     @Binding public var password: String
     @State private var isSecured: Bool = true
+    @State var isPasswordIncorrect: Bool
 
     private var placeholderColor: Color {
         password.isEmpty ? SColors.inactive : SColors.mainText
     }
 
-    public init(placeholder: String, password: Binding<String>, isSecured: Bool = true) {
+    public init(placeholder: String, password: Binding<String>, isSecured: Bool = true, isPasswordIncorrect: Bool) {
         self.placeholder = placeholder
         self.isSecured = isSecured
         self._password = password
+        self.isPasswordIncorrect = isPasswordIncorrect
     }
 
     public var body: some View {
