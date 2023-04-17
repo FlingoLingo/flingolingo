@@ -10,7 +10,7 @@ import UIComponents
 
 final class DictionaryTableViewCell: UITableViewCell {
 
-    private let wordLabel = UILabel()
+    public let wordLabel = UILabel()
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -34,16 +34,16 @@ final class DictionaryTableViewCell: UITableViewCell {
     }
     func cellSettings() {
         self.backgroundColor = .black
-        word.textColor = .white
-        word.font = Fonts.mainText
+        wordLabel.textColor = .white
+        wordLabel.font = Fonts.mainText
 
-        contentView.addSubview(word)
-        word.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(wordLabel)
+        wordLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
 
-            word.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            word.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            wordLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            wordLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
 
         ])
 

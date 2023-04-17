@@ -62,7 +62,7 @@ public final class DictionaryViewController: UIViewController {
         return textField
     }()
 
-    private lazy var suggestionView: SuggestionView = {
+    public lazy var suggestionView: SuggestionView = {
         let suggestionView = SuggestionView()
         suggestionView.translatesAutoresizingMaskIntoConstraints = false
         return suggestionView
@@ -72,7 +72,7 @@ public final class DictionaryViewController: UIViewController {
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?
     private var suggestionViewConstraint: NSLayoutConstraint?
-    open var tableSpacing = 10
+    public var tableSpacing = 10
     private lazy var network: NetworkRequest = {
         let network = NetworkRequest()
         return network
@@ -91,7 +91,7 @@ public final class DictionaryViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .init(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
-        [tableView, topLabel, originLanguage, arrow, translatedLanguage, suggestionView, textField].forEach { subView in
+        [tableView, topLabel, originLanguage, arrowButton, translatedLanguage, suggestionView, textField].forEach { subView in
             view.addSubview(subView)
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -99,14 +99,14 @@ public final class DictionaryViewController: UIViewController {
                                                              constant: 75)
         let selectedLanguageConstant = originLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                                                constant: 15)
-        let arrowConstraint = arrow.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let arrowConstraint = arrowButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         let suggestionViewConstraint = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor,
                                                                            constant: 25)
         self.centerConstraint = centerConstraint
         self.selectedLanguageConstant = selectedLanguageConstant
         self.arrowConstraint = arrowConstraint
         self.suggestionViewConstraint = suggestionViewConstraint
-        textField.rw.button.addTarget(self, action: #selector(textFieldFunc),
+        textField.rightViewButton.button.addTarget(self, action: #selector(textFieldFunc),
                                       for: .touchUpInside)
         let topLabelConstraints = [
             centerConstraint,
@@ -119,10 +119,10 @@ public final class DictionaryViewController: UIViewController {
             selectedLanguageConstant,
             originLanguage.topAnchor.constraint(equalTo: topLabel.bottomAnchor,
                                                 constant: 15),
-            arrow.leadingAnchor.constraint(equalTo: originLanguage.trailingAnchor,
+            arrowButton.leadingAnchor.constraint(equalTo: originLanguage.trailingAnchor,
                                            constant: 15),
-            arrow.centerYAnchor.constraint(equalTo: originLanguage.centerYAnchor),
-            translatedLanguage.leadingAnchor.constraint(equalTo: arrow.trailingAnchor,
+            arrowButton.centerYAnchor.constraint(equalTo: originLanguage.centerYAnchor),
+            translatedLanguage.leadingAnchor.constraint(equalTo: arrowButton.trailingAnchor,
                                                         constant: 15),
             translatedLanguage.topAnchor.constraint(equalTo: topLabel.bottomAnchor,
                                                     constant: 15)
@@ -165,16 +165,16 @@ public final class DictionaryViewController: UIViewController {
                             for: .editingChanged)
         textField.addTarget(self, action: #selector(clear),
                             for: .editingDidBegin)
-        textField.rw.button.addTarget(self, action: #selector(clear),
+        textField.rightViewButton.button.addTarget(self, action: #selector(clear),
                                       for: .touchUpInside)
         suggestionView.addTarget(self, action: #selector(suggestWasAccepted),
                                  for: .touchUpInside)
-        arrow.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
+        arrowButton.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
     }
     private var workItem: DispatchWorkItem?
     private var languagesPairApiCode = "en-ru"
 }
-extension DictionaryViewController {
+extension DictionaryViewController: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         blockAppearance = false
         textField.layer.opacity = 1
@@ -182,7 +182,7 @@ extension DictionaryViewController {
         tableView.reloadData()
         topLabel.isHidden = true
         centerConstraint?.constant = 0
-        arrow.layer.opacity = 0.4
+        arrowButton.layer.opacity = 0.4
         self.suggestionView.isHidden = true
         self.suggestionViewConstraint?.constant = 25
         NSLayoutConstraint.activate([self.suggestionViewConstraint!])
@@ -273,13 +273,13 @@ extension DictionaryViewController {
     }
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.workItem?.cancel()
-        arrow.layer.opacity = 1
+        arrowButton.layer.opacity = 1
         textField.resignFirstResponder()
         tableView.reloadData()
         return true
     }
     func loadMenanings() {
-        arrow.layer.opacity = 1
+        arrowButton.layer.opacity = 1
         networkFetcher.getWord(lungs: languagesPairApiCode,
                                text: textField.text?.trimmingCharacters(in: .whitespaces) ?? " ") { word in
             self.tableData = word ?? Word(def: nil)

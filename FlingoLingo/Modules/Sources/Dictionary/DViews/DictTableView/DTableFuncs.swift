@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension DictionaryViewController {
+extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if sinonimsCount != 0 {
             suggestionView.isHidden = true
@@ -31,7 +31,7 @@ extension DictionaryViewController {
            maskLayer.backgroundColor = UIColor.black.cgColor
            maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
            cell.layer.mask = maskLayer
-        cell.word.text = tableData.def?.first?.tr?[indexPath.row].text
+        cell.wordLabel.text = tableData.def?.first?.tr?[indexPath.row].text
         return cell
     }
 
