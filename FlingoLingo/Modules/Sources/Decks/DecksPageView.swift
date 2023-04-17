@@ -37,21 +37,3 @@ struct DecksPageView: View {
         }
     }
 }
-
-struct Previews: PreviewProvider {
-    static let viewModel = {
-        let viewModel = DecksViewModel()
-        viewModel.decks = Array(repeating: Deck(id: 1,
-                                                title: "Для путешествий",
-                                                wordsCount: 100,
-                                                learnedWords: 32,
-                                                repetitionDate: Date.now,
-                                                cards: []),
-                                count: 5)
-        return viewModel
-    }()
-
-    static var previews: some View {
-        DecksPageView(viewModel: viewModel)
-    }
-}
