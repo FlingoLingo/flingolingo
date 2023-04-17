@@ -50,7 +50,6 @@ public final class UserViewModel: ObservableObject {
         }
 
         if !error {
-            print("success")
             // change password
         }
     }
