@@ -72,16 +72,18 @@ public final class DictionaryViewController: UIViewController {
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?
     private var suggestionViewConstraint: NSLayoutConstraint?
-    
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.background
         self.navigationController?.isNavigationBarHidden = true
-        [tableView, topLabel, originLanguage, arrowButton, translatedLanguage, suggestionView, textField].forEach { subView in
+        [tableView,
+         topLabel,
+         originLanguage,
+         arrowButton,
+         translatedLanguage,
+         suggestionView,
+         textField].forEach { subView in
             view.addSubview(subView)
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
