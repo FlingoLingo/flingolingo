@@ -59,7 +59,6 @@ final class CustomTabBarController: UITabBarController {
         )
 
         let decksNavigationController = UINavigationController(rootViewController: decksController)
-        decksNavigationController.isNavigationBarHidden = true
         return decksNavigationController
 
     }
