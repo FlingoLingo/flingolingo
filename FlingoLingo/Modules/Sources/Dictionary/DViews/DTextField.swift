@@ -9,22 +9,30 @@ import Foundation
 import UIKit
 import UIComponents
 
-class DTextField: UITextField {
-    let rw = ClearView()
+final class DTextField: UITextField {
+
     override init(frame: CGRect) {
+
         super.init(frame: frame)
         layer.borderWidth = 1.5
         layer.borderColor = UIColor.white.cgColor
         layer.opacity = 0.4
-        layer.cornerRadius = CommonConstants.textFieldCornerRadius
+        layer.cornerRadius = 10
+
         placeholder = "Введите слово..."
-        leftView = UIView(frame: CGRect(x: 0, y: 0, width: CommonConstants.smallSpacing, height: CommonConstants.smallSpacing))
+
+        leftView = UIView(frame: CGRect(x: 0, y: 0, width: CommonConstants.bigSpacing * 0.5, height: 45))
         leftViewMode = .always
+
         textColor = .white
+
         keyboardType = .webSearch
-        rw.button.addTarget(self, action: #selector(clear), for: .touchUpInside)
-        rightView = rw
+
+        let rightViewButton = ClearView()
+        rightViewButton.button.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        rightView = rightViewButton
         rightViewMode = .always
+
         let font = Fonts.searchText
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: UIColor.white]

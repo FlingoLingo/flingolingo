@@ -8,58 +8,66 @@
 import UIKit
 import UIComponents
 
-public class DictionaryViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+public final class DictionaryViewController: UIViewController {
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(DictionaryTableViewCell.self, forCellReuseIdentifier: "DTableViewCell")
         tableView.separatorColor = .clear
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         tableView.clipsToBounds = true
-        tableView.layer.cornerRadius = 10
+        tableView.layer.cornerRadius = CommonConstants.textFieldCornerRadius
         tableView.allowsSelection = false
-        tableView.delegate = self
         return tableView
     }()
+
     private lazy var topLabel: UILabel = {
         let topLabel = UILabel()
-        // шрифт потом общий
         topLabel.font = Fonts.largeTitle
         topLabel.translatesAutoresizingMaskIntoConstraints = false
         topLabel.text = "Словарь"
-        topLabel.textColor = .white
+        topLabel.textColor = ColorScheme.mainText
+
         return topLabel
     }()
-    private lazy var originLanguage: Language = {
-        let originLanguage = Language()
+
+    private lazy var originLanguage: LanguageButton = {
+        let originLanguage = LanguageButton()
         originLanguage.setTitle("Английский")
         return originLanguage
     }()
-    private lazy var translatedLanguage: Language = {
-        let translatedLanguage = Language()
+
+    private lazy var translatedLanguage: LanguageButton = {
+        let translatedLanguage = LanguageButton()
         translatedLanguage.setTitle("Русский")
         return translatedLanguage
     }()
-    private lazy var arrow: Arrow = {
-        let arrow = Arrow()
+
+    private lazy var arrowButton: UIButton = {
+        let arrow = UIButton()
+        arrow.backgroundColor = .clear
+        arrow.tintColor = ColorScheme.mainText
+        arrow.setImage(UIImage(systemName: "arrow.left.arrow.right"), for: .normal)
         return arrow
     }()
+
     private lazy var textField: DTextField = {
         let textField = DTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
         return textField
     }()
-    lazy var suggestionView: SuggestionView = {
+
+    private lazy var suggestionView: SuggestionView = {
         let suggestionView = SuggestionView()
         suggestionView.translatesAutoresizingMaskIntoConstraints = false
-        suggestionView.contentMode = .left
         return suggestionView
     }()
+
     private var centerConstraint: NSLayoutConstraint?
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?

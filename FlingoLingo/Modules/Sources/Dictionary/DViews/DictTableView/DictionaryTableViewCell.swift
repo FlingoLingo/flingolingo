@@ -8,9 +8,9 @@
 import UIKit
 import UIComponents
 
-class DictionaryTableViewCell: UITableViewCell {
+final class DictionaryTableViewCell: UITableViewCell {
 
-    var word = UILabel()
+    private let wordLabel = UILabel()
     override func awakeFromNib() {
         super.awakeFromNib()
     }
