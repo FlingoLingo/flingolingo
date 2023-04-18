@@ -9,6 +9,7 @@ import UIComponents
 import Decks
 import UIKit
 import UserProfile
+import Dictionary
 
 final class CustomTabBarController: UITabBarController {
     // MARK: - Constants
@@ -28,11 +29,7 @@ final class CustomTabBarController: UITabBarController {
 
     // MARK: - Configurations
     private func configureTabBar() {
-        let dictionaryController = configureViewController(
-            controller: UIViewController(),
-            title: NSLocalizedString("dictionary", comment: ""),
-            image: Constants.dictionary ?? .add
-        )
+        let dictionaryController = createDictionaryNavigationController()
 
         let decksViewController = createDecksNavigationController()
 
@@ -46,6 +43,18 @@ final class CustomTabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = ColorScheme.inactive
         tabBar.backgroundColor = ColorScheme.background
         tabBar.isTranslucent = false
+    }
+
+    private func createDictionaryNavigationController() -> UIViewController {
+        let dictionaryController = configureViewController(
+            controller: DictionaryViewController(),
+            title: NSLocalizedString("dictionary", comment: ""),
+            image: Constants.dictionary ?? .add
+        )
+
+        let dictionaryNavigationController = UINavigationController(rootViewController: dictionaryController)
+        dictionaryNavigationController.setNavigationBarHidden(true, animated: false)
+        return dictionaryNavigationController
     }
 
     private func createDecksNavigationController() -> UIViewController {
@@ -71,6 +80,7 @@ final class CustomTabBarController: UITabBarController {
         )
 
         let userProfileNavigationController = UINavigationController(rootViewController: userProfileController)
+        userProfileController.navigationController?.setNavigationBarHidden(true, animated: false)
         return userProfileNavigationController
     }
 
