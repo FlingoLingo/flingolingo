@@ -19,8 +19,11 @@ public final class UserProfileRouter {
 
     func openWelcomeScreen() {
         let welcomeViewController = WelcomeViewController()
-        welcomeViewController.hidesBottomBarWhenPushed = true
-        presentingViewController?.navigationController?.pushViewController(welcomeViewController, animated: true)
+        let navWelComeController = UINavigationController()
+        navWelComeController.setNavigationBarHidden(true, animated: false)
+        navWelComeController.viewControllers.append(welcomeViewController)
+        navWelComeController.modalPresentationStyle = .fullScreen
+        presentingViewController?.present(navWelComeController, animated: true, completion: nil)
     }
 
     private func goBack() {

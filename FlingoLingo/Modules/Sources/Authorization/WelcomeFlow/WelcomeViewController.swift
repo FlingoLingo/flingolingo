@@ -28,27 +28,19 @@ public final class WelcomeViewController: UIViewController {
     public override func loadView() {
         view = welcomeView
     }
-
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
 }
 
 // MARK: - WelcomeViewDelegate
 extension WelcomeViewController: WelcomeViewDelegate {
     func signUpButtonTapped() {
         let signUpViewController = SignUpViewController()
+        signUpViewController.navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.pushViewController(signUpViewController, animated: true)
     }
 
     func logInButtonTapped() {
         let logInViewController = LogInViewController()
+        logInViewController.navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.pushViewController(logInViewController, animated: true)
     }
 
