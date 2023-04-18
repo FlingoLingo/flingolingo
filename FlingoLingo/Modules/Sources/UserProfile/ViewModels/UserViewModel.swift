@@ -23,12 +23,12 @@ public final class UserViewModel: ObservableObject {
     @Published var confirmPassword: String = ""
     @Published var validatePasswords: [TextField: String] = [:]
 
-    private let router: UserProfileRouter
+    private let router: ProfileRouter
     private let backAction: () -> Void
 
     init(user: User = User(),
          backAction: @escaping () -> Void = {},
-         router: UserProfileRouter = UserProfileRouter()) {
+         router: ProfileRouter = ProfileRouter()) {
         self.user = user
         self.backAction = backAction
         self.router = router

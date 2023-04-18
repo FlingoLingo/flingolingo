@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import Authorization
 
-public final class UserProfileRouter {
+public final class ProfileRouter {
 
     public weak var presentingViewController: UIViewController?
 
