@@ -8,6 +8,7 @@
 import UIComponents
 import Decks
 import UIKit
+import UserProfile
 
 final class CustomTabBarController: UITabBarController {
     // MARK: - Constants
@@ -35,11 +36,8 @@ final class CustomTabBarController: UITabBarController {
 
         let decksViewController = createDecksNavigationController()
 
-        let profileController = configureViewController(
-            controller: UIViewController(),
-            title: NSLocalizedString("profile", comment: ""),
-            image: Constants.profile ?? .add
-        )
+        let profileController = createProfileNavigationController()
+
         viewControllers = [dictionaryController, decksViewController, profileController]
     }
 
@@ -62,6 +60,18 @@ final class CustomTabBarController: UITabBarController {
         decksNavigationController.setNavigationBarHidden(true, animated: false)
         return decksNavigationController
 
+    }
+
+    private func createProfileNavigationController() -> UIViewController {
+        let userProfileViewControllerFactory = UserProfileViewControllerFactory()
+        let userProfileController = configureViewController(
+            controller: userProfileViewControllerFactory.userProfileViewController(),
+            title: NSLocalizedString("profile", comment: ""),
+            image: Constants.profile ?? .add
+        )
+
+        let userProfileNavigationController = UINavigationController(rootViewController: userProfileController)
+        return userProfileNavigationController
     }
 
     // MARK: - Generation

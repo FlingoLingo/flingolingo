@@ -9,6 +9,7 @@ import UIKit
 import Authorization
 import Decks
 import Dictionary
+import UserProfile
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
