@@ -72,7 +72,8 @@ public final class UserViewModel: ObservableObject {
     }
 
     func openWelcomeView() {
-
+        logOut()
+        router.openWelcomeScreen()
     }
 
     func openSettings() {

@@ -30,6 +30,16 @@ public final class LogInViewController: UIViewController {
         view = authorizationView
     }
 
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
     // MARK: - Module functions
     func checkValidation(mail: String?, password: String?) -> Bool {
         var isValid = true

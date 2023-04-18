@@ -28,6 +28,16 @@ public final class WelcomeViewController: UIViewController {
     public override func loadView() {
         view = welcomeView
     }
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
 }
 
 // MARK: - WelcomeViewDelegate

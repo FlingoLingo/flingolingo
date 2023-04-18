@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Authorization
 
 public final class UserProfileRouter {
 
@@ -14,6 +15,12 @@ public final class UserProfileRouter {
         let changePasswordController = changePasswordFactory.changePasswordViewController(user: user,
                                                                                           backAction: goBack)
         presentingViewController?.navigationController?.pushViewController(changePasswordController, animated: true)
+    }
+
+    func openWelcomeScreen() {
+        let welcomeViewController = WelcomeViewController()
+        welcomeViewController.hidesBottomBarWhenPushed = true
+        presentingViewController?.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
 
     private func goBack() {
