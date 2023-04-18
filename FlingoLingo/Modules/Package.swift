@@ -29,11 +29,14 @@ let package = Package(
         ),
         .target(
             name: "UIComponents",
-            dependencies: []),
+            dependencies: [
+            ]
+        ),
         .target(
             name: "UserProfile",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "Authorization"
             ]
         ),
         .target(
