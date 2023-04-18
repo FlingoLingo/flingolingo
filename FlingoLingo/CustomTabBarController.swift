@@ -39,10 +39,15 @@ final class CustomTabBarController: UITabBarController {
     }
 
     private func configureAppearance() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = ColorScheme.background
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+
         tabBar.tintColor = ColorScheme.mainText
         tabBar.unselectedItemTintColor = ColorScheme.inactive
-        tabBar.backgroundColor = ColorScheme.background
         tabBar.isTranslucent = false
+        tabBar.clipsToBounds = true
     }
 
     private func createDictionaryNavigationController() -> UIViewController {
