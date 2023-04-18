@@ -22,4 +22,6 @@ public enum SColors {
     public static let darkBackground = Color(UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1.0))
     // Неактивный элемент.
     public static let inactive = Color(UIColor(red: 99/255, green: 99/255, blue: 99/255, alpha: 1.0))
+    public static let lightButton = Color(UIColor(red: 255/255, green: 108/255, blue: 144/255, alpha: 1))
+    public static let darkButton = Color(UIColor(red: 0.608, green: 0.185, blue: 0.287, alpha: 1))
 }
