@@ -10,7 +10,7 @@ import UIComponents
 
 final class DictionaryTableViewCell: UITableViewCell {
 
-    private let wordLabel = UILabel()
+    public let wordLabel = UILabel()
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -23,7 +23,6 @@ final class DictionaryTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
@@ -33,7 +32,6 @@ final class DictionaryTableViewCell: UITableViewCell {
         self.backgroundColor = .black
         wordLabel.textColor = .white
         wordLabel.font = Fonts.mainText
-        wordLabel.text = "Слово"
 
         contentView.addSubview(wordLabel)
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
