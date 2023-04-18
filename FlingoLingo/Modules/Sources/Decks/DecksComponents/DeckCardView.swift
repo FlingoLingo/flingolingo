@@ -39,7 +39,8 @@ struct DeckCardView: View {
                     .foregroundColor(SColors.mainText)
             }
             .frame(maxWidth: .infinity)
-            .padding(.all, CommonConstants.smallSpacing)
+            .padding([.vertical, .leading], CommonConstants.smallSpacing)
+            .padding(.trailing, CommonConstants.bigSpacing)
             .background(SColors.darkBackground)
             .cornerRadius(CommonConstants.cornerRadius)
         }

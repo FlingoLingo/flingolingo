@@ -18,4 +18,5 @@ public enum Icons {
     public static let xmark: Image = Image(systemName: "xmark")
     public static let eyeSlash: Image = Image(systemName: "eye.slash")
     public static let eye: Image =  Image(systemName: "eye")
+    public static let dots: Image = Image("delete")
 }

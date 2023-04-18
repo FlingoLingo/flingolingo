@@ -6,19 +6,18 @@
 //
 
 import SwiftUI
-import UIComponents
 
-struct ButtonView: View {
+public struct ButtonView: View {
 
     private let buttonText: String
     private let buttonClicked: (() -> Void)
 
-    init(buttonText: String, buttonClicked: @escaping () -> Void) {
+    public init(buttonText: String, buttonClicked: @escaping () -> Void) {
         self.buttonText = buttonText
         self.buttonClicked = buttonClicked
     }
 
-    var body: some View {
+    public var body: some View {
         Button(action: buttonClicked) {
             Text(buttonText)
                 .font(SFonts.buttonTitle)

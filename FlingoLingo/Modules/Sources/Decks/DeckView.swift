@@ -22,7 +22,8 @@ struct DeckView: View {
             VStack(spacing: CommonConstants.bigSpacing) {
                 DeckBackHeaderView(title: viewModel.deck.title,
                                    backButtonClicked: viewModel.backButtonClicked,
-                                   editButtonClicked: viewModel.editButtonClicked)
+                                   editButtonClicked: viewModel.editButtonClicked,
+                                   deleteButtonClicked: viewModel.deleteDeck)
                 DeckInfoView(deck: viewModel.deck)
                 SearchView(text: $viewModel.text)
                 ScrollView {
