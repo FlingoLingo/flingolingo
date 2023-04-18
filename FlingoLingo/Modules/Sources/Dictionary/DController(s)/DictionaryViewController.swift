@@ -81,10 +81,10 @@ public final class DictionaryViewController: UIViewController {
         let networkFetcher = NetworkFetcher(network: network)
         return networkFetcher
     }()
-    private var sinonimsCount = 0
-    private var tableData: Word = Word(def: nil)
-    private var blockAppearance = false
-    private let popOverVC = PopUpViewController()
+    lazy var sinonimsCount = 0
+    lazy var tableData: Word = Word(def: nil)
+    lazy var blockAppearance = false
+    let popOverVC = PopUpViewController()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
