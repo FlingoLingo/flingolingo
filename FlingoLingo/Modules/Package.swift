@@ -25,7 +25,8 @@ let package = Package(
         .target(
             name: "Authorization",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
         .target(
@@ -42,7 +43,7 @@ let package = Package(
         .target(
             name: "Dictionary",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
             ]
         ),
         .target(

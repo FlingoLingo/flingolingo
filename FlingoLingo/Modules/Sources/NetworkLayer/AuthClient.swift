@@ -7,37 +7,37 @@
 
 import Foundation
 
-class AuthClient {
-    struct SignUpResponse: Decodable {
-        var id: Int
-        var username: String
-    }
-    struct LogInResponse: Decodable {
-        var token: String
-    }
-    enum AuthError: Error {
-        case jsonSerializationError
-        case jsonParseError
-        case responseError
-        case noDataError
-    }
-    
+public struct SignUpResponse: Decodable {
+    var id: Int
+    var username: String
+}
+
+public struct LogInResponse: Decodable {
+    var token: String
+}
+
+public enum AuthError: Error {
+    case jsonSerializationError
+    case jsonParseError
+    case responseError
+    case noDataError
+}
+
+public final class AuthClient {
+    public init() {}
+
     public func registerUser(username: String, password: String, completion: @escaping (Result<SignUpResponse, AuthError>) -> Void) {
         let registerURL = URL(string: baseUrl + "/profile/register/")!
         var request = URLRequest(url: registerURL)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        // request.setValue(APP_FILE_NAME, forHTTPHeaderField: "User-Agent")
         request.httpMethod = "POST"
-        request.httpBody = try! JSONSerialization.data(withJSONObject: ["username": username, "password": password]) /* else {
-                                                                                                                      completion(.failure(.jsonSerializationError))
-                                                                                                                      }*/
+        request.httpBody = try! JSONSerialization.data(withJSONObject: ["username": username, "password": password])
         let session: URLSession = {
             let session = URLSession(configuration: .default)
             session.configuration.timeoutIntervalForRequest = 30.0
             return session
         }()
-        
-        let task = session.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { data, _, error in
             guard error == nil else {
                 completion(.failure(.responseError))
                 return
@@ -45,7 +45,6 @@ class AuthClient {
             guard let data = data else {
                 completion(.failure(.noDataError))
                 return
-                
             }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -57,26 +56,19 @@ class AuthClient {
         }
         task.resume()
     }
-    
-    
-    
-    
+
     public func getToken(username: String, password: String, completion: @escaping (Result<LogInResponse, AuthError>) -> Void) {
         let registerURL = URL(string: baseUrl + "/token-auth/")!
         var request = URLRequest(url: registerURL)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        // request.setValue(APP_FILE_NAME, forHTTPHeaderField: "User-Agent")
         request.httpMethod = "POST"
-        request.httpBody = try! JSONSerialization.data(withJSONObject: ["username": username, "password": password]) /* else {
-                                                                                                                      completion(.failure(.jsonSerializationError))
-                                                                                                                      }*/
+        request.httpBody = try! JSONSerialization.data(withJSONObject: ["username": username, "password": password])
         let session: URLSession = {
             let session = URLSession(configuration: .default)
             session.configuration.timeoutIntervalForRequest = 30.0
             return session
         }()
-        
-        let task = session.dataTask(with: request) { data, response, error in
+        let task = session.dataTask(with: request) { data, _, error in
             guard error == nil else {
                 completion(.failure(.responseError))
                 return
@@ -84,7 +76,6 @@ class AuthClient {
             guard let data = data else {
                 completion(.failure(.noDataError))
                 return
-                
             }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -97,7 +88,6 @@ class AuthClient {
         task.resume()
     }
 }
-
 
 // пример использования
 //let client = AuthClient()

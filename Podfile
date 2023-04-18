@@ -8,4 +8,5 @@ target 'FlingoLingo' do
 
   # Pods for FlingoLingo
   pod 'SwiftLint', '0.51.0'
+
 end
