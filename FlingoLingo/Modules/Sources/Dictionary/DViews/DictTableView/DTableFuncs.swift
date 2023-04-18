@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import UIComponents
 
 extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,7 +28,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let verticalPadding: CGFloat = CGFloat(tableSpacing)
            let maskLayer = CALayer()
-           maskLayer.cornerRadius = CGFloat(tableSpacing)    // if you want round edges
+           maskLayer.cornerRadius = CGFloat(CommonConstants.cornerRadius)
            maskLayer.backgroundColor = UIColor.black.cgColor
            maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
            cell.layer.mask = maskLayer
