@@ -23,7 +23,7 @@ struct GuestProfileView: View {
                 .font(Font(Fonts.mainText))
                 Spacer()
                 ButtonView(buttonText: NSLocalizedString("logInButton", comment: ""),
-                           buttonClicked: viewModel.openWelcomeView)
+                           buttonClicked: viewModel.logOut)
                 .padding(.bottom, CommonConstants.bottomPadding)
             }
             .padding(.horizontal, CommonConstants.bigSpacing)

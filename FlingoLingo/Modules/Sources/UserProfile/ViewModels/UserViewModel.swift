@@ -68,11 +68,6 @@ public final class UserViewModel: ObservableObject {
     }
 
     func logOut() {
-
-    }
-
-    func openWelcomeView() {
-        logOut()
         router.openWelcomeScreen()
     }
 
