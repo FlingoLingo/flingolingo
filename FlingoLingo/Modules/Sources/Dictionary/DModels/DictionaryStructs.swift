@@ -27,6 +27,12 @@ struct Tr: Codable {
     let syn: [Syn]?
     let mean: [Mean]?
     let asp: String?
+    let ex: [Ex]?
+}
+
+struct Ex: Codable {
+    let text: String?
+    let tr: [Mean]?
 }
 
 // MARK: - Mean

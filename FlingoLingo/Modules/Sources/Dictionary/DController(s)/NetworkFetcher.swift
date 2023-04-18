@@ -11,7 +11,8 @@ final class NetworkFetcher: ObservableObject {
 
     let network: NetworkRequest
 
-    func getParamsString(params: [String: Any]) -> String {
+    private func getParamsString(params: [String: Any])
+    -> String {
             var data = [String]()
             for(key, value) in params {
                 data.append(key + "=\(value)")
@@ -58,8 +59,27 @@ final class NetworkFetcher: ObservableObject {
     }
 }
 
+final class NetworkRequest {
+    func request(path: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        guard let url = URL(string:
+                                path.addingPercentEncoding(withAllowedCharacters:
+                                                            NSCharacterSet.urlQueryAllowed)!) else {
+            return
+        }
+        let session = URLSession(configuration: .default)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        session.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                completion(data, response, error)
+            }
+        }.resume()
+    }
+}
+
+
 // all urls here
-enum Urls: String {
+private enum Urls: String {
             case langs = "https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key=dict.1.1.20230414T071057Z.cc74933e551e6749.af1a5aaf6c6d625a28b9ec00e98a759bd4cc06bc"
 
             // MARK: не готово!

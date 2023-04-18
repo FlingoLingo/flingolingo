@@ -47,7 +47,7 @@ final class DTextField: UITextField {
 }
 
 public class SuggestionView: UIButton {
-    open var suggest = ""
+    public var suggest = ""
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.borderWidth = 1.5
