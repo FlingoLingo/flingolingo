@@ -11,9 +11,18 @@ public struct ButtonView: View {
 
     private let buttonText: String
     private let buttonClicked: (() -> Void)
+    private let buttonTextColor: Color
+    private let buttonBackgroundColor: Color
 
-    public init(buttonText: String, buttonClicked: @escaping () -> Void) {
+    public init(
+        buttonText: String,
+        buttonTextColor: Color = SColors.mainText,
+        buttonBackgroundColor: Color = SColors.accent,
+        buttonClicked: @escaping () -> Void
+    ) {
         self.buttonText = buttonText
+        self.buttonTextColor = buttonTextColor
+        self.buttonBackgroundColor = buttonBackgroundColor
         self.buttonClicked = buttonClicked
     }
 
@@ -21,12 +30,12 @@ public struct ButtonView: View {
         Button(action: buttonClicked) {
             Text(buttonText)
                 .font(SFonts.buttonTitle)
-                .foregroundColor(SColors.mainText)
+                .foregroundColor(buttonTextColor)
+                .frame(maxWidth: .infinity)
+                .padding(.all, CommonConstants.smallSpacing)
+                .background(buttonBackgroundColor)
+                .cornerRadius(CommonConstants.cornerRadius)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.all, CommonConstants.smallSpacing)
-        .background(SColors.accent)
-        .cornerRadius(CommonConstants.cornerRadius)
     }
 }
 
