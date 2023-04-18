@@ -81,13 +81,10 @@ public final class DictionaryViewController: UIViewController {
         let networkFetcher = NetworkFetcher(network: network)
         return networkFetcher
     }()
-    var sinonimsCount = 0
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-    }
-    var tableData: Word = Word(def: nil)
-    var blockAppearance = false
-    let popOverVC = PopUpViewController()
+    private var sinonimsCount = 0
+    private var tableData: Word = Word(def: nil)
+    private var blockAppearance = false
+    private let popOverVC = PopUpViewController()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,17 +185,27 @@ extension DictionaryViewController: UITextFieldDelegate {
         topLabel.isHidden = true
         centerConstraint?.constant = 0
         arrowButton.layer.opacity = 0.4
-        self.suggestionView.isHidden = true
-        self.suggestionViewConstraint?.constant = 25
+        suggestionView.isHidden = true
+        suggestionViewConstraint?.constant = 25
         NSLayoutConstraint.activate([self.suggestionViewConstraint!])
-        self.suggestionView.setTitle("",
-                                     for: .normal)
+        updateSuggestTitle("")
         NSLayoutConstraint.deactivate([self.selectedLanguageConstant!])
         NSLayoutConstraint.activate([self.arrowConstraint!])
         UIView.animate(withDuration: 0.35) {
             self.view.layoutIfNeeded()
         }
     }
+
+    private func updateSuggestTitle(_ title: String?) {
+        if title?.trimmingCharacters(in: .whitespaces) ?? "" != "" {
+            suggestionView.setTitle(title, for: .normal)
+            suggestionView.isEnabled = true
+        } else {
+            suggestionView.setTitle("не найдено", for: .normal)
+            suggestionView.isEnabled = false
+        }
+    }
+
     func textFieldEdited() {
         // отменяем старый айтем
         self.workItem?.cancel()
@@ -214,8 +221,7 @@ extension DictionaryViewController: UITextFieldDelegate {
                                                     .whitespaces) ?? " ") { word in
                                                         if self?.sinonimsCount == 0 && !(self?.textField.text?.isEmpty ?? true) && !(self?.blockAppearance ?? true) {
                         self?.textField.layer.opacity = 1
-                        self?.suggestionView.setTitle(word?.def?.first?.text,
-                                                      for: .normal)
+                                                            self?.updateSuggestTitle(word?.def?.first?.text)
                         self?.suggestionViewConstraint?.constant = 75
                         self?.suggestionView.isHidden = false
                         NSLayoutConstraint.activate([self!.suggestionViewConstraint!])
@@ -237,8 +243,7 @@ extension DictionaryViewController: UITextFieldDelegate {
         suggestionView.isHidden = true
         suggestionViewConstraint?.constant = CommonConstants.bigSpacing
         NSLayoutConstraint.activate([self.suggestionViewConstraint!])
-        suggestionView.setTitle("",
-                                     for: .normal)
+        updateSuggestTitle("")
         view.layoutIfNeeded()
         textField.resignFirstResponder()
         loadMenanings()
@@ -253,16 +258,16 @@ extension DictionaryViewController: UITextFieldDelegate {
         sinonimsCount = 0
         if textField.text?.isEmpty ?? false {
             textField.layer.opacity = 0.4
-            self.workItem?.cancel()
+            workItem?.cancel()
         }
         suggestionView.isHidden = true
-        self.suggestionViewConstraint?.constant = CommonConstants.bigSpacing
+        suggestionViewConstraint?.constant = CommonConstants.bigSpacing
         NSLayoutConstraint.activate([self.suggestionViewConstraint!])
-        self.suggestionView.setTitle("",
-                                     for: .normal)
-        self.view.layoutIfNeeded()
+        updateSuggestTitle("")
+        view.layoutIfNeeded()
         tableView.reloadData()
     }
+
     public func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.isEmpty ?? false {
             textField.layer.opacity = 0.4

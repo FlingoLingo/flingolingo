@@ -56,15 +56,6 @@ public class SuggestionView: UIButton {
         isHidden = true
         layer.cornerRadius = CommonConstants.textFieldCornerRadius
     }
-    public override func setTitle(_ title: String?, for state: UIControl.State) {
-        if title?.trimmingCharacters(in: .whitespaces) ?? "" != "" {
-            super.setTitle(title, for: state)
-            self.isEnabled = true
-        } else {
-            super.setTitle("не найдено", for: .normal)
-            self.isEnabled = false
-        }
-    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class NetworkFetcher: ObservableObject {
+final class NetworkFetcher {
 
-    let network: NetworkRequest
+    private let network: NetworkRequest
 
     private func getParamsString(params: [String: Any])
     -> String {
@@ -35,7 +35,6 @@ final class NetworkFetcher: ObservableObject {
                 return
             }
             if let error {
-                print(error)
                 completion(nil)
             }
             let words = self.decodeJSON(type: Word.self, from: data)
@@ -53,7 +52,6 @@ final class NetworkFetcher: ObservableObject {
         do {
             return try decoder.decode(type, from: data)
         } catch {
-            print(error)
             return nil
         }
     }
@@ -77,11 +75,8 @@ final class NetworkRequest {
     }
 }
 
-
 // all urls here
 private enum Urls: String {
             case langs = "https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key=dict.1.1.20230414T071057Z.cc74933e551e6749.af1a5aaf6c6d625a28b9ec00e98a759bd4cc06bc"
-
-            // MARK: не готово!
             case lookup = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20230414T071057Z.cc74933e551e6749.af1a5aaf6c6d625a28b9ec00e98a759bd4cc06bc&"
 }
