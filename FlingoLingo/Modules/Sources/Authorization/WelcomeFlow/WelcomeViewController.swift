@@ -34,13 +34,11 @@ public final class WelcomeViewController: UIViewController {
 extension WelcomeViewController: WelcomeViewDelegate {
     func signUpButtonTapped() {
         let signUpViewController = SignUpViewController()
-        signUpViewController.navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.pushViewController(signUpViewController, animated: true)
     }
 
     func logInButtonTapped() {
         let logInViewController = LogInViewController()
-        logInViewController.navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.pushViewController(logInViewController, animated: true)
     }
 
