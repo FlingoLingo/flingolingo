@@ -69,7 +69,7 @@ struct CardView: View {
 
                     let checkingStatus = (translation > 0 ? translation : -translation)
 
-                    withAnimation {
+                    withAnimation(.easeOut(duration: CommonConstants.animationDutation)) {
                         if checkingStatus > (width / 2) {
                             offset = (translation > 0 ? width : -width) * 2
                             endSwipeActions()
@@ -97,7 +97,7 @@ struct CardView: View {
             let width = getRect().width - 50
 
             if card.id == id {
-                withAnimation {
+                withAnimation(.easeOut(duration: CommonConstants.animationDutation)) {
                     offset = (rightSwipe ? width : -width) * 2
                     endSwipeActions()
                     if rightSwipe {
@@ -111,7 +111,7 @@ struct CardView: View {
     }
 
     func flipFlashcard() {
-        let animationTime = 0.5
+        let animationTime = CommonConstants.animationDutation
         withAnimation(Animation.linear(duration: animationTime)) {
             if flipped {
                 flashcardRotation -= 180
@@ -120,7 +120,7 @@ struct CardView: View {
             }
         }
 
-        withAnimation(Animation.linear(duration: 0.001).delay(animationTime / 2)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationTime / 2) {
             if flipped {
                 contentRotation -= 180
             } else {
@@ -139,9 +139,11 @@ struct CardView: View {
     func endSwipeActions() {
         withAnimation(.none) { endSwipe = true }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            if let _ = viewModel.displayingCards.first {
-                let _ = withAnimation {
+        DispatchQueue.main.asyncAfter(deadline: .now() + CommonConstants.animationDutation / 2) {
+            if viewModel.displayingCards.first != nil {
+                _ = withAnimation(
+                    .easeIn(duration: CommonConstants.animationDutation / 2)
+                ) {
                     viewModel.displayingCards.removeFirst()
                 }
             }

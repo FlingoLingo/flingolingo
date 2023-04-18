@@ -20,7 +20,6 @@ struct CardsView: View {
             (SColors.background).edgesIgnoringSafeArea(.all)
             VStack {
                 CardsNavigationBarView(viewModel: viewModel)
-                    .padding(.top, CommonConstants.bigSpacing)
                     .padding(.horizontal, CommonConstants.bigSpacing)
                 ZStack {
                     let cards = viewModel.displayingCards

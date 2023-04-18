@@ -15,7 +15,11 @@ public struct CardsViewControllerFactory {
 
     }
 
-    public func cardsViewController(deck: Deck, backAction: @escaping () -> Void, popToRootAction: @escaping () -> Void) -> UIViewController {
+    public func cardsViewController(
+        deck: Deck,
+        backAction: @escaping () -> Void,
+        popToRootAction: @escaping () -> Void
+    ) -> UIViewController {
         let viewModel = CardsViewModel(deck: deck, backAction: backAction, popToRootAction: popToRootAction)
         return UIHostingController(rootView: CardsView(viewModel: viewModel))
     }

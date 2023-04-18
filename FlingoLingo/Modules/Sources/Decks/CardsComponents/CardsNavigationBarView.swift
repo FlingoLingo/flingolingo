@@ -19,10 +19,12 @@ struct CardsNavigationBarView: View {
             }
             ProgressView(value: viewModel.progress, total: Double(viewModel.getCardsCount()))
                 .tint(SColors.accent)
-            Button(action: {}) {
+            Button(action: {
+
+            }, label: {
                 Icons.circledArrows
                     .foregroundColor(SColors.mainText)
-            }
+            })
         }
     }
 }
