@@ -17,7 +17,8 @@ struct UserProfileView: View {
                 StatisticsView(viewModel: viewModel)
 
                 Spacer()
-                ButtonView(buttonText: NSLocalizedString("logOut", comment: ""), buttonClicked: viewModel.openWelcomeView)
+                ButtonView(buttonText: NSLocalizedString("logOut", comment: ""),
+                           buttonClicked: viewModel.openWelcomeView)
                     .padding(.bottom, CommonConstants.bottomPadding)
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
