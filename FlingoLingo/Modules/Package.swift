@@ -14,7 +14,7 @@ let package = Package(
                 "UIComponents",
                 "UserProfile",
                 "Decks",
-				"Dictionary"
+                "Dictionary"
             ]
         )
     ],
@@ -36,7 +36,7 @@ let package = Package(
                 "UIComponents"
             ]
         ),
-		.target(
+        .target(
             name: "Decks",
             dependencies: [
                 "UIComponents"
