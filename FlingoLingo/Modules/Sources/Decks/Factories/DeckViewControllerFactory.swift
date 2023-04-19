@@ -16,7 +16,11 @@ public struct DeckViewControllerFactory {
     }
 
     public func deckViewController(deck: Deck, backAction: @escaping () -> Void) -> UIViewController {
-        let viewModel = DeckViewModel(deck: deck, backAction: backAction)
-        return UIHostingController(rootView: DeckView(viewModel: viewModel))
+        let router = CardsRouter()
+        let viewModel = DeckViewModel(deck: deck, backAction: backAction, router: router)
+        let controller = UIHostingController(rootView: DeckView(viewModel: viewModel))
+        controller.hidesBottomBarWhenPushed = true
+        router.presentingViewController = controller
+        return controller
     }
 }

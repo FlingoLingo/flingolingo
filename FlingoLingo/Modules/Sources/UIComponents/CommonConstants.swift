@@ -19,6 +19,9 @@ public enum CommonConstants {
     public static let smallStackSpacing: CGFloat = 5
     public static let bottomPadding: CGFloat = 40
 
+    // Длительность анимаций в приложении.
+    public static let animationDutation: CGFloat = 0.25
+
     // Скругление полей ввода.
     public static let textFieldCornerRadius: CGFloat = 10
 
