@@ -7,8 +7,8 @@
 import Foundation
 
 public struct GetProfileResponse: Decodable {
-    var id: Int
-    var username: String
+    public var id: Int
+    public var username: String
 }
 
 public struct ChangePasswordRequest: Encodable {

@@ -8,12 +8,12 @@
 import Foundation
 
 public struct Card: Decodable {
-    var id: Int
-    var eng: String
-    var rus: String
-    var transcription: String
-    var examples: String
-    var isLearned: Bool
+    public var id: Int
+    public var eng: String
+    public var rus: String
+    public var transcription: String
+    public var examples: String
+    public var isLearned: Bool
 }
 
 public enum ClientError: Error {
@@ -27,7 +27,7 @@ public struct EmptyRequest: Encodable {
 }
 
 public struct MessageResponse: Decodable {
-    var message: String
+    public var message: String
 }
 
 public final class NetworkLayer {

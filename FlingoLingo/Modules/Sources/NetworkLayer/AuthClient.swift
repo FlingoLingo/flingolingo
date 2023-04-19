@@ -13,12 +13,12 @@ public struct AuthRequest: Encodable {
 }
 
 public struct SignUpResponse: Decodable {
-    var id: Int
-    var username: String
+    public var id: Int
+    public var username: String
 }
 
 public struct LogInResponse: Decodable {
-    var token: String
+    public var token: String
 }
 
 public final class AuthClient {
