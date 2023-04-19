@@ -13,7 +13,7 @@ public final class UserViewModel: ObservableObject {
         case notEqual
 
         func localizedString() -> String {
-            return NSLocalizedString(self.rawValue, comment: "")
+            NSLocalizedString(self.rawValue, comment: "")
         }
     }
 
@@ -22,16 +22,19 @@ public final class UserViewModel: ObservableObject {
     @Published var newPassword: String = ""
     @Published var confirmPassword: String = ""
     @Published var validatePasswords: [TextField: String] = [:]
+    @Published var isGuest: Bool
 
     private let router: ProfileRouter
     private let backAction: () -> Void
 
     init(user: User = User(),
          backAction: @escaping () -> Void = {},
-         router: ProfileRouter = ProfileRouter()) {
+         router: ProfileRouter = ProfileRouter(),
+         isGuest: Bool) {
         self.user = user
         self.backAction = backAction
         self.router = router
+        self.isGuest = isGuest
     }
 
     func changePassword() {

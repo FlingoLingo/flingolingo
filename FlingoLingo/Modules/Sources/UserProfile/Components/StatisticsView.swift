@@ -10,25 +10,25 @@ struct StatisticsView: View {
         ZStack {
             VStack(alignment: .leading, spacing: CommonConstants.smallSpacing) {
                 HStack {
-                    Text(NSLocalizedString("userDays", comment: ""))
+                    Text("userDays")
                         .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
                     BubbleView(bubbleText: formatter.formatNumberDaysStudying(user: viewModel.user))
                 }
                 HStack {
-                    Text(NSLocalizedString("wordsLearned", comment: ""))
+                    Text("wordsLearned")
                         .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
                     BubbleView(bubbleText: formatter.formatNumberWordsLearned(user: viewModel.user))
                 }
                 HStack {
-                    Text(NSLocalizedString("decksCreated", comment: ""))
+                    Text("decksCreated")
                         .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
                     BubbleView(bubbleText: formatter.formatNumberDecksCreated(user: viewModel.user))
                 }
                 HStack {
-                    Text(NSLocalizedString("timesRepeated", comment: ""))
+                    Text("timesRepeated")
                         .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
                     BubbleView(bubbleText: formatter.formatNumberTimesRepeated(user: viewModel.user))

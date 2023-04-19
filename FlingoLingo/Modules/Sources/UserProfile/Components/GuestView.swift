@@ -4,14 +4,14 @@ import UIComponents
 struct GuestView: View {
 
     var body: some View {
-        Text(NSLocalizedString("guest", comment: ""))
+        Text("guest")
             .font(Font(Fonts.subtitle))
             .foregroundColor(SColors.accent)
         Group {
-            Text(NSLocalizedString("stat1", comment: ""))
-                .foregroundColor(SColors.mainText) + Text(NSLocalizedString("stat2", comment: ""))
+            Text("stat1")
+                .foregroundColor(SColors.mainText) + Text("stat2")
                 .foregroundColor(SColors.accent).bold() +
-            Text(NSLocalizedString("stat3", comment: ""))
+            Text("stat3")
                 .foregroundColor(SColors.mainText)
         }
         .font(Font(Fonts.mainText))

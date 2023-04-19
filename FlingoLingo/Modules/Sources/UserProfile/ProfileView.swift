@@ -3,16 +3,19 @@ import UIComponents
 
 struct ProfileView: View {
 
-    @ObservedObject var viewModel: UserViewModel
-    @State var isGuest: Bool
+    @ObservedObject private var viewModel: UserViewModel
+
+    public init(viewModel: UserViewModel) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         ZStack {
             SColors.background.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
-                ProfileHeaderView(buttonClicked: viewModel.openSettings, guest: isGuest)
+                ProfileHeaderView(buttonClicked: viewModel.openSettings, guest: viewModel.isGuest)
 
-                if isGuest {
+                if viewModel.isGuest {
                     GuestView()
                 } else {
                     Text(viewModel.user.email)
@@ -22,7 +25,7 @@ struct ProfileView: View {
                 }
 
                 Spacer()
-                ButtonView(buttonText: isGuest
+                ButtonView(buttonText: viewModel.isGuest
                            ? NSLocalizedString("logInButton", comment: "")
                            : NSLocalizedString("logOut", comment: ""),
                            buttonClicked: viewModel.logOut)
