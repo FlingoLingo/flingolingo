@@ -1,6 +1,6 @@
 import Foundation
 
-public final class ProfileViewModel: ObservableObject {
+final class ProfileViewModel: ObservableObject {
 
     @Published var user: User
     @Published var isGuest: Bool = false
@@ -22,6 +22,6 @@ public final class ProfileViewModel: ObservableObject {
     }
 
     func settingsIconClicked() {
-        router.changePassword(user: self.user)
+        router.changePassword(user: user)
     }
 }

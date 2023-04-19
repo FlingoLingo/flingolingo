@@ -1,6 +1,6 @@
 import Foundation
 
-public final class ChangePasswordViewModel: ObservableObject {
+final class ChangePasswordViewModel: ObservableObject {
     enum TextField: Equatable {
         case old
         case new
