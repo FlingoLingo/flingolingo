@@ -58,6 +58,9 @@ final class WelcomeView: UIView {
         let button = MainButton(title: title, titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.background)
         button.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = CommonConstants.cornerRadius
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1).cgColor
 
         return button
     }()
@@ -100,8 +103,11 @@ final class WelcomeView: UIView {
 
     // MARK: - Module functions
     private func setupViews() {
-
         backgroundColor = ColorScheme.darkBackground
+        let imageViewBackground = UIImageView(image: UIImage(named: "background")!)
+        imageViewBackground.contentMode = UIView.ContentMode.top
+        addSubview(imageViewBackground)
+        sendSubviewToBack(imageViewBackground)
     }
 
     private func setupConstraints() {
