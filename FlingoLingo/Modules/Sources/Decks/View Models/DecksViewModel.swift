@@ -15,13 +15,17 @@ public final class DecksViewModel: ObservableObject {
     @Published var isShowingError = false
     @Published var newDeckName = ""
 
-    let provider: DecksProvider
+    private let provider: DecksProvider
     private let router: DecksRouter
 
     init(router: DecksRouter, provider: DecksProvider) {
         self.router = router
         self.provider = provider
 
+        reloadDecks()
+    }
+
+    func reloadDecks() {
         provider.getAllDecks { [weak self] result in
             switch result {
             case .success(let decks):

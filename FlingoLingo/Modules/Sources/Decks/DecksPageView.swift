@@ -28,6 +28,7 @@ struct DecksPageView: View {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                             .tint(SColors.mainText)
+                            .scaleEffect(1.5)
                         Spacer()
                     }
                     Spacer()
@@ -44,16 +45,7 @@ struct DecksPageView: View {
                     .padding(.top, CommonConstants.bigSpacing)
                 }
             }
-            .onAppear {
-                viewModel.provider.getAllDecks { result in
-                    switch result {
-                    case .success(let decks):
-                        viewModel.decks = decks
-                    case .failure:
-                        viewModel.isShowingError = true
-                    }
-                }
-            }
+            .onAppear(perform: viewModel.reloadDecks)
             .alert("error", isPresented: $viewModel.isShowingError) {
                 Button("ok", role: .cancel) { }
             }

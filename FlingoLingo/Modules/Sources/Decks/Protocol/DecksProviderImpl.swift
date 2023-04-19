@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class DecksProtocolImpl: DecksProvider {
+public class DecksProviderImpl: DecksProvider {
 
     public init() {
 

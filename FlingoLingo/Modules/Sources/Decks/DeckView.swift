@@ -33,6 +33,7 @@ struct DeckView: View {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                             .tint(SColors.mainText)
+                            .scaleEffect(1.5)
                         Spacer()
                     }
                     Spacer()
@@ -41,7 +42,7 @@ struct DeckView: View {
                         VStack(spacing: CommonConstants.smallSpacing) {
                             ForEach(viewModel.deck.cards) { card in
                                 WordCardView(card: card,
-                                             wordCardClicked: { viewModel.wordCardClicked() },
+                                             wordCardClicked: viewModel.wordCardClicked,
                                              deleteWordCard: { viewModel.deleteWordCard(cardId: card.id) })
                             }
                         }

@@ -14,7 +14,7 @@ struct DeckCardView: View {
     private let deckCardClicked: (() -> Void)
     private let formatter: DeckFormatter = .init()
     private var progress: Double {
-        if deck.cards.count == 0 {
+        if deck.cards.isEmpty {
             return 0
         } else {
             return Double(deck.learnedWords) / Double(deck.cards.count)
