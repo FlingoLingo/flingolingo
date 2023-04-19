@@ -9,7 +9,7 @@ public struct ProfileViewControllerFactory {
 
     public func profileViewController() -> UIViewController {
         let router = ProfileRouter()
-        let viewModel = UserViewModel(user: User(), backAction: {}, router: router)
+        let viewModel = ProfileViewModel(user: User(), router: router)
         let controller = UIHostingController(rootView: ProfileView(viewModel: viewModel))
         router.presentingViewController = controller
         return controller

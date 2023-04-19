@@ -3,9 +3,9 @@ import UIComponents
 
 struct ProfileView: View {
 
-    @ObservedObject private var viewModel: UserViewModel
+    @ObservedObject private var viewModel: ProfileViewModel
 
-    init(viewModel: UserViewModel) {
+    init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
     }
 
