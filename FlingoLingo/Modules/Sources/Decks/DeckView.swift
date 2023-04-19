@@ -9,13 +9,13 @@ import SwiftUI
 import UIComponents
 
 struct DeckView: View {
-
+    
     @ObservedObject private var viewModel: DeckViewModel
-
+    
     init(viewModel: DeckViewModel) {
         self.viewModel = viewModel
     }
-
+    
     var body: some View {
         ZStack {
             (SColors.background).edgesIgnoringSafeArea(.all)
@@ -29,18 +29,13 @@ struct DeckView: View {
                 ScrollView {
                     VStack(spacing: CommonConstants.smallSpacing) {
                         ForEach(viewModel.deck.cards) { card in
-                            WordCardView(card: card) {
-                                viewModel.wordCardClicked()
-                            }
+                            WordCardView(card: card,
+                                         wordCardClicked: { viewModel.wordCardClicked() },
+                                         deleteWordCard: { viewModel.deleteWordCard(cardId: card.id) })
                         }
                     }
                 }
             }
-            .alert(NSLocalizedString("editDeckName", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
-                TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.deckName)
-                Button(NSLocalizedString("save", comment: ""), action: viewModel.editDeckName)
-                Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
-            })
             .padding(.horizontal, CommonConstants.bigSpacing)
             VStack {
                 Spacer()
@@ -49,6 +44,10 @@ struct DeckView: View {
                 .padding(.bottom, CommonConstants.bottomPadding)
                 .padding(.horizontal, CommonConstants.bigSpacing)
             }
+            .alert("error", isPresented: $viewModel.isShowingError) {
+                Button("ok", role: .cancel) { }
+            }
+            .onAppear(perform: viewModel.reloadDeck)
         }
     }
 }

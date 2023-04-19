@@ -32,6 +32,19 @@ struct DecksPageView: View {
                 }
                 .padding(.top, CommonConstants.bigSpacing)
             }
+            .onAppear {
+                viewModel.provider.getAllDecks { result in
+                    switch result {
+                    case .success(let decks):
+                        viewModel.decks = decks
+                    case .failure:
+                        viewModel.isShowingError = true
+                    }
+                }
+            }
+            .alert("error", isPresented: $viewModel.isShowingError) {
+                Button("ok", role: .cancel) { }
+            }
             .alert(NSLocalizedString("addDeckTitle", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
                 TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.newDeckName)
                 Button(NSLocalizedString("create", comment: ""), action: viewModel.createDeck)

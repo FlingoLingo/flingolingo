@@ -15,8 +15,10 @@ public struct DeckViewControllerFactory {
 
     }
 
-    public func deckViewController(deck: Deck, backAction: @escaping () -> Void) -> UIViewController {
-        let viewModel = DeckViewModel(deck: deck, backAction: backAction)
+    public func deckViewController(deck: Deck,
+                                   backAction: @escaping () -> Void,
+                                   provider: DecksProvider) -> UIViewController {
+        let viewModel = DeckViewModel(deck: deck, provider: provider, backAction: backAction)
         return UIHostingController(rootView: DeckView(viewModel: viewModel))
     }
 }

@@ -12,7 +12,7 @@ struct DeckFormatter {
 
     func formatWords(deck: Deck) -> String {
         "\(NSLocalizedString("allWordsDescription", comment: "")) " +
-        "\(deck.wordsCount)"
+        "\(deck.cards.count)"
     }
 
     func formatLearnedWords(deck: Deck) -> String {

@@ -64,8 +64,9 @@ final class CustomTabBarController: UITabBarController {
 
     private func createDecksNavigationController() -> UIViewController {
         let decksViewControllerFactory = DecksViewControllerFactory()
+        let decksProtocolImpl = DecksProtocolImpl()
         let decksController = configureViewController(
-            controller: decksViewControllerFactory.decksViewController(),
+            controller: decksViewControllerFactory.decksViewController(provider: decksProtocolImpl),
             title: NSLocalizedString("decksHeader", comment: ""),
             image: Constants.decks ?? .add
         )

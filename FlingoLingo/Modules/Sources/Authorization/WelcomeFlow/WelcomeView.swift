@@ -85,12 +85,12 @@ final class WelcomeView: UIView {
 
         return button
     }()
-    
+
     private lazy var imageBackgroundView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "background")!)
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return imageView
     }()
 
