@@ -9,6 +9,10 @@ import SwiftUI
 import UIComponents
 
 struct CardView: View {
+    private enum Constants {
+        static let cardRotation: CGFloat = 180
+    }
+
     @ObservedObject private var viewModel: CardsViewModel
 
     private var card: Card
@@ -19,10 +23,6 @@ struct CardView: View {
     @State private var flipped: Bool = false
     @State private var flashcardRotation = 0.0
     @State private var contentRotation = 0.0
-
-    private enum Constants {
-        static let cardRotation: CGFloat = 180
-    }
 
     init(viewModel: CardsViewModel, card: Card) {
         self.viewModel = viewModel
@@ -143,17 +143,17 @@ struct CardView: View {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + CommonConstants.animationDutation / 2) {
             if viewModel.displayingCards.first != nil {
-                _ = withAnimation(
+                withAnimation(
                     .easeIn(duration: CommonConstants.animationDutation / 2)
                 ) {
-                    viewModel.displayingCards.removeFirst()
+                    viewModel.removeFirst()
                 }
             }
         }
     }
 }
 
-extension View {
+private extension View {
     func getRect() -> CGRect {
         return UIScreen.main.bounds
     }

@@ -61,4 +61,8 @@ final class CardsViewModel: ObservableObject {
 
         results[cardsSwipeInfo.id] = cardsSwipeInfo.direction
     }
+
+    func removeFirst() {
+        displayingCards.removeFirst()
+    }
 }
