@@ -38,7 +38,7 @@ final class CustomTabBarController: UITabBarController {
             navWelComeController.setNavigationBarHidden(true, animated: false)
             navWelComeController.viewControllers.append(welcomeViewController)
             navWelComeController.modalPresentationStyle = .fullScreen
-            self.present(navWelComeController, animated: true, completion: nil)
+            self.present(navWelComeController, animated: false, completion: nil)
         }
     }
 

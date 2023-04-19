@@ -77,12 +77,12 @@ extension SignUpViewController: AuthorizationViewDelegate {
 
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
         if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {
-            provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { res in
-                if res {
-                    self.dismiss(animated: true)
-                    print("ura")
-                } else {
-                    // show alert
+            provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { result in
+                switch result {
+                case .success(let success):
+                    print(success.id)
+                case .failure:
+                    print("error")
                 }
             })
         }

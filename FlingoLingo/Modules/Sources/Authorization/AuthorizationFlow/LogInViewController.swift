@@ -16,6 +16,7 @@ public final class LogInViewController: UIViewController {
         return view
     }()
     private let validationChecker = ValidationChecker()
+    private let provider = ProfileProviderImpl()
 
     // MARK: - Lifecycle
     public init() {
@@ -65,6 +66,15 @@ extension LogInViewController: AuthorizationViewDelegate {
     }
 
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
-        if checkValidation(mail: mail, password: password) {}
+        if checkValidation(mail: mail, password: password) {
+            provider.logInUser(email: mail ?? "", password: password ?? "", onFinish: { res in
+                switch res {
+                case .success:
+                    self.navigationController?.dismiss(animated: true)
+                case .failure:
+                    print("why...")
+                }
+            })
+        }
     }
 }

@@ -18,7 +18,11 @@ final class ProfileViewModel: ObservableObject {
     }
 
     func logOut() {
-        router.openWelcomeScreen()
+        provider.logOut(email: user.email, onFinish: { res in
+            if res {
+                self.router.openWelcomeScreen()
+            }
+        })
     }
 
     func openSettings() {
@@ -37,14 +41,14 @@ final class ProfileViewModel: ObservableObject {
     func getStatistics() -> [String: Int] {
         defaults.dictionary(forKey: "stats") as? [String: Int] ?? [String: Int]()
     }
-    
+
     func getUser() -> User {
         let stats = getStatistics()
         let daysOfUse: Int = stats["daysOfUse"] ?? 0
         let wordsLearned: Int = stats["wordsLearned"] ?? 0
         let decksCreated: Int = stats["decksCreated"] ?? 0
         let timesRepeated: Int = stats["timesRepeated"] ?? 0
-        
+
         let id = provider.getUserId()
         let email = provider.getUserEmail()
         return User(id: id, email: email, daysOfUse: daysOfUse, wordsLearned: wordsLearned, decksCount: decksCreated, timesRepeated: timesRepeated)
