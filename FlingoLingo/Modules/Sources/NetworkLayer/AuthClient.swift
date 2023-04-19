@@ -7,6 +7,11 @@
 
 import Foundation
 
+public struct AuthRequest: Encodable {
+    var username: String
+    var password: String
+}
+
 public struct SignUpResponse: Decodable {
     var id: Int
     var username: String
@@ -16,81 +21,35 @@ public struct LogInResponse: Decodable {
     var token: String
 }
 
-public enum AuthError: Error {
-    case jsonSerializationError
-    case jsonParseError
-    case responseError
-    case noDataError
-}
-
 public final class AuthClient {
-    public init() {}
+    let netLayer: NetworkLayer
 
-    public func registerUser(username: String, password: String, completion: @escaping (Result<SignUpResponse, AuthError>) -> Void) {
-        let registerURL = URL(string: baseUrl + "/profile/register/")!
-        var request = URLRequest(url: registerURL)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = try! JSONSerialization.data(withJSONObject: ["username": username, "password": password])
-        let session: URLSession = {
-            let session = URLSession(configuration: .default)
-            session.configuration.timeoutIntervalForRequest = 30.0
-            return session
-        }()
-        let task = session.dataTask(with: request) { data, _, error in
-            guard error == nil else {
-                completion(.failure(.responseError))
-                return
-            }
-            guard let data = data else {
-                completion(.failure(.noDataError))
-                return
-            }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            guard let resp = try? decoder.decode(SignUpResponse.self, from: data) else {
-                completion(.failure(.jsonParseError))
-                return
-            }
-            completion(.success(resp))
-        }
-        task.resume()
+    public init(token: String?) {
+        self.netLayer = NetworkLayer(token: token)
     }
 
-    public func getToken(username: String, password: String, completion: @escaping (Result<LogInResponse, AuthError>) -> Void) {
-        let registerURL = URL(string: baseUrl + "/token-auth/")!
-        var request = URLRequest(url: registerURL)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        request.httpBody = try! JSONSerialization.data(withJSONObject: ["username": username, "password": password])
-        let session: URLSession = {
-            let session = URLSession(configuration: .default)
-            session.configuration.timeoutIntervalForRequest = 30.0
-            return session
-        }()
-        let task = session.dataTask(with: request) { data, _, error in
-            guard error == nil else {
-                completion(.failure(.responseError))
-                return
-            }
-            guard let data = data else {
-                completion(.failure(.noDataError))
-                return
-            }
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            guard let resp = try? JSONDecoder().decode(LogInResponse.self, from: data) else {
-                completion(.failure(.jsonParseError))
-                return
-            }
-            completion(.success(resp))
-        }
-        task.resume()
+    public func registerUser(username: String,
+                             password: String,
+                             completion: @escaping (Result<SignUpResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "POST",
+                                  urlPattern: "/profile/register/",
+                                  body: AuthRequest(username: username,
+                                                    password: password),
+                                  completion: completion)
+    }
+
+    public func getToken(username: String,
+                         password: String,
+                         completion: @escaping (Result<LogInResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "POST",
+                                  urlPattern: "/token-auth/",
+                                  body: AuthRequest(username: username,
+                                                    password: password),
+                                  completion: completion)
     }
 }
 
 // пример использования
-//let client = AuthClient()
-//client.registerUser(username: "bob", password: "roberts", completion: {res in print(res)})
-//client.registerUser(username: "bobson1", password: "robertson1", completion: {res in print(res)})
-//client.getToken(username: "bobson", password: "robertson", completion: {res in print(res)})
+// let client = AuthClient(token: nil)
+// client.registerUser(username: "bobson5", password: "roberts", completion: {res in print(res)})
+// client.getToken(username: "bobson5", password: "roberts", completion: {res in print(res)})
