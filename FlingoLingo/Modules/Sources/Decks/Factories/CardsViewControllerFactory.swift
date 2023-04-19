@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SwiftUI
 
-public struct CardsViewControllerFactory {
+struct CardsViewControllerFactory {
 
     public init() {
 

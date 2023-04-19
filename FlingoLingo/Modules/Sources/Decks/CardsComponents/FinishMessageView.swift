@@ -11,7 +11,7 @@ import UIComponents
 struct FinishMessageView: View {
     var body: some View {
         VStack(spacing: CommonConstants.smallSpacing) {
-            Text(NSLocalizedString("wellDone", comment: ""))
+            Text("wellDone")
                 .font(SFonts.buttonTitle)
                 .foregroundColor(SColors.mainText)
             Text("keepUpTheGoodWork")

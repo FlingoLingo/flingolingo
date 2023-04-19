@@ -9,17 +9,25 @@ import SwiftUI
 import UIComponents
 
 struct CardView: View {
-    @ObservedObject var viewModel: CardsViewModel
+    @ObservedObject private var viewModel: CardsViewModel
 
-    var card: Card
+    private var card: Card
 
-    @State var offset: CGFloat = 0
-    @GestureState var isDragging: Bool = false
+    @State private var offset: CGFloat = 0
+    @GestureState private var isDragging: Bool = false
+    @State private var endSwipe: Bool = false
+    @State private var flipped: Bool = false
+    @State private var flashcardRotation = 0.0
+    @State private var contentRotation = 0.0
 
-    @State var endSwipe: Bool = false
-    @State var flipped: Bool = false
-    @State var flashcardRotation = 0.0
-    @State var contentRotation = 0.0
+    private enum Constants {
+        static let cardRotation: CGFloat = 180
+    }
+
+    init(viewModel: CardsViewModel, card: Card) {
+        self.viewModel = viewModel
+        self.card = card
+    }
 
     var body: some View {
         GeometryReader { proxy in
@@ -56,14 +64,14 @@ struct CardView: View {
         .contentShape(Rectangle().trim(from: 0, to: endSwipe ? 0 : 1))
         .gesture(
             DragGesture()
-                .updating($isDragging, body: { _, out, _ in
+                .updating($isDragging) { _, out, _ in
                     out = true
-                })
-                .onChanged({ value in
+                }
+                .onChanged { value in
                     let translation = value.translation.width
                     offset = (isDragging ? translation : .zero)
-                })
-                .onEnded({ value in
+                }
+                .onEnded { value in
                     let width = getRect().width - 50
                     let translation = value.translation.width
 
@@ -72,39 +80,33 @@ struct CardView: View {
                     withAnimation(.easeOut(duration: CommonConstants.animationDutation)) {
                         if checkingStatus > (width / 2) {
                             offset = (translation > 0 ? width : -width) * 2
-                            endSwipeActions()
                             if translation > 0 {
-                                rightSwipe()
+                                viewModel.doSwipe(withInfo: .init(id: card.id, direction: .right))
                             } else {
-                                leftSwipe()
+                                viewModel.doSwipe(withInfo: .init(id: card.id, direction: .left))
                             }
                         } else {
                             offset = .zero
                         }
                     }
-                })
+                }
         )
         .onReceive(
-            NotificationCenter.default.publisher(
-                for: Notification.Name("actionFromButton"),
-                object: nil
-            )
-        ) { data in
-            guard let info = data.userInfo else { return }
-
-            let id = info["id"] as? Int
-            let rightSwipe = info["rightSwipe"] as? Bool ?? false
+            viewModel.notificationSubject
+        ) { cardSwipeInfo in
+            let cardId = cardSwipeInfo.id
+            let swipeDirection = cardSwipeInfo.direction
             let width = getRect().width - 50
 
-            if card.id == id {
+            if card.id == cardId {
                 withAnimation(.easeOut(duration: CommonConstants.animationDutation)) {
-                    offset = (rightSwipe ? width : -width) * 2
-                    endSwipeActions()
-                    if rightSwipe {
-                        self.rightSwipe()
-                    } else {
-                        leftSwipe()
+                    switch swipeDirection {
+                    case .left:
+                        offset = -width * 2
+                    case .right:
+                        offset = width * 2
                     }
+                    endSwipeActions()
                 }
             }
         }
@@ -114,17 +116,17 @@ struct CardView: View {
         let animationTime = CommonConstants.animationDutation
         withAnimation(Animation.linear(duration: animationTime)) {
             if flipped {
-                flashcardRotation -= 180
+                flashcardRotation -= Constants.cardRotation
             } else {
-                flashcardRotation += 180
+                flashcardRotation += Constants.cardRotation
             }
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + animationTime / 2) {
             if flipped {
-                contentRotation -= 180
+                contentRotation -= Constants.cardRotation
             } else {
-                contentRotation += 180
+                contentRotation += Constants.cardRotation
             }
             flipped.toggle()
         }
@@ -148,14 +150,6 @@ struct CardView: View {
                 }
             }
         }
-    }
-
-    func leftSwipe() {
-        viewModel.progress += 1
-    }
-
-    func rightSwipe() {
-        viewModel.progress += 1
     }
 }
 

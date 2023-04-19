@@ -8,6 +8,11 @@
 import SwiftUI
 import UIComponents
 
+enum CardSwipeDirection {
+    case left
+    case right
+}
+
 struct CardsView: View {
     @ObservedObject private var viewModel: CardsViewModel
 
@@ -46,6 +51,7 @@ struct CardsView: View {
                 .padding(.horizontal, CommonConstants.bigSpacing)
                 .frame(maxWidth: .infinity)
                 .zIndex(1000)
+
                 let cards = viewModel.displayingCards
                 if !cards.isEmpty {
                     HStack(spacing: CommonConstants.smallSpacing) {
@@ -54,10 +60,10 @@ struct CardsView: View {
                             buttonTextColor: SColors.mainText,
                             buttonBackgroundColor: SColors.darkBackground
                         ) {
-                            doSwipe()
+                            swipe(.left)
                         }
                         ButtonView(buttonText: NSLocalizedString("iKnow", comment: "")) {
-                            doSwipe(rightSwipe: true)
+                            swipe(.right)
                         }
                     }
                     .padding(.bottom, CommonConstants.bottomPadding)
@@ -67,15 +73,10 @@ struct CardsView: View {
         }
     }
 
-    func doSwipe(rightSwipe: Bool = false) {
-        guard let first = viewModel.displayingCards.first else { return }
-
-        NotificationCenter.default.post(
-            name: NSNotification.Name("actionFromButton"),
-            object: nil,
-            userInfo: ["id": first.id,
-                       "rightSwipe": rightSwipe
-                      ]
-        )
+    func swipe(_ direction: CardSwipeDirection) {
+        guard let card = viewModel.displayingCards.first else { return }
+        withAnimation(.easeOut(duration: CommonConstants.animationDutation)) {
+            viewModel.doSwipe(withInfo: CardSwipeInfo(id: card.id, direction: direction))
+        }
     }
 }

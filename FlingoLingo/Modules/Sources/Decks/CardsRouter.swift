@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public final class CardsRouter {
+final class CardsRouter {
 
     public weak var presentingViewController: UIViewController?
 

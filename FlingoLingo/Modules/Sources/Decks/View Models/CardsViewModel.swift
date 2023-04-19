@@ -6,14 +6,24 @@
 //
 
 import Foundation
+import Combine
 
-class CardsViewModel: ObservableObject {
+struct CardSwipeInfo {
+    let id: Int
+    let direction: CardSwipeDirection
+}
+
+final class CardsViewModel: ObservableObject {
     @Published var progress: Double = 0
     @Published var fetchedCards: [Card] = []
     @Published var displayingCards: [Card] = []
-    let deck: Deck
+    private let deck: Deck
     private let backAction: () -> Void
     private let popToRootAction: () -> Void
+    var subscription: AnyCancellable?
+    var results: [Int: CardSwipeDirection] = [:]
+
+    let notificationSubject: PassthroughSubject<CardSwipeInfo, Never> = .init()
 
     init(deck: Deck, backAction: @escaping () -> Void, popToRootAction: @escaping () -> Void) {
         self.deck = deck
@@ -21,6 +31,10 @@ class CardsViewModel: ObservableObject {
         self.popToRootAction = popToRootAction
         fetchedCards = deck.cards
         displayingCards = fetchedCards
+
+        subscription = $displayingCards.sink { cards in
+            if cards.count == 0 {}
+        }
     }
 
     func getIndex(card: Card) -> Int {
@@ -31,15 +45,20 @@ class CardsViewModel: ObservableObject {
         return index
     }
 
-    func getCardsCount() -> Int {
-        return fetchedCards.count
-    }
-
     func backButtonClicked() {
         backAction()
     }
 
     func backToDecksButtonClicked() {
         popToRootAction()
+    }
+
+    func changeCardsMainSide() {}
+
+    func doSwipe(withInfo cardsSwipeInfo: CardSwipeInfo) {
+        progress += 1
+        notificationSubject.send(cardsSwipeInfo)
+
+        results[cardsSwipeInfo.id] = cardsSwipeInfo.direction
     }
 }
