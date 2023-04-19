@@ -19,7 +19,8 @@ final class LanguageButton: UIButton {
         let font = Fonts.mainText
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: UIColor.white]
-        let attributedTitle = NSAttributedString(string: title ?? "не выбрано", attributes: attributes as [NSAttributedString.Key: Any])
+        let attributedTitle = NSAttributedString(string: title ?? "не выбрано",
+                                                 attributes: attributes as [NSAttributedString.Key: Any])
         setAttributedTitle(attributedTitle, for: .normal)
     }
     required init?(coder: NSCoder) {

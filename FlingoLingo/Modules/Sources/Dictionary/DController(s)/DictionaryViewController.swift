@@ -173,9 +173,8 @@ public final class DictionaryViewController: UIViewController {
     }
     private var workItem: DispatchWorkItem?
     private var languagesPairApiCode = "en-ru"
-    
-    
 }
+
 extension DictionaryViewController: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         blockAppearance = false
