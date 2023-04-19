@@ -11,6 +11,8 @@ public struct ButtonView: View {
 
     private let buttonText: String
     private let buttonClicked: (() -> Void)
+    private let animationDuration = 0.1
+    @State private var animate = false
 
     public init(buttonText: String, buttonClicked: @escaping () -> Void) {
         self.buttonText = buttonText
@@ -18,15 +20,22 @@ public struct ButtonView: View {
     }
 
     public var body: some View {
-        Button(action: buttonClicked) {
-            Text(buttonText)
-                .font(SFonts.buttonTitle)
-                .foregroundColor(SColors.mainText)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.all, CommonConstants.smallSpacing)
-        .background(SColors.accent)
-        .cornerRadius(CommonConstants.cornerRadius)
+        Text(buttonText)
+            .font(SFonts.buttonTitle)
+            .foregroundColor(SColors.mainText)
+            .frame(maxWidth: .infinity)
+            .padding(.all, CommonConstants.smallSpacing)
+            .background(SColors.accent)
+            .cornerRadius(CommonConstants.cornerRadius)
+            .onTapGesture {
+                animate = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration, execute: {
+                    self.animate = false
+                    buttonClicked()
+                })
+            }
+            .scaleEffect(animate ? 0.9 : 1)
+            .animation(.easeIn(duration: animationDuration), value: animate)
     }
 }
 
