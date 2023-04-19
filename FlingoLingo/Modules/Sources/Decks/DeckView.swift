@@ -9,13 +9,13 @@ import SwiftUI
 import UIComponents
 
 struct DeckView: View {
-    
+
     @ObservedObject private var viewModel: DeckViewModel
-    
+
     init(viewModel: DeckViewModel) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
         ZStack {
             (SColors.background).edgesIgnoringSafeArea(.all)
