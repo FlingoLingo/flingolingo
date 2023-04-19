@@ -11,21 +11,30 @@ public struct ButtonView: View {
 
     private let buttonText: String
     private let buttonClicked: (() -> Void)
+    private let buttonTextColor: Color
+    private let buttonBackgroundColor: Color
     private let animationDuration = 0.1
     @State private var animate = false
 
-    public init(buttonText: String, buttonClicked: @escaping () -> Void) {
+    public init(
+        buttonText: String,
+        buttonTextColor: Color = SColors.mainText,
+        buttonBackgroundColor: Color = SColors.accent,
+        buttonClicked: @escaping () -> Void
+    ) {
         self.buttonText = buttonText
+        self.buttonTextColor = buttonTextColor
+        self.buttonBackgroundColor = buttonBackgroundColor
         self.buttonClicked = buttonClicked
     }
 
     public var body: some View {
         Text(buttonText)
             .font(SFonts.buttonTitle)
-            .foregroundColor(SColors.mainText)
+            .foregroundColor(buttonTextColor)
             .frame(maxWidth: .infinity)
             .padding(.all, CommonConstants.smallSpacing)
-            .background(SColors.accent)
+            .background(buttonBackgroundColor)
             .cornerRadius(CommonConstants.cornerRadius)
             .onTapGesture {
                 animate = true
