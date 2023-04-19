@@ -36,6 +36,24 @@ struct CardView: View {
             let topOffset = (index <= 2 ? index : 2) * CommonConstants.bigSpacing
 
             ZStack {
+                VStack {
+                    HStack {
+                        Icons.checkmark
+                            .opacity(Double(offset / 10 - 1))
+                            .padding(CommonConstants.bigSpacing)
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                VStack {
+                    HStack {
+                        Spacer()
+                        Icons.xmark
+                            .opacity(Double(offset / 10 * -1 - 1))
+                            .padding(CommonConstants.bigSpacing)
+                    }
+                    Spacer()
+                }
                 if flipped {
                     Text(card.rus)
                 } else {
