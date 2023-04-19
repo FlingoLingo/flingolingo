@@ -79,8 +79,8 @@ extension SignUpViewController: AuthorizationViewDelegate {
         if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {
             provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { result in
                 switch result {
-                case .success(let success):
-                    print(success.id)
+                case .success:
+                    self.navigationController?.dismiss(animated: true)
                 case .failure:
                     print("error")
                 }

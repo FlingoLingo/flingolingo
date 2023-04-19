@@ -97,20 +97,9 @@ public class ProfileProviderImpl: ProfileProvider {
     }
 
     public func logOut(email: String, onFinish: @escaping ((Bool) -> Void)) {
-        let password = try? keychain.get(passwordKey)
-        if let password = password {
-            authClient.getToken(username: email, password: password, completion: { res in
-                switch res {
-                case .success:
-                    try? self.keychain.remove(self.accessTokenKey)
-                    DispatchQueue.main.async {
-                        onFinish(true)
-                    }
-                case .failure: break
-                }
-            })
-        } else {
-            print("error")
+        try? keychain.remove(accessTokenKey)
+        DispatchQueue.main.async {
+            onFinish(true)
         }
     }
 
