@@ -26,12 +26,24 @@ struct DeckView: View {
                                    deleteButtonClicked: viewModel.deleteDeck)
                 DeckInfoView(deck: viewModel.deck)
                 SearchView(text: $viewModel.text)
-                ScrollView {
-                    VStack(spacing: CommonConstants.smallSpacing) {
-                        ForEach(viewModel.deck.cards) { card in
-                            WordCardView(card: card,
-                                         wordCardClicked: { viewModel.wordCardClicked() },
-                                         deleteWordCard: { viewModel.deleteWordCard(cardId: card.id) })
+                if viewModel.isLoading {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .tint(SColors.mainText)
+                        Spacer()
+                    }
+                    Spacer()
+                } else {
+                    ScrollView {
+                        VStack(spacing: CommonConstants.smallSpacing) {
+                            ForEach(viewModel.deck.cards) { card in
+                                WordCardView(card: card,
+                                             wordCardClicked: { viewModel.wordCardClicked() },
+                                             deleteWordCard: { viewModel.deleteWordCard(cardId: card.id) })
+                            }
                         }
                     }
                 }

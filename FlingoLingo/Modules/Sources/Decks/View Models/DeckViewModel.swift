@@ -14,6 +14,7 @@ final class DeckViewModel: ObservableObject {
     @Published var deckName = ""
     @Published var isShowingAlert = false
     @Published var isShowingError = false
+    @Published var isLoading = false
 
     var deck: Deck
     let provider: DecksProvider
@@ -41,6 +42,7 @@ final class DeckViewModel: ObservableObject {
     }
 
     func editDeckName() {
+        isLoading = true
         provider.editDeck(id: deck.id, newName: deckName, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
@@ -48,6 +50,7 @@ final class DeckViewModel: ObservableObject {
             case .failure:
                 self?.isShowingError = true
             }
+            self?.isLoading = false
         })
     }
 
@@ -56,6 +59,7 @@ final class DeckViewModel: ObservableObject {
     }
 
     func reloadDeck() {
+        isLoading = true
         provider.getDeck(id: deck.id, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
@@ -63,10 +67,12 @@ final class DeckViewModel: ObservableObject {
             case .failure:
                 self?.isShowingError = true
             }
+            self?.isLoading = false
         })
     }
 
     func deleteDeck() {
+        isLoading = true
         provider.deleteDeck(id: deck.id, onFinish: { [weak self] result in
             switch result {
             case .success:
@@ -74,10 +80,12 @@ final class DeckViewModel: ObservableObject {
             case .failure:
                 self?.isShowingError = true
             }
+            self?.isLoading = false
         })
     }
 
     func deleteWordCard(cardId: Int) {
+        isLoading = true
         provider.deleteCardFromDeck(deckId: deck.id, carId: cardId, onFinish: { [weak self] isSuccess in
             if isSuccess {
                 self?.reloadDeck()

@@ -21,16 +21,28 @@ struct DecksPageView: View {
             (SColors.background).edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                 DecksHeaderView(addDeckButtonClicked: viewModel.addDeckButtonCLicked)
-                ScrollView {
-                    VStack(spacing: CommonConstants.smallSpacing) {
-                        ForEach(viewModel.decks) { deck in
-                            DeckCardView(deck: deck) {
-                                viewModel.deckCardClicked(id: deck.id)
+                if viewModel.isLoading {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .tint(SColors.mainText)
+                        Spacer()
+                    }
+                    Spacer()
+                } else {
+                    ScrollView {
+                        VStack(spacing: CommonConstants.smallSpacing) {
+                            ForEach(viewModel.decks) { deck in
+                                DeckCardView(deck: deck) {
+                                    viewModel.deckCardClicked(id: deck.id)
+                                }
                             }
                         }
                     }
+                    .padding(.top, CommonConstants.bigSpacing)
                 }
-                .padding(.top, CommonConstants.bigSpacing)
             }
             .onAppear {
                 viewModel.provider.getAllDecks { result in

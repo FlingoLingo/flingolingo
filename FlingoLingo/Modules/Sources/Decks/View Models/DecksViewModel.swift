@@ -10,6 +10,7 @@ import Foundation
 public final class DecksViewModel: ObservableObject {
 
     @Published var decks: [Deck] = []
+    @Published var isLoading = true
     @Published var isShowingAlert = false
     @Published var isShowingError = false
     @Published var newDeckName = ""
@@ -28,6 +29,7 @@ public final class DecksViewModel: ObservableObject {
             case .failure:
                 self?.isShowingError = true
             }
+            self?.isLoading = false
         }
     }
 
@@ -43,6 +45,7 @@ public final class DecksViewModel: ObservableObject {
     }
 
     func createDeck() {
+        isLoading = true
         provider.createNewDeck(name: newDeckName, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
@@ -50,6 +53,7 @@ public final class DecksViewModel: ObservableObject {
             case .failure:
                 self?.isShowingError = true
             }
+            self?.isLoading = false
         })
     }
 }
