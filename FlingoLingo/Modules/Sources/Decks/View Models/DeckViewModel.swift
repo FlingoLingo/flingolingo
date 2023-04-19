@@ -24,7 +24,7 @@ final class DeckViewModel: ObservableObject {
         self.deck = deck
         self.backAction = backAction
         self.provider = provider
-        elf.router = router
+        self.router = router
     }
 
     func startButtonClicked() {
