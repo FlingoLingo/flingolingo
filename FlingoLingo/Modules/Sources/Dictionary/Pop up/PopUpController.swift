@@ -80,6 +80,7 @@ public final class PopUpViewController: UIViewController {
     private lazy var performing =  UIActivityIndicatorView()
     var testa = ["AAAA", "BBBBB", "CCCCCC", "DDDDDD", "EEEEEE", "FFFFFFF"]
     private lazy var decksCollection = CollectionViews.collectionView()
+
     public override func viewDidLoad() {
         view.addSubview(popUpView)
         view.addSubview(performing)
@@ -93,18 +94,19 @@ public final class PopUpViewController: UIViewController {
         decksCollection.backgroundColor = .clear
         performing.startAnimating()
         performing.style = .large
+        setupConstraints()
+    }
+
+    private func setupConstraints() {
         NSLayoutConstraint.activate([popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      performing.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      performing.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      popUpView.widthAnchor.constraint(equalToConstant: 340),
                                      popUpView.heightAnchor.constraint(equalToConstant: 490)])
-
-        [blackFrame, decksCollection, addingButton].forEach { label in
-            popUpView.addSubview(label)
-        }
-        [topLabel, transcriptionLabel, translationLabel,
-         originalExampleLabel, translatedExampleLabel].forEach { label in
+        [blackFrame, decksCollection, addingButton].forEach { label in popUpView.addSubview(label) }
+        [topLabel, transcriptionLabel, translationLabel, originalExampleLabel, translatedExampleLabel]
+            .forEach { label in
             blackFrame.addSubview(label)
         }
         NSLayoutConstraint.activate([
@@ -142,11 +144,12 @@ public final class PopUpViewController: UIViewController {
             addingButton.heightAnchor.constraint(equalToConstant: 55),
             decksCollection.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor),
             decksCollection.trailingAnchor.constraint(equalTo: popUpView.trailingAnchor),
-            decksCollection.topAnchor.constraint(equalTo: blackFrame.bottomAnchor,
-                                                 constant: CommonConstants.smallSpacing),
+            decksCollection.topAnchor.constraint(
+                equalTo: blackFrame.bottomAnchor, constant: CommonConstants.smallSpacing),
             decksCollection.heightAnchor.constraint(equalToConstant: 70),
         ])
     }
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         let midItem = IndexPath(item: 2500, section: 0)
