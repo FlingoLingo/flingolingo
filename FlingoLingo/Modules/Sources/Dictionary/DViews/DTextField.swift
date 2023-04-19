@@ -35,7 +35,8 @@ final class DTextField: UITextField {
         let font = Fonts.searchText
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: UIColor.white]
-        let attributedTitle = NSAttributedString(string: placeholder!, attributes: attributes as [NSAttributedString.Key: Any])
+        let attributedTitle = NSAttributedString(string: placeholder!,
+                                                 attributes: attributes as [NSAttributedString.Key: Any])
         attributedPlaceholder = attributedTitle
     }
     required init?(coder: NSCoder) {

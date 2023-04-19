@@ -34,7 +34,7 @@ final class NetworkFetcher {
             guard let self = self else {
                 return
             }
-            if let error {
+            if error != nil {
                 completion(nil)
             }
             let words = self.decodeJSON(type: Word.self, from: data)
