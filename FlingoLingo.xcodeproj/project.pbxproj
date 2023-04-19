@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28F4BC347823285BC8ECC2B7 /* Pods-FlingoLingo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlingoLingo.release.xcconfig"; path = "Target Support Files/Pods-FlingoLingo/Pods-FlingoLingo.release.xcconfig"; sourceTree = "<group>"; };
 		3C99C24029E7060100CC546E /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Modules; path = FlingoLingo/Modules; sourceTree = "<group>"; };
 		3CADB94E29E6D134006E92C9 /* FlingoLingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlingoLingo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CADB95129E6D134006E92C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -26,10 +27,9 @@
 		3CADB95D29E6D136006E92C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3CADB95F29E6D136006E92C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48EB159529EAD7D6004B7680 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		777DEB545E12CF6686EC5BFF /* Pods-FlingoLingo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlingoLingo.debug.xcconfig"; path = "Target Support Files/Pods-FlingoLingo/Pods-FlingoLingo.debug.xcconfig"; sourceTree = "<group>"; };
 		785A1D2192B6CD60EB676546 /* Pods_FlingoLingo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlingoLingo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD5305AA29E9754F00BB7FA2 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		B34A12241BE5D2F1E2640162 /* Pods-FlingoLingo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlingoLingo.release.xcconfig"; path = "Target Support Files/Pods-FlingoLingo/Pods-FlingoLingo.release.xcconfig"; sourceTree = "<group>"; };
-		C963C3BA42699468E7B4D7CA /* Pods-FlingoLingo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlingoLingo.debug.xcconfig"; path = "Target Support Files/Pods-FlingoLingo/Pods-FlingoLingo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,11 +48,11 @@
 		3CADB94529E6D134006E92C9 = {
 			isa = PBXGroup;
 			children = (
+				C3939BB329EC6A06000ADC55 /* Pods */,
 				3CADB95029E6D134006E92C9 /* FlingoLingo */,
 				3C99C24029E7060100CC546E /* Modules */,
 				3CADB94F29E6D134006E92C9 /* Products */,
 				3CCE816429E7078200EAF382 /* Frameworks */,
-				5A34E781B39FD306DC750729 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,11 +86,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5A34E781B39FD306DC750729 /* Pods */ = {
+		C3939BB329EC6A06000ADC55 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C963C3BA42699468E7B4D7CA /* Pods-FlingoLingo.debug.xcconfig */,
-				B34A12241BE5D2F1E2640162 /* Pods-FlingoLingo.release.xcconfig */,
+				777DEB545E12CF6686EC5BFF /* Pods-FlingoLingo.debug.xcconfig */,
+				28F4BC347823285BC8ECC2B7 /* Pods-FlingoLingo.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -359,13 +359,13 @@
 		};
 		3CADB96329E6D136006E92C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C963C3BA42699468E7B4D7CA /* Pods-FlingoLingo.debug.xcconfig */;
+			baseConfigurationReference = 777DEB545E12CF6686EC5BFF /* Pods-FlingoLingo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = LM3CWDSTFW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FlingoLingo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -390,13 +390,13 @@
 		};
 		3CADB96429E6D136006E92C9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B34A12241BE5D2F1E2640162 /* Pods-FlingoLingo.release.xcconfig */;
+			baseConfigurationReference = 28F4BC347823285BC8ECC2B7 /* Pods-FlingoLingo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WS5WFL9CRG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FlingoLingo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -58,6 +58,9 @@ final class WelcomeView: UIView {
         let button = MainButton(title: title, titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.background)
         button.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = CommonConstants.cornerRadius
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1).cgColor
 
         return button
     }()
@@ -82,6 +85,14 @@ final class WelcomeView: UIView {
 
         return button
     }()
+    
+    private lazy var imageBackgroundView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "background")!)
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
 
     weak var delegate: WelcomeViewDelegate?
 
@@ -100,7 +111,6 @@ final class WelcomeView: UIView {
 
     // MARK: - Module functions
     private func setupViews() {
-
         backgroundColor = ColorScheme.darkBackground
     }
 
@@ -108,6 +118,7 @@ final class WelcomeView: UIView {
 
         setupAppInfoStackViewConstraints()
         setupButtonsConstraints()
+        setupBackgroundImageConstraints()
     }
 
     private func addSubviews() {
@@ -116,6 +127,8 @@ final class WelcomeView: UIView {
         addSubview(logInButton)
         addSubview(signUpButton)
         addSubview(guestLogInButton)
+        addSubview(imageBackgroundView)
+        sendSubviewToBack(imageBackgroundView)
     }
 
     // MARK: - Actions
@@ -161,6 +174,14 @@ extension WelcomeView {
             logInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: logInButton.trailingAnchor, constant: 25),
             signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 15),
+        ])
+    }
+
+    private func setupBackgroundImageConstraints() {
+        NSLayoutConstraint.activate([
+            imageBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageBackgroundView.topAnchor.constraint(equalTo: topAnchor),
         ])
     }
 }

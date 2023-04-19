@@ -13,11 +13,16 @@ struct DeckBackHeaderView: View {
     private let title: String
     private let backButtonClicked: (() -> Void)
     private let editButtonClicked: (() -> Void)
+    private let deleteButtonClicked: (() -> Void)
 
-    init(title: String, backButtonClicked: @escaping () -> Void, editButtonClicked: @escaping () -> Void) {
+    init(title: String,
+         backButtonClicked: @escaping () -> Void,
+         editButtonClicked: @escaping () -> Void,
+         deleteButtonClicked: @escaping () -> Void) {
         self.title = title
         self.backButtonClicked = backButtonClicked
         self.editButtonClicked = editButtonClicked
+        self.deleteButtonClicked = deleteButtonClicked
     }
 
     var body: some View {
@@ -32,8 +37,21 @@ struct DeckBackHeaderView: View {
                     .foregroundColor(SColors.mainText)
                     .padding(.leading, CommonConstants.smallSpacing)
                 Spacer()
-                Button(action: editButtonClicked) {
-                    Icons.pencil
+                Menu {
+                    Button(action: editButtonClicked) {
+                        HStack {
+                            Text("changeName")
+                            Icons.pencil
+                        }
+                    }
+                    Button(role: .destructive, action: deleteButtonClicked) {
+                        HStack {
+                            Text("delete")
+                            Icons.trash
+                        }
+                    }
+                } label: {
+                    Icons.dots
                         .foregroundColor(SColors.mainText)
                 }
             }

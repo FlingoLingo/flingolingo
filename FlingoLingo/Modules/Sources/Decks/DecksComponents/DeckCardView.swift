@@ -13,6 +13,9 @@ struct DeckCardView: View {
     private let deck: Deck
     private let deckCardClicked: (() -> Void)
     private let formatter: DeckFormatter = .init()
+    private var progress: Double {
+        Double(deck.learnedWords) / Double(deck.wordsCount)
+    }
 
     init(deck: Deck, deckCardClicked: @escaping () -> Void) {
         self.deck = deck
@@ -32,6 +35,9 @@ struct DeckCardView: View {
                     Text(formatter.formatLearnedWords(deck: deck))
                         .font(SFonts.mainText)
                         .foregroundColor(SColors.secondaryText)
+                    ProgressView(value: progress)
+                        .padding(.top, CommonConstants.smallStackSpacing)
+                        .tint(SColors.accent)
                 }
                 .padding(.trailing, CommonConstants.smallStackSpacing)
                 Spacer()
@@ -39,7 +45,8 @@ struct DeckCardView: View {
                     .foregroundColor(SColors.mainText)
             }
             .frame(maxWidth: .infinity)
-            .padding(.all, CommonConstants.smallSpacing)
+            .padding([.vertical, .leading], CommonConstants.smallSpacing)
+            .padding(.trailing, CommonConstants.bigSpacing)
             .background(SColors.darkBackground)
             .cornerRadius(CommonConstants.cornerRadius)
         }
