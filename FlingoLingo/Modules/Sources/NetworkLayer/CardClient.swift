@@ -12,10 +12,10 @@ public struct AddCardRequest: Encodable {
     var decks: [Int]
 }
 public struct AddCard: Encodable {
-    var eng: String
-    var rus: String
-    var transcription: String
-    var examples: String
+    public var eng: String
+    public var rus: String
+    public var transcription: String
+    public var examples: String
 }
 
 public struct CardResponse: Decodable {
