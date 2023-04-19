@@ -14,7 +14,14 @@ extension DictionaryViewController: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        popOverVC.wordName = tableData.def?.first?.text ?? ""
+        popOverVC.langsApi = languagesPairApiCode
+        popOverVC.transcription = tableData.def?.first?.ts ?? ""
+        popOverVC.translation = tableData.def?.first?.tr?[indexPath.row].text ?? ""
+        popOverVC.translatedExample = tableData.def?.first?.tr?[indexPath.row].ex?.first?.text ?? ""
+        popOverVC.originalExample = tableData.def?.first?.tr?[indexPath.row].ex?.first?.tr?.first?.text ?? ""
+        popOverVC.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(popOverVC, animated: true)
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -33,6 +40,6 @@ extension DictionaryViewController: UITableViewDataSource {
 
 extension DictionaryViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
 }

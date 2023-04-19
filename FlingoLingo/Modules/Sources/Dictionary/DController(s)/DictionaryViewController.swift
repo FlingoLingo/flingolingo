@@ -22,6 +22,7 @@ public final class DictionaryViewController: UIViewController {
         tableView.clipsToBounds = true
         tableView.layer.cornerRadius = CommonConstants.textFieldCornerRadius
         tableView.allowsSelection = false
+        tableView.allowsSelection = true
         return tableView
     }()
 
@@ -87,7 +88,8 @@ public final class DictionaryViewController: UIViewController {
             view.addSubview(subView)
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
-        let centerConstraint = topLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 75)
+        let centerConstraint = topLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                                                constant: 40)
         let selectedLanguageConstant = originLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                                                constant: CommonConstants.smallSpacing)
         let arrowConstraint = arrowButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -147,6 +149,8 @@ public final class DictionaryViewController: UIViewController {
                                      tableConstraints,
                                      suggestionViewConstraints].flatMap { $0 })
     }
+    private var workItem: DispatchWorkItem?
+    public var languagesPairApiCode = "en-ru"
 }
 
 extension DictionaryViewController: UITextFieldDelegate {
@@ -154,19 +158,13 @@ extension DictionaryViewController: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.opacity = 1
         topLabel.isHidden = true
-        centerConstraint?.constant = 0
-        suggestionViewConstraint?.constant = 75
-        guard let selectedLanguageConstant = self.selectedLanguageConstant else {
-            return
-        }
-        guard let arrowConstraint = self.arrowConstraint else {
-            return
-        }
-        guard let suggestionViewConstraint = self.suggestionViewConstraint else {
-            return
-        }
-        NSLayoutConstraint.deactivate([selectedLanguageConstant])
-        NSLayoutConstraint.activate([arrowConstraint, suggestionViewConstraint])
+        centerConstraint?.constant = -30
+        suggestionView.isHidden = true
+        suggestionViewConstraint?.constant = 25
+        NSLayoutConstraint.activate([self.suggestionViewConstraint!])
+        updateSuggestTitle("")
+        NSLayoutConstraint.deactivate([self.selectedLanguageConstant!])
+        NSLayoutConstraint.activate([self.arrowConstraint!])
         UIView.animate(withDuration: 0.35) {
             self.view.layoutIfNeeded()
         }
@@ -175,27 +173,17 @@ extension DictionaryViewController: UITextFieldDelegate {
     public func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.opacity = 0.4
         topLabel.isHidden = false
-        centerConstraint!.constant = 75
-        selectedLanguageConstant?.constant = CommonConstants.smallSpacing
-        guard let selectedLanguageConstant = self.selectedLanguageConstant else {
-            return
-        }
-        guard let arrowConstraint = self.arrowConstraint else {
-            return
-        }
-        guard var suggestionViewConstraint = self.suggestionViewConstraint else {
-            return
-        }
-        NSLayoutConstraint.deactivate([arrowConstraint, suggestionViewConstraint])
-        suggestionViewConstraint = suggestionView.topAnchor.constraint(equalTo: originLanguage.bottomAnchor,
-                                                                        constant: CommonConstants.bigSpacing)
-        NSLayoutConstraint.activate([selectedLanguageConstant, suggestionViewConstraint])
+        centerConstraint!.constant = 40
+        selectedLanguageConstant?.constant = CommonConstants.bigSpacing
+        NSLayoutConstraint.deactivate([arrowConstraint!])
+        NSLayoutConstraint.activate([selectedLanguageConstant!])
         UIView.animate(withDuration: 0.35) {
             self.view.layoutIfNeeded()
         }
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.workItem?.cancel()
         textField.resignFirstResponder()
         tableView.reloadData()
         return true

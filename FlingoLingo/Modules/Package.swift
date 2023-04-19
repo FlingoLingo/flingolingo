@@ -14,7 +14,9 @@ let package = Package(
                 "UIComponents",
                 "UserProfile",
                 "Decks",
-                "Dictionary"
+                "Dictionary",
+                "NetworkLayer",
+                "UserProfile"
             ]
         )
     ],
@@ -45,8 +47,16 @@ let package = Package(
         .target(
             name: "Dictionary",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
+        .target(
+            name: "NetworkLayer",
+            dependencies: [
+                "UIComponents",
+                    .product(name: "SwiftyKeychainKit", package: "SwiftyKeychainKit")
+            ]
+        )
     ]
 )
