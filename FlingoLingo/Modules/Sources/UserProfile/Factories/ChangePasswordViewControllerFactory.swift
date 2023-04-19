@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import Authorization
 
 public struct ChangePasswordViewControllerFactory {
 
@@ -7,8 +8,8 @@ public struct ChangePasswordViewControllerFactory {
 
     }
 
-    public func changePasswordViewController(user: User, backAction: @escaping () -> Void) -> UIViewController {
-        let viewModel = ChangePasswordViewModel(user: user, backAction: backAction)
+    public func changePasswordViewController(user: User, backAction: @escaping () -> Void, provider: ProfileProvider) -> UIViewController {
+        let viewModel = ChangePasswordViewModel(user: user, backAction: backAction, provider: provider)
         return UIHostingController(rootView: ChangePasswordView(viewModel: viewModel))
     }
 }

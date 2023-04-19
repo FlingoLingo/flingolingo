@@ -6,10 +6,11 @@ final class ProfileRouter {
 
     public weak var presentingViewController: UIViewController?
 
-    func changePassword(user: User) {
+    func changePassword(user: User, provider: ProfileProvider) {
         let changePasswordFactory = ChangePasswordViewControllerFactory()
         let changePasswordController = changePasswordFactory.changePasswordViewController(user: user,
-                                                                                          backAction: goBack)
+                                                                                          backAction: goBack,
+                                                                                          provider: provider)
         presentingViewController?.navigationController?.pushViewController(changePasswordController, animated: true)
     }
 

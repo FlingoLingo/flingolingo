@@ -16,6 +16,7 @@ public final class SignUpViewController: UIViewController {
         return view
     }()
     private let validationChecker = ValidationChecker()
+    private let provider = ProfileProviderImpl()
 
     // MARK: - Lifecycle
     public init() {
@@ -75,6 +76,15 @@ extension SignUpViewController: AuthorizationViewDelegate {
     }
 
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
-        if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {}
+        if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {
+            provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { res in
+                if res {
+                    self.dismiss(animated: true)
+                    print("ura")
+                } else {
+                    // show alert
+                }
+            })
+        }
     }
 }

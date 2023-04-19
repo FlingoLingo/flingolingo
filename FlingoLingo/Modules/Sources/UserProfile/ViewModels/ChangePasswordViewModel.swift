@@ -1,4 +1,5 @@
 import Foundation
+import Authorization
 
 final class ChangePasswordViewModel: ObservableObject {
     enum TextField: Equatable {
@@ -21,13 +22,17 @@ final class ChangePasswordViewModel: ObservableObject {
     @Published var newPassword: String = ""
     @Published var confirmPassword: String = ""
     @Published var validatePasswords: [TextField: String] = [:]
+    @Published var isSuccessfulChange: Bool = false
 
     private let backAction: () -> Void
+    private let provider: ProfileProvider
 
     init(user: User,
-         backAction: @escaping () -> Void) {
+         backAction: @escaping () -> Void,
+         provider: ProfileProvider) {
         self.user = user
         self.backAction = backAction
+        self.provider = provider
     }
 
     func changePassword() {
@@ -51,7 +56,14 @@ final class ChangePasswordViewModel: ObservableObject {
         }
 
         if !hasError(for: .old) && !hasError(for: .new) && !hasError(for: .confirm) {
-            // change password
+            isSuccessfulChange = true
+//            provider.changePassword(user: user, oldPassword: oldPassword, newPassword: newPassword, onFinish: { isSuccess in
+//                if isSuccess {
+//                    isSuccessfulChange = true
+//                } else {
+//
+//                }
+//            })
         }
     }
 

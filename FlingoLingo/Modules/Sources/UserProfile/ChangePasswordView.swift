@@ -18,7 +18,10 @@ struct ChangePasswordView: View {
                     Spacer()
                     ButtonView(buttonText: NSLocalizedString("change", comment: ""),
                                buttonClicked: viewModel.changePassword)
-                        .padding(.bottom, CommonConstants.bottomPadding)
+                    .padding(.bottom, CommonConstants.bottomPadding)
+                    .alert("Пароль был успешно изменен", isPresented: $viewModel.isSuccessfulChange) {
+                        Button("OK", role: .cancel) { }
+                    }
                 }
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
