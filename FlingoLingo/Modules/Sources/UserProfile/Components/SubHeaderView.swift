@@ -5,7 +5,7 @@ struct SubHeaderView: View {
 
     private let buttonClicked: (() -> Void)
 
-    public init(buttonClicked: @escaping () -> Void) {
+    init(buttonClicked: @escaping () -> Void) {
         self.buttonClicked = buttonClicked
     }
 

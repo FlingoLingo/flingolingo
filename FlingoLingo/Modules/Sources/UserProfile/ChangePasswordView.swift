@@ -3,7 +3,7 @@ import UIComponents
 
 struct ChangePasswordView: View {
 
-    @ObservedObject var viewModel: UserViewModel
+    @ObservedObject var viewModel: ChangePasswordViewModel
     @State private var isValidPassword: Bool = false
     @State private var arePasswordsEqual: Bool = false
     @State private var isFocused: Bool?

@@ -77,9 +77,9 @@ final class CustomTabBarController: UITabBarController {
     }
 
     private func createProfileNavigationController() -> UIViewController {
-        let userProfileViewControllerFactory = UserProfileViewControllerFactory()
+        let userProfileViewControllerFactory = ProfileViewControllerFactory()
         let userProfileController = configureViewController(
-            controller: userProfileViewControllerFactory.userProfileViewController(),
+            controller: userProfileViewControllerFactory.profileViewController(),
             title: NSLocalizedString("profile", comment: ""),
             image: Constants.profile ?? .add
         )
