@@ -10,11 +10,11 @@ import Foundation
 public typealias Cards = [Card]
 
 public struct DeckResponse: Decodable {
-    public var id: Int
-    public var isPrivate: Bool
-    public var name: String
-    public var description: String
-    public var cards: Cards
+    public let id: Int
+    public let isPrivate: Bool
+    public let name: String
+    public let description: String
+    public let cards: Cards
 }
 
 public struct DeckRequest: Encodable {
@@ -80,10 +80,3 @@ public final class DeckClient {
                                   completion: completion)
     }
 }
-
-// let client = DeckClient(token: "83aeb32d84d74c8fc17529a456b86da7828eded1")
-// client.getDecks(completion: {res in print(res)})
-// client.getDeck(id: 3, completion: {res in print(res)})
-// client.createDeck(completion: {res in print(res)})
-// client.editDeck(id: 10, name: "aboba", description: "helo", isPrivate: nil, completion: {res in print(res)})
-// client.deleteDeck(id: 5, completion: {res in print(res)})

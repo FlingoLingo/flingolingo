@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct AddCardRequest: Encodable {
-    var card: AddCard
-    var decks: [Int]
+public struct AddCardToDecksRequest: Encodable {
+    let card: AddCardRequest
+    let decks: [Int]
 }
-public struct AddCard: Encodable {
+public struct AddCardRequest: Encodable {
     public var eng: String
     public var rus: String
     public var transcription: String
@@ -33,18 +33,18 @@ public struct CardResponse: Decodable {
 }
 
 public final class CardClient {
-    let netLayer: NetworkLayer
+    private let netLayer: NetworkLayer
 
     public init(token: String) {
         self.netLayer = NetworkLayer(token: token)
     }
 
-    public func addCard(card: AddCard,
+    public func addCard(card: AddCardRequest,
                         decks: [Int],
                         completion: @escaping (Result<CardResponse, ClientError>) -> Void) {
         self.netLayer.makeRequest(method: "POST",
                                   urlPattern: "/decks/card/",
-                                  body: AddCardRequest(card: card, decks: decks), completion: completion)
+                                  body: AddCardToDecksRequest(card: card, decks: decks), completion: completion)
     }
 
     public func removeCard(deckId: Int,
@@ -56,9 +56,3 @@ public final class CardClient {
                                   completion: completion)
     }
 }
-
-// пример использования
-// let client = CardClient(token: "83aeb32d84d74c8fc17529a456b86da7828eded1")
-// client.addCard(card: AddCard(eng: "cucumber", rus: "огурец",
-// transcription: "", examples: "Люблю огурцы"), decks: [10], completion: {res in print(res)})
-// client.removeCard(deckId: 10, cardId: 7, completion: {res in print(res)})
