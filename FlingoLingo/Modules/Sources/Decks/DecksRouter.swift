@@ -16,7 +16,7 @@ public final class DecksRouter {
 
     }
 
-    func viewDetails(deck: Deck, provider: DecksProvider) {
+    func viewDetails(deck: DomainDeck, provider: DecksProvider) {
         let deckFactory = DeckViewControllerFactory()
         let deckController = deckFactory.deckViewController(deck: deck,
                                                             backAction: goBack,

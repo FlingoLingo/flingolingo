@@ -10,7 +10,7 @@ import UIComponents
 
 struct DeckCardView: View {
 
-    private let deck: Deck
+    private let deck: DomainDeck
     private let deckCardClicked: (() -> Void)
     private let formatter: DeckFormatter = .init()
     private var progress: Double {
@@ -21,7 +21,7 @@ struct DeckCardView: View {
         }
     }
 
-    init(deck: Deck, deckCardClicked: @escaping () -> Void) {
+    init(deck: DomainDeck, deckCardClicked: @escaping () -> Void) {
         self.deck = deck
         self.deckCardClicked = deckCardClicked
     }

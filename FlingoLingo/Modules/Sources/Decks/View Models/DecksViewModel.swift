@@ -9,7 +9,7 @@ import Foundation
 
 public final class DecksViewModel: ObservableObject {
 
-    @Published var decks: [Deck] = []
+    @Published var decks: [DomainDeck] = []
     @Published var isLoading = true
     @Published var isShowingAlert = false
     @Published var isShowingError = false
@@ -29,7 +29,11 @@ public final class DecksViewModel: ObservableObject {
         provider.getAllDecks { [weak self] result in
             switch result {
             case .success(let decks):
-                self?.decks = decks
+                let decodedDecks = decks.map({ deck in
+                    let newDeck = DomainDeck(deckResponse: deck)
+                    return newDeck
+                })
+                self?.decks = decodedDecks
             case .failure:
                 self?.isShowingError = true
             }
@@ -45,6 +49,7 @@ public final class DecksViewModel: ObservableObject {
     }
 
     func addDeckButtonCLicked() {
+        newDeckName = ""
         isShowingAlert = true
     }
 
@@ -53,7 +58,8 @@ public final class DecksViewModel: ObservableObject {
         provider.createNewDeck(name: newDeckName, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
-                self?.decks.append(deck)
+                let decodedDeck = DomainDeck(deckResponse: deck)
+                self?.decks.append(decodedDeck)
             case .failure:
                 self?.isShowingError = true
             }

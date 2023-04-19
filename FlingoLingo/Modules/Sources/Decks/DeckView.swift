@@ -27,7 +27,6 @@ struct DeckView: View {
                 DeckInfoView(deck: viewModel.deck)
                 SearchView(text: $viewModel.text)
                 if viewModel.isLoading {
-                    Spacer()
                     HStack {
                         Spacer()
                         ProgressView()
@@ -36,6 +35,7 @@ struct DeckView: View {
                             .scaleEffect(1.5)
                         Spacer()
                     }
+                    .padding(.top, CommonConstants.bigSpacing)
                     Spacer()
                 } else {
                     ScrollView {
@@ -60,7 +60,13 @@ struct DeckView: View {
             .alert("error", isPresented: $viewModel.isShowingError) {
                 Button("ok", role: .cancel) { }
             }
+            .alert(NSLocalizedString("editDeckName", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
+                TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.deckName)
+                Button(NSLocalizedString("save", comment: ""), action: viewModel.editDeckName)
+                Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
+            })
             .onAppear(perform: viewModel.reloadDeck)
         }
+        .disabled(viewModel.isLoading)
     }
 }

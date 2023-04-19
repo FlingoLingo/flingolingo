@@ -13,7 +13,6 @@ public struct DeckResponse: Decodable {
     public let id: Int
     public let isPrivate: Bool
     public let name: String
-    public let description: String
     public let cards: Cards
 }
 
@@ -21,7 +20,10 @@ public struct DeckRequest: Encodable {
     var id: Int
     var isPrivate: Bool?
     var name: String?
-    var description: String?
+}
+
+public struct DeckNameRequest: Encodable {
+    var name: String
 }
 
 public enum DecksError: Error {
@@ -59,18 +61,23 @@ public final class DeckClient {
                                   body: EmptyRequest(),
                                   completion: completion)
     }
+    
+    public func createDeckWithName(name: String, completion: @escaping (Result<DeckResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "POST",
+                                  urlPattern: "/decks/",
+                                  body: DeckNameRequest(name: name),
+                                  completion: completion)
+    }
 
     public func editDeck(id: Int,
                          name: String?,
-                         description: String?,
                          isPrivate: Bool?,
                          completion: @escaping (Result<DeckResponse, ClientError>) -> Void) {
         self.netLayer.makeRequest(method: "PATCH",
                                   urlPattern: "/decks/\(id)/",
                                   body: DeckRequest(id: id,
                                                     isPrivate: isPrivate,
-                                                    name: name,
-                                                    description: description),
+                                                    name: name),
                                   completion: completion)
     }
     public func deleteDeck(id: Int, completion: @escaping (Result<MessageResponse, ClientError>) -> Void) {

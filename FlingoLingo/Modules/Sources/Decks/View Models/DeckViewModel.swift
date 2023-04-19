@@ -16,12 +16,12 @@ final class DeckViewModel: ObservableObject {
     @Published var isShowingError = false
     @Published var isLoading = false
 
-    var deck: Deck
+    var deck: DomainDeck
     let provider: DecksProvider
     private let router: CardsRouter
     private let backAction: () -> Void
 
-    init(deck: Deck, provider: DecksProvider, backAction: @escaping () -> Void, router: CardsRouter) {
+    init(deck: DomainDeck, provider: DecksProvider, backAction: @escaping () -> Void, router: CardsRouter) {
         self.deck = deck
         self.backAction = backAction
         self.provider = provider
@@ -46,7 +46,7 @@ final class DeckViewModel: ObservableObject {
         provider.editDeck(id: deck.id, newName: deckName, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
-                self?.deck = deck
+                self?.deck = DomainDeck(deckResponse: deck)
             case .failure:
                 self?.isShowingError = true
             }
@@ -63,7 +63,7 @@ final class DeckViewModel: ObservableObject {
         provider.getDeck(id: deck.id, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
-                self?.deck = deck
+                self?.deck = DomainDeck(deckResponse: deck)
             case .failure:
                 self?.isShowingError = true
             }
@@ -86,10 +86,11 @@ final class DeckViewModel: ObservableObject {
 
     func deleteWordCard(cardId: Int) {
         isLoading = true
-        provider.deleteCardFromDeck(deckId: deck.id, carId: cardId, onFinish: { [weak self] isSuccess in
-            if isSuccess {
+        provider.deleteCardFromDeck(deckId: deck.id, carId: cardId, onFinish: { [weak self] result in
+            switch result {
+            case .success:
                 self?.reloadDeck()
-            } else {
+            case .failure:
                 self?.isShowingError = true
             }
         })

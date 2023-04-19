@@ -57,5 +57,6 @@ struct DecksPageView: View {
             .padding(.horizontal, CommonConstants.bigSpacing)
             .cornerRadius(CommonConstants.cornerRadius)
         }
+        .disabled(viewModel.isLoading)
     }
 }

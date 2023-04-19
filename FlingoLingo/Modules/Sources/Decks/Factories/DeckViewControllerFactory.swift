@@ -15,7 +15,7 @@ public struct DeckViewControllerFactory {
 
     }
 
-    public func deckViewController(deck: Deck, backAction: @escaping () -> Void, provider: DecksProvider) -> UIViewController {
+    public func deckViewController(deck: DomainDeck, backAction: @escaping () -> Void, provider: DecksProvider) -> UIViewController {
         let router = CardsRouter()
         let viewModel = DeckViewModel(deck: deck, provider: provider, backAction: backAction, router: router)
         let controller = UIHostingController(rootView: DeckView(viewModel: viewModel))
