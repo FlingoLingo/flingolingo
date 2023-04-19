@@ -75,8 +75,10 @@ final class NetworkRequest {
     }
 }
 
+// swiftlint:disable line_length
 // all urls here
 private enum Urls: String {
-            case langs = "https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key=dict.1.1.20230414T071057Z.cc74933e551e6749.af1a5aaf6c6d625a28b9ec00e98a759bd4cc06bc"
-            case lookup = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20230414T071057Z.cc74933e551e6749.af1a5aaf6c6d625a28b9ec00e98a759bd4cc06bc&"
+    case langs = "https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key=dict.1.1.20230414T071057Z.cc74933e551e6749.af1a5aaf6c6d625a28b9ec00e98a759bd4cc06bc"
+    case lookup = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20230414T071057Z.cc74933e551e6749.af1a5aaf6c6d625a28b9ec00e98a759bd4cc06bc&"
 }
+// swiftlint:enable line_length
