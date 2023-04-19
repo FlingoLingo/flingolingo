@@ -16,6 +16,12 @@ public struct AddCard: Encodable {
     public var rus: String
     public var transcription: String
     public var examples: String
+    public init(eng: String, rus: String, transcription: String, examples: String) {
+        self.eng = eng
+        self.rus = rus
+        self.transcription = transcription
+        self.examples = examples
+    }
 }
 
 public struct CardResponse: Decodable {
