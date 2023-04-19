@@ -4,7 +4,7 @@ import UIComponents
 struct BubbleView: View {
     private let bubbleText: String
 
-    public init(bubbleText: String) {
+    init(bubbleText: String) {
         self.bubbleText = bubbleText
     }
 

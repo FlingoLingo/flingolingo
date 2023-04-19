@@ -5,7 +5,7 @@ struct ProfileView: View {
 
     @ObservedObject private var viewModel: UserViewModel
 
-    public init(viewModel: UserViewModel) {
+    init(viewModel: UserViewModel) {
         self.viewModel = viewModel
     }
 

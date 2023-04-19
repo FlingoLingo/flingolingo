@@ -5,7 +5,7 @@ struct PasswordsView: View {
 
     @ObservedObject var viewModel: UserViewModel
 
-    public init(viewModel: UserViewModel) {
+    init(viewModel: UserViewModel) {
         self.viewModel = viewModel
     }
 

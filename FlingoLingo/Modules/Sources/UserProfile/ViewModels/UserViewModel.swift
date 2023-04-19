@@ -22,19 +22,17 @@ public final class UserViewModel: ObservableObject {
     @Published var newPassword: String = ""
     @Published var confirmPassword: String = ""
     @Published var validatePasswords: [TextField: String] = [:]
-    @Published var isGuest: Bool
+    @Published var isGuest: Bool = false
 
     private let router: ProfileRouter
     private let backAction: () -> Void
 
-    init(user: User = User(),
-         backAction: @escaping () -> Void = {},
-         router: ProfileRouter = ProfileRouter(),
-         isGuest: Bool) {
+    init(user: User,
+         backAction: @escaping () -> Void,
+         router: ProfileRouter) {
         self.user = user
         self.backAction = backAction
         self.router = router
-        self.isGuest = isGuest
     }
 
     func changePassword() {

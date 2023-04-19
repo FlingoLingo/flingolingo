@@ -2,13 +2,9 @@ import Foundation
 import UIKit
 import Authorization
 
-public final class ProfileRouter {
+final class ProfileRouter {
 
     public weak var presentingViewController: UIViewController?
-
-    public init() {
-
-    }
 
     func changePassword(user: User) {
         let changePasswordFactory = ChangePasswordViewControllerFactory()

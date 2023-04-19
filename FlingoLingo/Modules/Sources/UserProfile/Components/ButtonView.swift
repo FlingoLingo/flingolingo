@@ -5,7 +5,7 @@ struct ButtonView: View {
     private let buttonText: String
     private let buttonClicked: (() -> Void)
 
-    public init(buttonText: String, buttonClicked: @escaping () -> Void) {
+    init(buttonText: String, buttonClicked: @escaping () -> Void) {
         self.buttonText = buttonText
         self.buttonClicked = buttonClicked
     }

@@ -8,7 +8,7 @@ public struct ChangePasswordViewControllerFactory {
     }
 
     public func changePasswordViewController(user: User, backAction: @escaping () -> Void) -> UIViewController {
-        let viewModel = UserViewModel(user: user, backAction: backAction, isGuest: false)
+        let viewModel = UserViewModel(user: user, backAction: backAction, router: ProfileRouter())
         return UIHostingController(rootView: ChangePasswordView(viewModel: viewModel))
     }
 }
