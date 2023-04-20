@@ -11,6 +11,9 @@ import UIComponents
 struct DeckView: View {
 
     @ObservedObject private var viewModel: DeckViewModel
+    private var isCardsEmpty: Bool {
+        viewModel.deck.cards.isEmpty
+    }
 
     init(viewModel: DeckViewModel) {
         self.viewModel = viewModel
@@ -51,6 +54,8 @@ struct DeckView: View {
                 ButtonView(buttonText: NSLocalizedString("startButton", comment: ""),
                            buttonClicked: viewModel.startButtonClicked)
                 .padding(.bottom, CommonConstants.bottomPadding)
+                .disabled(isCardsEmpty)
+                .opacity(isCardsEmpty ? 0.5 : 1)
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
         }
