@@ -14,11 +14,13 @@ public struct DeckResponse: Decodable {
     public let isPrivate: Bool
     public let name: String
     public let cards: Cards
-    public init(id: Int, isPrivate: Bool, name: String, cards: Cards) {
+    public let lastRepeated: String?
+    public init(id: Int, isPrivate: Bool, name: String, cards: Cards, lastRepeated: String?) {
         self.cards = cards
         self.id = id
         self.isPrivate = isPrivate
         self.name = name
+        self.lastRepeated = lastRepeated
     }
 }
 

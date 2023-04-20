@@ -93,7 +93,8 @@ public final class PopUpViewController: UIViewController {
                                                     DeckResponse(id: -1,
                                                                  isPrivate: false,
                                                                  name: "Новая колода",
-                                                                 cards: []))]
+                                                                 cards: [],
+                                                                 lastRepeated: nil))]
     private var selectedDecksIds: [Int] = []
     private lazy var decksCollection = CollectionViews.collectionView()
     var langsApi = ""
@@ -272,7 +273,8 @@ public final class PopUpViewController: UIViewController {
                     datum.append(DomainDeck(deckResponse: DeckResponse(id: -1,
                                                                        isPrivate: false,
                                                                        name: "Новая колода",
-                                                                       cards: [])))
+                                                                       cards: [],
+                                                                       lastRepeated: nil)))
                     self.data = datum
                     self.decksCollection.reloadData()
                     self.performing.isHidden = true
