@@ -22,18 +22,30 @@ final class CardsViewModel: ObservableObject {
     private let popToRootAction: () -> Void
     var subscription: AnyCancellable?
     var results: [Int: CardSwipeDirection] = [:]
+    private let provider: DecksProvider
 
     let notificationSubject: PassthroughSubject<CardSwipeInfo, Never> = .init()
 
-    init(deck: DomainDeck, backAction: @escaping () -> Void, popToRootAction: @escaping () -> Void) {
+    init(
+        deck: DomainDeck,
+        provider: DecksProvider,
+        backAction: @escaping () -> Void,
+        popToRootAction: @escaping () -> Void
+    ) {
         self.deck = deck
         self.backAction = backAction
         self.popToRootAction = popToRootAction
+        self.provider = provider
         fetchedCards = deck.cards
         displayingCards = fetchedCards
 
-        subscription = $displayingCards.sink { cards in
-            if cards.count == 0 {}
+        subscription = $displayingCards.sink { [weak self] cards in
+            guard let self = self else { return }
+            if cards.count == 0 {
+                let deckId = self.deck.id
+                let cardIdWithDirection = self.results
+                provider.setStatistics(deckId: deckId, cardIdWithDirection: cardIdWithDirection)
+            }
         }
     }
 
@@ -47,6 +59,10 @@ final class CardsViewModel: ObservableObject {
 
     func backButtonClicked() {
         backAction()
+
+        let deckId = deck.id
+        let cardIdWithDirection = results
+        provider.setStatistics(deckId: deckId, cardIdWithDirection: cardIdWithDirection)
     }
 
     func backToDecksButtonClicked() {

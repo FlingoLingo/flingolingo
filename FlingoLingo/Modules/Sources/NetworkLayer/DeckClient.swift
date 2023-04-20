@@ -67,6 +67,7 @@ public final class DeckClient {
                                   body: EmptyRequest(),
                                   completion: completion)
     }
+
     public func createDeckWithName(name: String, completion: @escaping (Result<DeckResponse, ClientError>) -> Void) {
         self.netLayer.makeRequest(method: "POST",
                                   urlPattern: "/decks/",

@@ -30,4 +30,6 @@ public protocol DecksProvider: AnyObject {
     )
 
     func editDeck(id: Int, newName: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void)
+
+    func setStatistics(deckId: Int, cardIdWithDirection: [Int: CardSwipeDirection])
 }

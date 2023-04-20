@@ -29,7 +29,7 @@ final class DeckViewModel: ObservableObject {
     }
 
     func startButtonClicked() {
-        router.startLearning(deck: deck)
+        router.startLearning(deck: deck, provider: provider)
     }
 
     func backButtonClicked() {

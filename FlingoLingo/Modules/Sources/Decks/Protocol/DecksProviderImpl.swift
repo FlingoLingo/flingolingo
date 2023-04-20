@@ -123,4 +123,29 @@ public class DecksProviderImpl: DecksProvider {
             }
         })
     }
+
+    public func setStatistics(deckId: Int, cardIdWithDirection: [Int: CardSwipeDirection]) {
+        var cardsIdsToAdd: Set<String> = []
+        var cardsIdsToRemove: Set<String> = []
+
+        for (cardId, direction) in cardIdWithDirection {
+            switch direction {
+            case .left:
+                cardsIdsToRemove.insert("\(cardId)")
+            case .right:
+                cardsIdsToAdd.insert("\(cardId)")
+            }
+        }
+
+        let cardsIdsFromUserDefaults = UserDefaults.standard.stringArray(forKey: "\(deckId)") ?? []
+        for cardId in cardsIdsFromUserDefaults {
+            cardsIdsToAdd.insert(cardId)
+        }
+
+        for cardId in cardsIdsToRemove {
+            cardsIdsToAdd.remove(cardId)
+        }
+        let cardsIdsToAddArray = Array(cardsIdsToAdd)
+        UserDefaults.standard.set(cardsIdsToAddArray, forKey: "\(deckId)")
+    }
 }
