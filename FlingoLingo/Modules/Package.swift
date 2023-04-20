@@ -12,10 +12,10 @@ let package = Package(
             targets: [
                 "Authorization",
                 "UIComponents",
+                "UserProfile",
                 "Decks",
                 "Dictionary",
                 "NetworkLayer",
-                "UserProfile"
             ]
         )
     ],

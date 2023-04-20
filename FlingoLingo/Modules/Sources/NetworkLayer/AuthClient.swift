@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public struct AuthRequest: Encodable {
     var username: String
     var password: String

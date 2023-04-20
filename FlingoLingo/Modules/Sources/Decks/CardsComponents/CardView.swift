@@ -24,7 +24,6 @@ struct CardView: View {
     @State private var flashcardRotation = 0.0
     @State private var contentRotation = 0.0
 
-
     init(viewModel: CardsViewModel, card: DomainCard) {
         self.viewModel = viewModel
         self.card = card

@@ -49,6 +49,3 @@ public final class ProfileClient {
 // client.getProfile(completion: {res in print(res)})
 // client.changePassword(oldPassword: "robertson", newPassword: "roberts", completion: {res in print(res)})
 // client.deleteAccount(completion: {res in print(res)})
-
-
-

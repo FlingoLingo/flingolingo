@@ -175,6 +175,7 @@ public final class DictionaryViewController: UIViewController {
         suggestionView.addTarget(self, action: #selector(suggestWasAccepted),
                                  for: .touchUpInside)
         arrowButton.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
+        // swiftlint:enable function_body_length
     }
 }
 
