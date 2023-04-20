@@ -16,10 +16,9 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return sinonimsCount
     }
-
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        view.backgroundColor = ColorScheme.darkBackground
         popOverVC.wordName = tableData.def?.first?.text ?? ""
+        popOverVC.langsApi = languagesPairApiCode
         popOverVC.transcription = tableData.def?.first?.ts ?? ""
         popOverVC.translation = tableData.def?.first?.tr?[indexPath.row].text ?? ""
         popOverVC.translatedExample = tableData.def?.first?.tr?[indexPath.row].ex?.first?.text ?? ""
@@ -35,7 +34,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let verticalPadding: CGFloat = CGFloat(tableSpacing)
         let maskLayer = CALayer()
-        maskLayer.cornerRadius = CGFloat(CommonConstants.cornerRadius)
+        maskLayer.cornerRadius = CGFloat(CommonConstants.cornerRadius) 
         maskLayer.backgroundColor = UIColor.black.cgColor
         maskLayer.frame = CGRect(x: cell.bounds.origin.x,
                                  y: cell.bounds.origin.y,
@@ -45,8 +44,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         cell.wordLabel.text = tableData.def?.first?.tr?[indexPath.row].text
         return cell
     }
-
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
 }
