@@ -82,6 +82,7 @@ final class WelcomeView: UIView {
         button.titleLabel?.font = Fonts.mainText
         button.addTarget(self, action: #selector(guestLogInButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isHidden = true
 
         return button
     }()
@@ -152,9 +153,9 @@ extension WelcomeView {
 
         NSLayoutConstraint.activate([
 
-            appInfoStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            trailingAnchor.constraint(equalTo: appInfoStackView.trailingAnchor, constant: 25),
-            centerYAnchor.constraint(equalTo: appInfoStackView.centerYAnchor, constant: 60)
+            appInfoStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
+            trailingAnchor.constraint(equalTo: appInfoStackView.trailingAnchor, constant: CommonConstants.bigSpacing),
+            centerYAnchor.constraint(equalTo: appInfoStackView.centerYAnchor, constant: CommonConstants.bigSpacing)
         ])
     }
 
@@ -162,18 +163,19 @@ extension WelcomeView {
 
         NSLayoutConstraint.activate([
 
-            guestLogInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            trailingAnchor.constraint(equalTo: guestLogInButton.trailingAnchor, constant: 25),
-            safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: guestLogInButton.bottomAnchor, constant: 25),
-            guestLogInButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+            signUpButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
+            trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: CommonConstants.bigSpacing),
+            safeAreaLayoutGuide.bottomAnchor.constraint(
+                equalTo: signUpButton.bottomAnchor,
+                constant: CommonConstants.bottomPadding
+            ),
 
-            signUpButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 25),
-            guestLogInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 10),
-
-            logInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            trailingAnchor.constraint(equalTo: logInButton.trailingAnchor, constant: 25),
-            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 15),
+            logInButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CommonConstants.bigSpacing),
+            trailingAnchor.constraint(equalTo: logInButton.trailingAnchor, constant: CommonConstants.bigSpacing),
+            signUpButton.topAnchor.constraint(
+                equalTo: logInButton.bottomAnchor,
+                constant: CommonConstants.smallSpacing
+            ),
         ])
     }
 

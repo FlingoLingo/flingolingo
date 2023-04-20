@@ -355,7 +355,7 @@ extension AuthorizationView {
             trailingAnchor.constraint(equalTo: continueButton.trailingAnchor, constant: CommonConstants.bigSpacing),
             safeAreaLayoutGuide.bottomAnchor.constraint(
                 equalTo: continueButton.bottomAnchor,
-                constant: CommonConstants.bigSpacing
+                constant: CommonConstants.bottomPadding
             ),
         ])
     }
