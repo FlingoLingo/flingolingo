@@ -10,12 +10,16 @@ import NetworkLayer
 
 public class DecksProviderImpl: DecksProvider {
 
+    private var token: String {
+      "00fa7675354ab19839cdd317efa545429764b77e"
+    }
+
     public init() {
 
     }
 
-    public func getAllDecks(onFinish: @escaping (Result<[DomainDeck], ClientError>) -> Void) {
-        let client = DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e")
+    public func getAllDecks(onFinish: @escaping (Result<[DomainDeck], DecksError>) -> Void) {
+        let client = DeckClient(token: token)
         client.getDecks(completion: { result in
             DispatchQueue.main.async {
                 switch result {
@@ -25,42 +29,42 @@ public class DecksProviderImpl: DecksProvider {
                         return decodedDeck
                     })))
                 case .failure(let failure):
-                    onFinish(.failure(failure))
+                    onFinish(.failure(.client(failure)))
                 }
             }
         })
     }
 
-    public func getDeck(id: Int, onFinish: @escaping (Result<DomainDeck, ClientError>) -> Void) {
-        let client = DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e")
+    public func getDeck(id: Int, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {
+        let client = DeckClient(token: token)
         client.getDeck(id: id, completion: { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let deck):
                     onFinish(.success(DomainDeck(deckResponse: deck)))
                 case .failure(let failure):
-                    onFinish(.failure(failure))
+                    onFinish(.failure(.client(failure)))
                 }
             }
         })
     }
 
-    public func createNewDeck(name: String, onFinish: @escaping (Result<DomainDeck, ClientError>) -> Void) {
-        let client = DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e")
+    public func createNewDeck(name: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {
+        let client = DeckClient(token: token)
         client.createDeckWithName(name: name, completion: { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let deck):
                     onFinish(.success(DomainDeck(deckResponse: deck)))
                 case .failure(let failure):
-                    onFinish(.failure(failure))
+                    onFinish(.failure(.client(failure)))
                 }
             }
         })
     }
 
     public func deleteDeck(id: Int, onFinish: @escaping (Bool) -> Void) {
-        let client = DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e")
+        let client = DeckClient(token: token)
         client.deleteDeck(id: id, completion: { result in
             DispatchQueue.main.async {
                 switch result {
@@ -74,7 +78,7 @@ public class DecksProviderImpl: DecksProvider {
     }
 
     public func deleteCardFromDeck(deckId: Int, carId: Int, onFinish: @escaping (Bool) -> Void) {
-        let client = CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e")
+        let client = CardClient(token: token)
         client.removeCard(deckId: deckId, cardId: carId, completion: { result in
             DispatchQueue.main.async {
                 switch result {
@@ -91,15 +95,15 @@ public class DecksProviderImpl: DecksProvider {
 
     }
 
-    public func editDeck(id: Int, newName: String, onFinish: @escaping (Result<DomainDeck, ClientError>) -> Void) {
-        let client = DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e")
+    public func editDeck(id: Int, newName: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {
+        let client = DeckClient(token: token)
         client.editDeck(id: id, name: newName, isPrivate: true, completion: { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let deck):
                     onFinish(.success(DomainDeck(deckResponse: deck)))
                 case .failure(let failure):
-                    onFinish(.failure(failure))
+                    onFinish(.failure(.client(failure)))
                 }
             }
         })
