@@ -92,12 +92,12 @@ public final class DeckClient {
                                   completion: completion)
     }
 
-    public func updateCardKnowledge(id: Int,
+    public func updateCardKnowledge(deckId: Int,
                                     cardsLearned: [Int],
                                     cardsForgotten: [Int],
                                     completion: @escaping (Result<MessageResponse, ClientError>) -> Void) {
         self.netLayer.makeRequest(method: "PUT",
-                                  urlPattern: "/decks/\(id)/",
+                                  urlPattern: "/decks/\(deckId)/",
                                   body: CardKnowledgeRequest(cardsLearned: cardsLearned,
                                                              cardsForgotten: cardsForgotten),
                                   completion: completion)
