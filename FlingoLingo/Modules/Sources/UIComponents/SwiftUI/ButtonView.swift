@@ -1,6 +1,6 @@
 //
 //  ButtonView.swift
-//  
+//
 //
 //  Created by Алиса Вышегородцева on 13.04.2023.
 //
@@ -37,8 +37,14 @@ public struct ButtonView: View {
             .background(buttonBackgroundColor)
             .cornerRadius(CommonConstants.cornerRadius)
             .onTapGesture {
-                buttonClicked()
+                animate = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration, execute: {
+                    self.animate = false
+                    buttonClicked()
+                })
             }
+            .scaleEffect(animate ? 0.9 : 1)
+            .animation(.easeIn(duration: animationDuration), value: animate)
     }
 }
 
