@@ -100,7 +100,7 @@ public final class PopUpViewController: UIViewController {
     var index = 1
     var rusWord = ""
     var engWord = ""
-    
+
     private let decksProvider: DecksProvider
     
     init(decksProvider: DecksProvider) {
@@ -209,11 +209,11 @@ public final class PopUpViewController: UIViewController {
         decksCollection.reloadData()
         dismiss(animated: true)
     }
-    
+
     @objc func dismis() {
         dismiss(animated: true)
     }
-    
+
     @objc func add() {
         guard !selectedDecksIds.isEmpty else {
             return
@@ -236,7 +236,7 @@ public final class PopUpViewController: UIViewController {
         }
         addingCards(dataArray)
     }
-    
+
     private func addingCards(_ deckIds: [Int]) {
         decksProvider.insertCardToDeck(request:
                                         InsertCardRequest(eng: engWord,
@@ -250,7 +250,7 @@ public final class PopUpViewController: UIViewController {
             }
         }
     }
-    
+
     private func createNewDeck() {
         decksProvider.createNewDeck(name: "Новая колода") { result in
             switch result {
