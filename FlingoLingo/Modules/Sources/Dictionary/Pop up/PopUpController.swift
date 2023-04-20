@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Yandex on 17.04.2023.
 //
@@ -215,6 +215,7 @@ public final class PopUpViewController: UIViewController {
     }
 
     @objc func add() {
+        performing.isHidden = false
         guard !selectedDecksIds.isEmpty else {
             return
         }
@@ -245,6 +246,7 @@ public final class PopUpViewController: UIViewController {
                                                           examples: translatedExample,
                                                           decks: deckIds)) { [weak self] _ in
             DispatchQueue.main.async {
+                self?.performing.isHidden = true
                 self?.dismiss(animated: true)
             }
         }
@@ -273,7 +275,7 @@ public final class PopUpViewController: UIViewController {
                                  at: 0)
                     self.data = datum
                     self.decksCollection.reloadData()
-                    self.performing.removeFromSuperview()
+                    self.performing.isHidden = true
                 }
             case .failure(let error):
                 print(error)

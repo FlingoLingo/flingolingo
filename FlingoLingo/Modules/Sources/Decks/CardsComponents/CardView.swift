@@ -36,6 +36,24 @@ struct CardView: View {
             let topOffset = (index <= 2 ? index : 2) * CommonConstants.bigSpacing
 
             ZStack {
+                VStack {
+                    HStack {
+                        Icons.checkmark
+                            .opacity(Double(offset / 10 - 1))
+                            .padding(CommonConstants.bigSpacing)
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                VStack {
+                    HStack {
+                        Spacer()
+                        Icons.xmark
+                            .opacity(Double(offset / 10 * -1 - 1))
+                            .padding(CommonConstants.bigSpacing)
+                    }
+                    Spacer()
+                }
                 if flipped {
                     Text(card.rus)
                 } else {
@@ -78,7 +96,7 @@ struct CardView: View {
                     let checkingStatus = (translation > 0 ? translation : -translation)
 
                     withAnimation(.easeOut(duration: CommonConstants.animationDutation)) {
-                        if checkingStatus > (width / 2) {
+                        if checkingStatus > (width / 4) {
                             offset = (translation > 0 ? width : -width) * 2
                             if translation > 0 {
                                 viewModel.doSwipe(withInfo: .init(id: card.id, direction: .right))

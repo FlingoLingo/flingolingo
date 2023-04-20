@@ -5,7 +5,6 @@ final class ProfileViewModel: ObservableObject {
 
     @Published var isGuest: Bool = false
     @Published var isLoading = false
-
     @Published var profile: DomainProfile?
 
     private let router: ProfileRouter
