@@ -19,7 +19,7 @@ public enum SColors {
     // Фон.
     public static let background = Color(UIColor(red: 27/255, green: 26/255, blue: 26/255, alpha: 1.0))
     // Темный фон.
-    public static let darkBackground = Color(UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1.0))
+    public static let darkBackground = Color.black
     // Неактивный элемент.
     public static let inactive = Color(UIColor(red: 99/255, green: 99/255, blue: 99/255, alpha: 1.0))
     public static let lightButton = Color(UIColor(red: 255/255, green: 108/255, blue: 144/255, alpha: 1))

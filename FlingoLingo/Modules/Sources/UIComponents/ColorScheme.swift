@@ -18,7 +18,7 @@ public enum ColorScheme {
     // Фон.
     public static let background = UIColor(red: 27/255, green: 26/255, blue: 26/255, alpha: 1.0)
     // Темный фон.
-    public static let darkBackground = UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1.0)
+    public static let darkBackground = UIColor.black
     // Неактивный элемент.
     public static let inactive = UIColor(red: 99/255, green: 99/255, blue: 99/255, alpha: 1.0)
 }
