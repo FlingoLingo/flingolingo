@@ -22,7 +22,7 @@ final class CardsViewModel: ObservableObject {
     private let popToRootAction: () -> Void
     var subscription: AnyCancellable?
     var results: [Int: CardSwipeDirection] = [:]
-    let provider: DecksProvider
+    private let provider: DecksProvider
 
     let notificationSubject: PassthroughSubject<CardSwipeInfo, Never> = .init()
 
@@ -40,9 +40,10 @@ final class CardsViewModel: ObservableObject {
         displayingCards = fetchedCards
 
         subscription = $displayingCards.sink { [weak self] cards in
+            guard let self = self else { return }
             if cards.count == 0 {
-                guard let deckId = self?.deck.id else { return }
-                let cardIdWithDirection = self?.results ?? [:]
+                let deckId = self.deck.id
+                let cardIdWithDirection = self.results
                 provider.setStatistics(deckId: deckId, cardIdWithDirection: cardIdWithDirection)
             }
         }
