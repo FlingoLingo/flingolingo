@@ -59,6 +59,8 @@
 "notEqual" = "Пароли не совпадают";
 "changeName" = "Изменить";
 "delete" = "Удалить";
+"error" = "Ошибка";
+"ok" = "OK";
 "backToDecks" = "Вернуться к колодам";
 "iDontKnow" = "Не знаю";
 "iKnow" = "Знаю";
