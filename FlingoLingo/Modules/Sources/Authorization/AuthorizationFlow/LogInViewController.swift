@@ -17,6 +17,7 @@ public final class LogInViewController: UIViewController {
     }()
     private let validationChecker = ValidationChecker()
     private let provider: ProfileProvider
+    private let child = SpinnerViewController()
 
     // MARK: - Lifecycle
     public init(provider: ProfileProvider) {
@@ -58,6 +59,19 @@ public final class LogInViewController: UIViewController {
 
         return isValid
     }
+
+    private func createSpinnerView() {
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
+
+    private func removeSpinnerView() {
+        child.willMove(toParent: nil)
+        child.view.removeFromSuperview()
+        child.removeFromParent()
+    }
 }
 
 // MARK: - AuthorizationViewDelegate
@@ -68,7 +82,11 @@ extension LogInViewController: AuthorizationViewDelegate {
 
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
         if checkValidation(mail: mail, password: password) {
+            createSpinnerView()
+
             provider.logInUser(email: mail ?? "", password: password ?? "", onFinish: { [weak self] res in
+                self?.removeSpinnerView()
+
                 switch res {
                 case .success(let profile):
                     self?.provider.domainProfile = profile

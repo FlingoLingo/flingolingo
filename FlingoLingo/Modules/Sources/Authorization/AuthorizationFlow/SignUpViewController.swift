@@ -17,6 +17,7 @@ public final class SignUpViewController: UIViewController {
     }()
     private let validationChecker = ValidationChecker()
     private let provider: ProfileProvider
+    private let child = SpinnerViewController()
 
     // MARK: - Lifecycle
     public init(provider: ProfileProvider) {
@@ -68,6 +69,19 @@ public final class SignUpViewController: UIViewController {
 
         return isValid
     }
+
+    private func createSpinnerView() {
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
+
+    private func removeSpinnerView() {
+        child.willMove(toParent: nil)
+        child.view.removeFromSuperview()
+        child.removeFromParent()
+    }
 }
 
 // MARK: - AuthorizationViewDelegate
@@ -78,18 +92,22 @@ extension SignUpViewController: AuthorizationViewDelegate {
 
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
         if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {
-            provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { result in
+            createSpinnerView()
+
+            provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { [weak self] result in
+                self?.removeSpinnerView()
+
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let profile):
-                        self.provider.domainProfile = profile
+                        self?.provider.domainProfile = profile
                         DispatchQueue.main.async {
-                            self.navigationController?.dismiss(animated: true)
+                            self?.navigationController?.dismiss(animated: true)
                         }
                     case .failure(let error):
                         let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
+                        self?.present(alert, animated: true, completion: nil)
                     }
                 }
             })
