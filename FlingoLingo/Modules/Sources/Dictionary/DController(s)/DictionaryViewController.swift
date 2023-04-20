@@ -72,7 +72,7 @@ public final class DictionaryViewController: UIViewController {
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?
     private var suggestionViewConstraint: NSLayoutConstraint?
-    public var tableSpacing = 10
+    var tableSpacing = 10
     private lazy var network: NetworkRequest = {
         let network = NetworkRequest()
         return network
@@ -107,8 +107,7 @@ public final class DictionaryViewController: UIViewController {
         self.selectedLanguageConstant = selectedLanguageConstant
         self.arrowConstraint = arrowConstraint
         self.suggestionViewConstraint = suggestionViewConstraint
-        textField.rightViewButton.button.addTarget(self, action: #selector(textFieldFunc),
-                                      for: .touchUpInside)
+        textField.rightViewButton.button.addTarget(self, action: #selector(textFieldFunc), for: .touchUpInside)
         let topLabelConstraints = [
             centerConstraint,
             topLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
@@ -146,8 +145,7 @@ public final class DictionaryViewController: UIViewController {
                                                      constant: -CommonConstants.bigSpacing)
         ]
         let tableConstraints = [
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                               constant: CommonConstants.bigSpacing),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CommonConstants.bigSpacing),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                 constant: -CommonConstants.bigSpacing),
             tableView.topAnchor.constraint(equalTo: textField.bottomAnchor,
@@ -160,16 +158,11 @@ public final class DictionaryViewController: UIViewController {
         NSLayoutConstraint.activate(textFieldConstraints)
         NSLayoutConstraint.activate(tableConstraints)
         NSLayoutConstraint.activate(suggestionViewConstraints)
-        textField.addTarget(self, action: #selector(textFieldFunc),
-                            for: .allEditingEvents)
-        textField.addTarget(self, action: #selector(clear),
-                            for: .editingChanged)
-        textField.addTarget(self, action: #selector(clear),
-                            for: .editingDidBegin)
-        textField.rightViewButton.button.addTarget(self, action: #selector(clear),
-                                      for: .touchUpInside)
-        suggestionView.addTarget(self, action: #selector(suggestWasAccepted),
-                                 for: .touchUpInside)
+        textField.addTarget(self, action: #selector(textFieldFunc), for: .allEditingEvents)
+        textField.addTarget(self, action: #selector(clear), for: .editingChanged)
+        textField.addTarget(self, action: #selector(clear), for: .editingDidBegin)
+        textField.rightViewButton.button.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        suggestionView.addTarget(self, action: #selector(suggestWasAccepted), for: .touchUpInside)
         arrowButton.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
     }
     private var workItem: DispatchWorkItem?
@@ -212,9 +205,9 @@ extension DictionaryViewController: UITextFieldDelegate {
 
     func textFieldEdited() {
         // отменяем старый айтем
-        self.workItem?.cancel()
+        workItem?.cancel()
         tableView.reloadData()
-        self.textField.layer.opacity = 1
+        textField.layer.opacity = 1
         // новая альтернатива таймера
         let workItem = DispatchWorkItem { [weak self] in
             if !(self?.textField.text?.isEmpty ?? true) {
@@ -230,7 +223,7 @@ extension DictionaryViewController: UITextFieldDelegate {
                         self?.suggestionView.isHidden = false
                         NSLayoutConstraint.activate([self!.suggestionViewConstraint!])
                         UIView.animate(withDuration: 0.25) {
-                            self?.view.layoutIfNeeded()
+                            self.view.layoutIfNeeded()
                         }
                     }
                 }

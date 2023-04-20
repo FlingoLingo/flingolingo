@@ -13,14 +13,18 @@ final class DeckViewModel: ObservableObject {
     @Published var text = ""
     @Published var deckName = ""
     @Published var isShowingAlert = false
+    @Published var isShowingError = false
+    @Published var isLoading = false
 
-    let deck: Deck
+    var deck: DomainDeck
+    let provider: DecksProvider
     private let router: CardsRouter
     private let backAction: () -> Void
 
-    init(deck: Deck, backAction: @escaping () -> Void, router: CardsRouter) {
+    init(deck: DomainDeck, provider: DecksProvider, backAction: @escaping () -> Void, router: CardsRouter) {
         self.deck = deck
         self.backAction = backAction
+        self.provider = provider
         self.router = router
     }
 
@@ -38,14 +42,55 @@ final class DeckViewModel: ObservableObject {
     }
 
     func editDeckName() {
-
+        isLoading = true
+        provider.editDeck(id: deck.id, newName: deckName, onFinish: { [weak self] result in
+            switch result {
+            case .success(let deck):
+                self?.deck = deck
+            case .failure:
+                self?.isShowingError = true
+            }
+            self?.isLoading = false
+        })
     }
 
     func wordCardClicked() {
 
     }
 
+    func reloadDeck() {
+        isLoading = true
+        provider.getDeck(id: deck.id, onFinish: { [weak self] result in
+            switch result {
+            case .success(let deck):
+                self?.deck = deck
+            case .failure:
+                self?.isShowingError = true
+            }
+            self?.isLoading = false
+        })
+    }
+
     func deleteDeck() {
-        backAction()
+        isLoading = true
+        provider.deleteDeck(id: deck.id, onFinish: { [weak self] success in
+            if success {
+                self?.backAction()
+            } else {
+                self?.isShowingError = true
+            }
+            self?.isLoading = false
+        })
+    }
+
+    func deleteWordCard(cardId: Int) {
+        isLoading = true
+        provider.deleteCardFromDeck(deckId: deck.id, carId: cardId, onFinish: { [weak self] success in
+            if success {
+                self?.reloadDeck()
+            } else {
+                self?.isShowingError = true
+            }
+        })
     }
 }

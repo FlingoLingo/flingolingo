@@ -10,12 +10,14 @@ import UIComponents
 
 struct WordCardView: View {
 
-    private let card: Card
+    private let card: DomainCard
     private let wordCardClicked: (() -> Void)
+    private let deleteWordCard: (() -> Void)
 
-    init(card: Card, wordCardClicked: @escaping () -> Void) {
+    init(card: DomainCard, wordCardClicked: @escaping () -> Void, deleteWordCard: @escaping () -> Void) {
         self.card = card
         self.wordCardClicked = wordCardClicked
+        self.deleteWordCard = deleteWordCard
     }
 
     var body: some View {
@@ -31,7 +33,7 @@ struct WordCardView: View {
                 }
                 .padding(.trailing, CommonConstants.smallSpacing)
                 Spacer()
-                Button(action: wordCardClicked,
+                Button(action: deleteWordCard,
                        label: {
                     Icons.xmark
                         .foregroundColor(SColors.mainText)

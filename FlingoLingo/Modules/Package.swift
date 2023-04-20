@@ -45,7 +45,8 @@ let package = Package(
         .target(
             name: "Decks",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
         .target(

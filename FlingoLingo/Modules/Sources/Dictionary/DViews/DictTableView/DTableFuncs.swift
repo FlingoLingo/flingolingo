@@ -15,7 +15,6 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
             suggestionView.isHidden = true
         }
         return sinonimsCount
-
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -35,14 +34,14 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
             return DictionaryTableViewCell()
         }
         let verticalPadding: CGFloat = CGFloat(tableSpacing)
-           let maskLayer = CALayer()
-        maskLayer.cornerRadius = CGFloat(CommonConstants.cornerRadius) 
-           maskLayer.backgroundColor = UIColor.black.cgColor
-           maskLayer.frame = CGRect(x: cell.bounds.origin.x,
-                                    y: cell.bounds.origin.y,
-                                    width: cell.bounds.width,
-                                    height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
-           cell.layer.mask = maskLayer
+        let maskLayer = CALayer()
+        maskLayer.cornerRadius = CGFloat(CommonConstants.cornerRadius)
+        maskLayer.backgroundColor = UIColor.black.cgColor
+        maskLayer.frame = CGRect(x: cell.bounds.origin.x,
+                                 y: cell.bounds.origin.y,
+                                 width: cell.bounds.width,
+                                 height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding/2)
+        cell.layer.mask = maskLayer
         cell.wordLabel.text = tableData.def?.first?.tr?[indexPath.row].text
         return cell
     }

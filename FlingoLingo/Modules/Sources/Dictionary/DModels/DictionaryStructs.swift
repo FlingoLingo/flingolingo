@@ -7,6 +7,9 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name
+// swiftlint:disable type_name
+
 typealias Langs = [String]
 
 // MARK: - Words
@@ -50,3 +53,6 @@ struct Syn: Codable {
 // MARK: - Head
 struct Head: Codable {
 }
+
+// swiftlint:enable identifier_name
+// swiftlint:enable type_name
