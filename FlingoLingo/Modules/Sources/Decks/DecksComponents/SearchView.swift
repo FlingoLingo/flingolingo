@@ -11,6 +11,8 @@ import UIComponents
 struct SearchView: View {
     // MARK: - Properties
     @Binding private var text: String
+    @FocusState private var fieldIsFocused: Bool
+
     private var borderColor: Color {
         text.isEmpty ? SColors.inactive : SColors.mainText
     }
@@ -28,9 +30,11 @@ struct SearchView: View {
                         .foregroundColor(SColors.inactive)
                 }
                 .foregroundColor(SColors.mainText)
+                .focused($fieldIsFocused)
             Spacer()
             if !text.isEmpty {
                 Button(action: {
+                    fieldIsFocused = false
                     text = ""
                 }, label: {
                     Icons.xmark
