@@ -111,13 +111,13 @@ public final class PopUpViewController: UIViewController {
         performing.style = .large
         NSLayoutConstraint.activate([downView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      downView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      performing.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      performing.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      popUpView.widthAnchor.constraint(equalToConstant: 340),
                                      popUpView.heightAnchor.constraint(equalToConstant: 490)])
-
+        
         [blackFrame, decksCollection, addingButton].forEach { label in
             popUpView.addSubview(label)
         }
@@ -197,44 +197,45 @@ public final class PopUpViewController: UIViewController {
         dismiss(animated: true)
     }
     @objc func add() {
-        if !selectedDecksIds.isEmpty {
-            self.dismiss(animated: true)
-            var dataArray: [Int] = []
-            for item in selectedDecksIds {
-                dataArray.append(item)
-            }
-            var rusWord = ""
-            var engWord = ""
-            switch langsApi {
-            case "en-ru": rusWord = translation
-                engWord = wordName
-            default: rusWord = wordName
-                engWord = translation
-            }
-            if dataArray.contains(-1) {
-                DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e").createDeck { result in
-                    switch result {
-                    case .success(let data):
-                        CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCardRequest(eng: engWord,
-                                                                                                            rus: rusWord,
-                                                                                                            transcription: self.translation,
-                                                                                                            examples: self.translatedExample),
-                                                                                              decks: [data.id]) { uselessStuff in
-                        }
-                    case .failure(let error):
-                        print(error)
+        guard !selectedDecksIds.isEmpty else {
+            return
+        }
+        var dataArray: [Int] = []
+        for item in selectedDecksIds {
+            dataArray.append(item)
+        }
+        var rusWord = ""
+        var engWord = ""
+        switch langsApi {
+        case "en-ru": rusWord = translation
+            engWord = wordName
+        default: rusWord = wordName
+            engWord = translation
+        }
+        if dataArray.contains(-1) {
+            DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e").createDeck { result in
+                switch result {
+                case .success(let data):
+                    CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCardRequest(eng: engWord,
+                                                                                                               rus: rusWord,
+                                                                                                               transcription: self.translation,
+                                                                                                               examples: self.translatedExample),
+                                                                                          decks: [data.id]) { uselessStuff in
                     }
+                    self.dismiss(animated: true)
+                case .failure(let error):
+                    print(error)
                 }
             }
-            if dataArray.contains(-1) {
-                dataArray.remove(at: 0)
-            }
-            CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCardRequest(eng: engWord,
-                                                                                                rus: rusWord,
-                                                                                                transcription: translation,
-                                                                                                examples: translatedExample),
-                                                                                  decks: dataArray) { uselessStuff in
-            }
+        }
+        if dataArray.contains(-1) {
+            dataArray.remove(at: 0)
+        }
+        CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCardRequest(eng: engWord,
+                                                                                                   rus: rusWord,
+                                                                                                   transcription: translation,
+                                                                                                   examples: translatedExample),
+                                                                              decks: dataArray) { uselessStuff in
         }
     }
     private func reloadCards() {

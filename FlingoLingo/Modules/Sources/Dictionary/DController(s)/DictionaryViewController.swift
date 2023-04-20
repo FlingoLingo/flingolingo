@@ -72,7 +72,7 @@ public final class DictionaryViewController: UIViewController {
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?
     private var suggestionViewConstraint: NSLayoutConstraint?
-    public var tableSpacing = 10
+    var tableSpacing = 10
     private lazy var network: NetworkRequest = {
         let network = NetworkRequest()
         return network
@@ -85,6 +85,8 @@ public final class DictionaryViewController: UIViewController {
     lazy var tableData: Word = Word(def: nil)
     lazy var blockAppearance = false
     let popOverVC = PopUpViewController()
+    private var workItem: DispatchWorkItem?
+    public var languagesPairApiCode = "en-ru"
 
     // swiftlint:disable function_body_length
     public override func viewDidLoad() {
@@ -174,8 +176,6 @@ public final class DictionaryViewController: UIViewController {
                                  for: .touchUpInside)
         arrowButton.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
     }
-    private var workItem: DispatchWorkItem?
-    public var languagesPairApiCode = "en-ru"
 }
 
 extension DictionaryViewController: UITextFieldDelegate {
