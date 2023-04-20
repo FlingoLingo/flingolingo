@@ -14,6 +14,14 @@ struct DeckView: View {
     private var isCardsEmpty: Bool {
         viewModel.deck.cards.isEmpty
     }
+    private var searchResults: [DomainCard] {
+        viewModel.text.isEmpty ? viewModel.deck.cards :
+        viewModel.deck.cards.filter {
+            return $0.eng.lowercased().contains(viewModel.text.lowercased()
+                .trimmingCharacters(in: .whitespacesAndNewlines))
+            || $0.rus.lowercased().contains(viewModel.text.lowercased())
+        }
+    }
 
     init(viewModel: DeckViewModel) {
         self.viewModel = viewModel
@@ -43,7 +51,7 @@ struct DeckView: View {
                 } else {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: CommonConstants.smallSpacing) {
-                            ForEach(viewModel.deck.cards) { card in
+                            ForEach(searchResults) { card in
                                 WordCardView(card: card,
                                              wordCardClicked: viewModel.wordCardClicked,
                                              deleteWordCard: { viewModel.deleteWordCard(cardId: card.id) })
