@@ -28,6 +28,8 @@ final class ProfileViewModel: ObservableObject {
 
     func logOut() {
         provider.logOut()
+        profile = nil
+        router.openWelcomeScreen()
     }
 
     func fetchUserIfNeeded() {
