@@ -87,7 +87,6 @@ public final class NetworkLayer {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let resp = try? decoder.decode(T.self, from: data) else {
-                print(String(decoding: data, as: UTF8.self))
                 completion(.failure(.jsonDecodeError))
             return
         }

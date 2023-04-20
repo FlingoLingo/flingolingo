@@ -259,7 +259,7 @@ public final class PopUpViewController: UIViewController {
             case .success(let data):
                 self.addingCards([data.id])
             case .failure(let error):
-                print(error)
+                break
             }
         }
     }
@@ -278,7 +278,7 @@ public final class PopUpViewController: UIViewController {
                     self.performing.isHidden = true
                 }
             case .failure(let error):
-                print(error)
+                break
             }
         }
     }
