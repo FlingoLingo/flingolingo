@@ -16,15 +16,18 @@ struct CardsNavigationBarView: View {
     }
 
     var body: some View {
-        HStack(spacing: CommonConstants.bigSpacing) {
+        HStack {
             Button(action: viewModel.backButtonClicked) {
                 Icons.leftArrow
                     .foregroundColor(SColors.mainText)
             }
+            Spacer(minLength: CommonConstants.smallSpacing)
             ProgressView(
                 value: min(viewModel.progress, Double(viewModel.fetchedCards.count)),
                 total: Double(viewModel.fetchedCards.count)
             )
+            .tint(SColors.accent)
+            Spacer(minLength: CommonConstants.smallSpacing)
             Button(action: viewModel.changeCardsMainSide) {
                 Icons.circledArrows
                     .foregroundColor(SColors.mainText)
