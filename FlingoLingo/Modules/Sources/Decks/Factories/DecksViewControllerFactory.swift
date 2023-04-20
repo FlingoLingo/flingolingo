@@ -15,9 +15,9 @@ public struct DecksViewControllerFactory {
 
     }
 
-    public func decksViewController() -> UIViewController {
+    public func decksViewController(provider: DecksProvider) -> UIViewController {
         let router = DecksRouter()
-        let viewModel = DecksViewModel(router: router)
+        let viewModel = DecksViewModel(router: router, provider: provider)
         let controller = UIHostingController(rootView: DecksPageView(viewModel: viewModel))
         router.presentingViewController = controller
         return controller

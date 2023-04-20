@@ -26,29 +26,43 @@ struct DeckView: View {
                                    deleteButtonClicked: viewModel.deleteDeck)
                 DeckInfoView(deck: viewModel.deck)
                 SearchView(text: $viewModel.text)
-                ScrollView {
-                    VStack(spacing: CommonConstants.smallSpacing) {
-                        ForEach(viewModel.deck.cards) { card in
-                            WordCardView(card: card) {
-                                viewModel.wordCardClicked()
+                if viewModel.isLoading {
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .tint(SColors.mainText)
+                            .scaleEffect(1.5)
+                        Spacer()
+                    }
+                    .padding(.top, CommonConstants.bigSpacing)
+                    Spacer()
+                } else {
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: CommonConstants.smallSpacing) {
+                            ForEach(viewModel.deck.cards) { card in
+                                WordCardView(card: card,
+                                             wordCardClicked: viewModel.wordCardClicked,
+                                             deleteWordCard: { viewModel.deleteWordCard(cardId: card.id) })
                             }
                         }
                     }
                 }
-            }
-            .alert(NSLocalizedString("editDeckName", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
-                TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.deckName)
-                Button(NSLocalizedString("save", comment: ""), action: viewModel.editDeckName)
-                Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
-            })
-            .padding(.horizontal, CommonConstants.bigSpacing)
-            VStack {
-                Spacer()
                 ButtonView(buttonText: NSLocalizedString("startButton", comment: ""),
                            buttonClicked: viewModel.startButtonClicked)
                 .padding(.bottom, CommonConstants.bottomPadding)
-                .padding(.horizontal, CommonConstants.bigSpacing)
             }
+            .padding(.horizontal, CommonConstants.bigSpacing)
         }
+        .alert("error", isPresented: $viewModel.isShowingError) {
+            Button("ok", role: .cancel) { }
+        }
+        .alert(NSLocalizedString("editDeckName", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
+            TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.deckName)
+            Button(NSLocalizedString("save", comment: ""), action: viewModel.editDeckName)
+            Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
+        })
+        .onAppear(perform: viewModel.reloadDeck)
+        .disabled(viewModel.isLoading)
     }
 }

@@ -64,8 +64,9 @@ final class CustomTabBarController: UITabBarController {
 
     private func createDecksNavigationController() -> UIViewController {
         let decksViewControllerFactory = DecksViewControllerFactory()
+        let decksProtocolImpl = DecksProviderImpl()
         let decksController = configureViewController(
-            controller: decksViewControllerFactory.decksViewController(),
+            controller: decksViewControllerFactory.decksViewController(provider: decksProtocolImpl),
             title: NSLocalizedString("decksHeader", comment: ""),
             image: Constants.decks ?? .add
         )
@@ -77,9 +78,9 @@ final class CustomTabBarController: UITabBarController {
     }
 
     private func createProfileNavigationController() -> UIViewController {
-        let userProfileViewControllerFactory = UserProfileViewControllerFactory()
+        let userProfileViewControllerFactory = ProfileViewControllerFactory()
         let userProfileController = configureViewController(
-            controller: userProfileViewControllerFactory.userProfileViewController(),
+            controller: userProfileViewControllerFactory.profileViewController(),
             title: NSLocalizedString("profile", comment: ""),
             image: Constants.profile ?? .add
         )

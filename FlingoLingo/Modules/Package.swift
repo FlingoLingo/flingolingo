@@ -21,27 +21,33 @@ let package = Package(
         )
     ],
     dependencies: [
+        .package(url: "https://github.com/andriyslyusar/SwiftyKeychainKit.git", from: "1.0.0-beta.2")
     ],
     targets: [
         .target(
             name: "Authorization",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
         .target(
             name: "UIComponents",
-            dependencies: []),
+            dependencies: [
+            ]
+        ),
         .target(
             name: "UserProfile",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "Authorization"
             ]
         ),
         .target(
             name: "Decks",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
         .target(

@@ -1,7 +1,6 @@
 import Foundation
 
-public final class UserViewModel: ObservableObject {
-
+final class ChangePasswordViewModel: ObservableObject {
     enum TextField: Equatable {
         case old
         case new
@@ -13,7 +12,7 @@ public final class UserViewModel: ObservableObject {
         case notEqual
 
         func localizedString() -> String {
-            return NSLocalizedString(self.rawValue, comment: "")
+            NSLocalizedString(self.rawValue, comment: "")
         }
     }
 
@@ -23,15 +22,12 @@ public final class UserViewModel: ObservableObject {
     @Published var confirmPassword: String = ""
     @Published var validatePasswords: [TextField: String] = [:]
 
-    private let router: UserProfileRouter
     private let backAction: () -> Void
 
-    init(user: User = User(),
-         backAction: @escaping () -> Void = {},
-         router: UserProfileRouter = UserProfileRouter()) {
+    init(user: User,
+         backAction: @escaping () -> Void) {
         self.user = user
         self.backAction = backAction
-        self.router = router
     }
 
     func changePassword() {
@@ -67,23 +63,7 @@ public final class UserViewModel: ObservableObject {
         validatePasswords[type] != nil
     }
 
-    func logOut() {
-
-    }
-
-    func openWelcomeView() {
-
-    }
-
-    func openSettings() {
-        router.changePassword(user: user)
-    }
-
     func goBack() {
         backAction()
-    }
-
-    func settingsIconClicked() {
-        router.changePassword(user: self.user)
     }
 }
