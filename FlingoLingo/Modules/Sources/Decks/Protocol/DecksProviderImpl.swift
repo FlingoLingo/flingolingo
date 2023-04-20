@@ -179,5 +179,11 @@ public class DecksProviderImpl: DecksProvider {
         }
         let cardsIdsToAddArray = Array(cardsIdsToAdd)
         UserDefaults.standard.set(cardsIdsToAddArray, forKey: "\(deckId)")
+
+        guard let token = token else {
+            return
+        }
+        let client = DeckClient(token: token)
+        client.updateCardKnowledge(deckId: deckId, cardsLearned: [], cardsForgotten: [], completion: {_ in })
     }
 }

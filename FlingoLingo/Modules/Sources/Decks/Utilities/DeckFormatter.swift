@@ -21,7 +21,14 @@ struct DeckFormatter {
     }
 
     func formatDate(deck: DomainDeck) -> String {
-        "\(NSLocalizedString("lastRepeatDescription", comment: "")) " +
-        "\(deck.repetitionDate.formatted(.dateTime.day().month().year()))"
+        var date = ""
+        if let dateValue = deck.repetitionDate {
+            date = "\(NSLocalizedString("lastRepeatDescription", comment: "")) " +
+            "\(dateValue.formatted(.dateTime.day().month().year()))"
+        } else {
+            date = "\(NSLocalizedString("lastRepeatDescription", comment: "")) " +
+            "\(NSLocalizedString("noRepeated", comment: ""))"
+        }
+        return date
     }
 }
