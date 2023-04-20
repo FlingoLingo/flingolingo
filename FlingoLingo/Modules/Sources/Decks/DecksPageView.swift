@@ -33,7 +33,7 @@ struct DecksPageView: View {
                     }
                     Spacer()
                 } else {
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         VStack(spacing: CommonConstants.smallSpacing) {
                             ForEach(viewModel.decks) { deck in
                                 DeckCardView(deck: deck) {

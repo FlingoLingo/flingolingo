@@ -38,7 +38,7 @@ struct DeckView: View {
                     .padding(.top, CommonConstants.bigSpacing)
                     Spacer()
                 } else {
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         VStack(spacing: CommonConstants.smallSpacing) {
                             ForEach(viewModel.deck.cards) { card in
                                 WordCardView(card: card,
@@ -48,25 +48,21 @@ struct DeckView: View {
                         }
                     }
                 }
-            }
-            .padding(.horizontal, CommonConstants.bigSpacing)
-            VStack {
-                Spacer()
                 ButtonView(buttonText: NSLocalizedString("startButton", comment: ""),
                            buttonClicked: viewModel.startButtonClicked)
                 .padding(.bottom, CommonConstants.bottomPadding)
-                .padding(.horizontal, CommonConstants.bigSpacing)
             }
-            .alert("error", isPresented: $viewModel.isShowingError) {
-                Button("ok", role: .cancel) { }
-            }
-            .alert(NSLocalizedString("editDeckName", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
-                TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.deckName)
-                Button(NSLocalizedString("save", comment: ""), action: viewModel.editDeckName)
-                Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
-            })
-            .onAppear(perform: viewModel.reloadDeck)
+            .padding(.horizontal, CommonConstants.bigSpacing)
         }
+        .alert("error", isPresented: $viewModel.isShowingError) {
+            Button("ok", role: .cancel) { }
+        }
+        .alert(NSLocalizedString("editDeckName", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
+            TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.deckName)
+            Button(NSLocalizedString("save", comment: ""), action: viewModel.editDeckName)
+            Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
+        })
+        .onAppear(perform: viewModel.reloadDeck)
         .disabled(viewModel.isLoading)
     }
 }
