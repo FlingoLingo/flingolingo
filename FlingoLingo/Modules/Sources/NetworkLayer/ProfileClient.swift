@@ -7,13 +7,14 @@
 import Foundation
 
 public struct GetProfileResponse: Decodable {
-    public var id: Int
-    public var username: String
+    public let id: Int
+    public let username: String
+    public let dateJoined: String
 }
 
 public struct ChangePasswordRequest: Encodable {
-    var oldPassword: String
-    var newPassword: String
+    public let oldPassword: String
+    public let newPassword: String
 }
 
 public final class ProfileClient {
@@ -43,9 +44,3 @@ public final class ProfileClient {
                                   completion: completion)
     }
 }
-
-// пример использования
-// let client = ProfileClient(token: "1bba254cb6b2c179ee411259b30e6fd70b9cb8b2")
-// client.getProfile(completion: {res in print(res)})
-// client.changePassword(oldPassword: "robertson", newPassword: "roberts", completion: {res in print(res)})
-// client.deleteAccount(completion: {res in print(res)})

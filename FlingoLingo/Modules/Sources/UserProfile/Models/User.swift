@@ -9,17 +9,28 @@ public struct User: Identifiable {
     public let decksCount: Int
     public let timesRepeated: Int
 
-    public init(id: Int = 0,
-                email: String = "testtest",
-                daysOfUse: Int = 2,
-                wordsLearned: Int = 5,
-                decksCount: Int = 6,
-                timesRepeated: Int = 9) {
+    public init(id: Int,
+                email: String,
+                daysOfUse: Int,
+                wordsLearned: Int,
+                decksCount: Int,
+                timesRepeated: Int) {
         self.id = id
         self.email = email
         self.daysOfUse = daysOfUse
         self.wordsLearned = wordsLearned
         self.decksCount = decksCount
         self.timesRepeated = timesRepeated
+    }
+}
+
+extension User {
+    public init() {
+        self.id = 0
+        self.email = "mock"
+        self.daysOfUse = 10
+        self.wordsLearned = 20
+        self.decksCount = 30
+        self.timesRepeated = 40
     }
 }

@@ -34,7 +34,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let verticalPadding: CGFloat = CGFloat(tableSpacing)
         let maskLayer = CALayer()
-        maskLayer.cornerRadius = CGFloat(CommonConstants.cornerRadius) 
+        maskLayer.cornerRadius = CGFloat(CommonConstants.cornerRadius)
         maskLayer.backgroundColor = UIColor.black.cgColor
         maskLayer.frame = CGRect(x: cell.bounds.origin.x,
                                  y: cell.bounds.origin.y,

@@ -13,25 +13,33 @@ struct StatisticsView: View {
                     Text("userDays")
                         .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: formatter.formatNumberDaysStudying(user: viewModel.user))
+                    BubbleView(
+                        bubbleText: formatter.formatNumberDaysStudying(
+                            daysOfUse: viewModel.getStatistics(for: .daysOfUse)))
                 }
                 HStack {
                     Text("wordsLearned")
                         .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: formatter.formatNumberWordsLearned(user: viewModel.user))
+                    BubbleView(
+                        bubbleText: formatter.formatNumberWordsLearned(
+                            wordsLearned: viewModel.getStatistics(for: .wordsLearned)))
                 }
                 HStack {
                     Text("decksCreated")
                         .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: formatter.formatNumberDecksCreated(user: viewModel.user))
+                    BubbleView(
+                        bubbleText: formatter.formatNumberDecksCreated(
+                            decksCount: viewModel.getStatistics(for: .decksCount)))
                 }
                 HStack {
                     Text("timesRepeated")
                         .foregroundColor(SColors.mainText)
                         .font(Font(Fonts.mainText))
-                    BubbleView(bubbleText: formatter.formatNumberTimesRepeated(user: viewModel.user))
+                    BubbleView(
+                        bubbleText: formatter.formatNumberTimesRepeated(
+                            timesRepeated: viewModel.getStatistics(for: .timesRepeated)))
                 }
             }
         }

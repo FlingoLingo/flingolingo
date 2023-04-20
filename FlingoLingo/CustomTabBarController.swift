@@ -10,6 +10,7 @@ import Decks
 import UIKit
 import UserProfile
 import Dictionary
+import Authorization
 
 final class CustomTabBarController: UITabBarController {
     // MARK: - Constants
@@ -20,12 +21,26 @@ final class CustomTabBarController: UITabBarController {
     }
     private let decksProtocolImpl = DecksProviderImpl()
 
+    // MARK: - Properties
+    let profileProvider = ProfileProviderImpl()
+
     // MARK: - Loads
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTabBar()
         configureAppearance()
         selectedIndex = 1
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !profileProvider.isUserAuthenticated() {
+            let welcomeViewController = WelcomeViewController(provider: profileProvider)
+            let navWelComeController = UINavigationController(rootViewController: welcomeViewController)
+            navWelComeController.setNavigationBarHidden(true, animated: false)
+            navWelComeController.modalPresentationStyle = .fullScreen
+            self.present(navWelComeController, animated: false, completion: nil)
+        }
     }
 
     // MARK: - Configurations
@@ -80,7 +95,7 @@ final class CustomTabBarController: UITabBarController {
     private func createProfileNavigationController() -> UIViewController {
         let userProfileViewControllerFactory = ProfileViewControllerFactory()
         let userProfileController = configureViewController(
-            controller: userProfileViewControllerFactory.profileViewController(),
+            controller: userProfileViewControllerFactory.profileViewController(provider: profileProvider),
             title: NSLocalizedString("profile", comment: ""),
             image: Constants.profile ?? .add
         )
