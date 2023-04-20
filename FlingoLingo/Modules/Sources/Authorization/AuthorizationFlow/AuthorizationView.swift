@@ -363,6 +363,12 @@ extension AuthorizationView {
 
 // MARK: - UITextFieldDelegate
 extension AuthorizationView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+
+        return true
+    }
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text else { return }
 
