@@ -68,14 +68,17 @@ extension LogInViewController: AuthorizationViewDelegate {
 
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
         if checkValidation(mail: mail, password: password) {
-            provider.logInUser(email: mail ?? "", password: password ?? "", onFinish: { res in
+            provider.logInUser(email: mail ?? "", password: password ?? "", onFinish: { [weak self] res in
                 switch res {
-                case .success:
-                    self.navigationController?.dismiss(animated: true)
+                case .success(let profile):
+                    self?.provider.domainProfile = profile
+                    DispatchQueue.main.async {
+                        self?.navigationController?.dismiss(animated: true)
+                    }
                 case .failure(let error):
                     let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
             })
         }

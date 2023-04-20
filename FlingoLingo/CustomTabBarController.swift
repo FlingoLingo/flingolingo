@@ -32,6 +32,7 @@ final class CustomTabBarController: UITabBarController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if !profileProvider.isUserAuthenticated() {
             let welcomeViewController = WelcomeViewController(provider: profileProvider)
             let navWelComeController = UINavigationController(rootViewController: welcomeViewController)

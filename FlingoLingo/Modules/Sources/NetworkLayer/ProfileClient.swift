@@ -44,9 +44,3 @@ public final class ProfileClient {
                                   completion: completion)
     }
 }
-
-// пример использования
-// let client = ProfileClient(token: "1bba254cb6b2c179ee411259b30e6fd70b9cb8b2")
-// client.getProfile(completion: {res in print(res)})
-// client.changePassword(oldPassword: "robertson", newPassword: "roberts", completion: {res in print(res)})
-// client.deleteAccount(completion: {res in print(res)})

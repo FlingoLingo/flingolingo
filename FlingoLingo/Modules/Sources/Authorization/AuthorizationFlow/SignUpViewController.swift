@@ -80,8 +80,11 @@ extension SignUpViewController: AuthorizationViewDelegate {
         if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {
             provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { result in
                 switch result {
-                case .success:
-                    self.navigationController?.dismiss(animated: true)
+                case .success(let profile):
+                    self.provider.domainProfile = profile
+                    DispatchQueue.main.async {
+                        self.navigationController?.dismiss(animated: true)
+                    }
                 case .failure(let error):
                     let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

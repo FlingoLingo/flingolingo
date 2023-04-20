@@ -15,7 +15,7 @@ public final class WelcomeViewController: UIViewController {
         view.delegate = self
         return view
     }()
-    
+
     private var provider: ProfileProvider
 
     // MARK: - Lifecycle
