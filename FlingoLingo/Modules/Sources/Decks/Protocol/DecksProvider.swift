@@ -24,7 +24,10 @@ public protocol DecksProvider: AnyObject {
 
     func deleteCardFromDeck(deckId: Int, carId: Int, onFinish: @escaping (Bool) -> Void)
 
-    func insertCardToDeck(onFinish: @escaping (Bool) -> Void)
+    func insertCardToDeck(
+        request: InsertCardRequest,
+        onFinish: @escaping (Bool) -> Void
+    )
 
     func editDeck(id: Int, newName: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void)
 
