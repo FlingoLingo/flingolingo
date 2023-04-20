@@ -7,6 +7,8 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name
+// swiftlint:disable type_name
 typealias Langs = [String]
 
 // MARK: - Words

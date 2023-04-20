@@ -15,9 +15,9 @@ struct CardSwipeInfo {
 
 final class CardsViewModel: ObservableObject {
     @Published var progress: Double = 0
-    @Published var fetchedCards: [Card] = []
-    @Published var displayingCards: [Card] = []
-    private let deck: Deck
+    @Published var fetchedCards: [DomainCard] = []
+    @Published var displayingCards: [DomainCard] = []
+    private let deck: DomainDeck
     private let backAction: () -> Void
     private let popToRootAction: () -> Void
     var subscription: AnyCancellable?
@@ -25,7 +25,8 @@ final class CardsViewModel: ObservableObject {
 
     let notificationSubject: PassthroughSubject<CardSwipeInfo, Never> = .init()
 
-    init(deck: Deck, backAction: @escaping () -> Void, popToRootAction: @escaping () -> Void) {
+
+    init(deck: DomainDeck, backAction: @escaping () -> Void, popToRootAction: @escaping () -> Void) {
         self.deck = deck
         self.backAction = backAction
         self.popToRootAction = popToRootAction
@@ -37,7 +38,7 @@ final class CardsViewModel: ObservableObject {
         }
     }
 
-    func getIndex(card: Card) -> Int {
+    func getIndex(card: DomainCard) -> Int {
         let index = displayingCards.firstIndex(where: { currentCard in
             return card.id == currentCard.id
         }) ?? 0

@@ -1,7 +1,6 @@
 //
 //  NetworkLayer.swift
 //
-//
 //  Created by Ринат Афиатуллов on 18.04.2023.
 //
 
@@ -72,7 +71,6 @@ public final class NetworkLayer {
             completion(.failure(.noDataError))
             return
         }
-        print(String(data: data, encoding: .utf8)!)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let resp = try? decoder.decode(T.self, from: data) else {

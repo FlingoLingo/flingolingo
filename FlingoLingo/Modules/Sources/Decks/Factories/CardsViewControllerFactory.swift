@@ -16,7 +16,8 @@ struct CardsViewControllerFactory {
     }
 
     public func cardsViewController(
-        deck: Deck,
+
+        deck: DomainDeck,
         backAction: @escaping () -> Void,
         popToRootAction: @escaping () -> Void
     ) -> UIViewController {

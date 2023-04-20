@@ -45,14 +45,21 @@ let package = Package(
         .target(
             name: "Decks",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
         .target(
             name: "Dictionary",
             dependencies: [
                 "UIComponents",
-                "NetworkLayer"
+            ]
+        ),
+        .target(
+            name: "NetworkLayer",
+            dependencies: [
+                "UIComponents",
+                    .product(name: "SwiftyKeychainKit", package: "SwiftyKeychainKit")
             ]
         ),
         .target(

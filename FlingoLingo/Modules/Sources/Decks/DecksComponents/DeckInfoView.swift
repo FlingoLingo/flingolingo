@@ -10,10 +10,10 @@ import UIComponents
 
 struct DeckInfoView: View {
 
-    private let deck: Deck
+    private let deck: DomainDeck
     private let formatter: DeckFormatter = .init()
 
-    init(deck: Deck) {
+    init(deck: DomainDeck) {
         self.deck = deck
     }
 

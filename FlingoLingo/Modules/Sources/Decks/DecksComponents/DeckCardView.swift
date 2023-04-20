@@ -10,14 +10,18 @@ import UIComponents
 
 struct DeckCardView: View {
 
-    private let deck: Deck
+    private let deck: DomainDeck
     private let deckCardClicked: (() -> Void)
     private let formatter: DeckFormatter = .init()
     private var progress: Double {
-        Double(deck.learnedWords) / Double(deck.wordsCount)
+        if deck.cards.isEmpty {
+            return 0
+        } else {
+            return Double(deck.learnedWords) / Double(deck.cards.count)
+        }
     }
 
-    init(deck: Deck, deckCardClicked: @escaping () -> Void) {
+    init(deck: DomainDeck, deckCardClicked: @escaping () -> Void) {
         self.deck = deck
         self.deckCardClicked = deckCardClicked
     }

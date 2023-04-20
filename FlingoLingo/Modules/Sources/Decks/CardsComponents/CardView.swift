@@ -15,7 +15,7 @@ struct CardView: View {
 
     @ObservedObject private var viewModel: CardsViewModel
 
-    private var card: Card
+    private var card: DomainCard
 
     @State private var offset: CGFloat = 0
     @GestureState private var isDragging: Bool = false
@@ -24,7 +24,8 @@ struct CardView: View {
     @State private var flashcardRotation = 0.0
     @State private var contentRotation = 0.0
 
-    init(viewModel: CardsViewModel, card: Card) {
+
+    init(viewModel: CardsViewModel, card: DomainCard) {
         self.viewModel = viewModel
         self.card = card
     }

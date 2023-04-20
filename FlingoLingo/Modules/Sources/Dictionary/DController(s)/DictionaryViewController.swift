@@ -20,8 +20,8 @@ public final class DictionaryViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         tableView.clipsToBounds = true
+        tableView.layer.cornerRadius = CommonConstants.textFieldCornerRadius
         tableView.allowsSelection = true
-
         return tableView
     }()
 
@@ -142,12 +142,14 @@ public final class DictionaryViewController: UIViewController {
             suggestionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                     constant: CommonConstants.bigSpacing),
             suggestionView.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
+
             suggestionView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                      constant: -CommonConstants.bigSpacing)
         ]
         let tableConstraints = [
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                constant: CommonConstants.bigSpacing),
+
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                 constant: -CommonConstants.bigSpacing),
             tableView.topAnchor.constraint(equalTo: textField.bottomAnchor,
