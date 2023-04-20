@@ -19,7 +19,7 @@ public protocol ProfileProvider: AnyObject {
                         newPassword: String,
                         onFinish: @escaping ((Bool) -> Void))
 
-    func logOut(onFinish: @escaping ((Bool) -> Void))
+    func logOut()
 
     func getProfile(onFinish: @escaping ((Result<DomainProfile, ClientError>) -> Void))
 }

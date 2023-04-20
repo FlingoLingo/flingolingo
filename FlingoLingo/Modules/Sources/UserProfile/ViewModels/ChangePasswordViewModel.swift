@@ -60,12 +60,10 @@ final class ChangePasswordViewModel: ObservableObject {
                                     oldPassword: oldPassword,
                                     newPassword: newPassword,
                                     onFinish: { res in
-                DispatchQueue.main.async {
-                    if res {
-                        self.isSuccessfulChange = true
-                    } else {
-                        self.showPasswordAlert = true
-                    }
+                if res {
+                    self.isSuccessfulChange = true
+                } else {
+                    self.showPasswordAlert = true
                 }
             })
         }

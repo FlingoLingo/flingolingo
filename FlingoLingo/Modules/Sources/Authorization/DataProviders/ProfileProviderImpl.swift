@@ -123,11 +123,8 @@ public class ProfileProviderImpl: ProfileProvider {
         self.domainProfile = domainProfile
     }
 
-    public func logOut(onFinish: @escaping ((Bool) -> Void)) {
+    public func logOut() {
         try? keychain.remove(accessTokenKey)
-        DispatchQueue.main.async {
-            onFinish(true)
-        }
     }
 
     public func isUserAuthenticated() -> Bool {

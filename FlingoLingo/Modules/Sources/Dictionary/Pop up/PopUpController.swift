@@ -102,7 +102,7 @@ public final class PopUpViewController: UIViewController {
     var engWord = ""
 
     private let decksProvider: DecksProvider
-    
+
     init(decksProvider: DecksProvider) {
         self.decksProvider = decksProvider
         super.init(nibName: nil, bundle: nil)
@@ -132,7 +132,7 @@ public final class PopUpViewController: UIViewController {
                                      performing.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      popUpView.widthAnchor.constraint(equalToConstant: 340),
                                      popUpView.heightAnchor.constraint(equalToConstant: 490)])
-        
+
         [blackFrame, decksCollection, addingButton].forEach { label in
             popUpView.addSubview(label)
         }
@@ -243,8 +243,7 @@ public final class PopUpViewController: UIViewController {
                                                           rus: rusWord,
                                                           transcription: transcription,
                                                           examples: translatedExample,
-                                                          decks: deckIds))
-        { [weak self] result in
+                                                          decks: deckIds)) { [weak self] _ in
             DispatchQueue.main.async {
                 self?.dismiss(animated: true)
             }

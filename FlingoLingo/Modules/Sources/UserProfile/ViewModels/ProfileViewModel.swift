@@ -11,7 +11,7 @@ final class ProfileViewModel: ObservableObject {
     private let router: ProfileRouter
     @Published private var provider: ProfileProvider
     private let defaults = UserDefaults.standard
-    
+
     enum StatisticsType: String, Equatable {
         case daysOfUse
         case wordsLearned
@@ -27,12 +27,7 @@ final class ProfileViewModel: ObservableObject {
     }
 
     func logOut() {
-        provider.logOut(onFinish: { [weak self] res in
-            if res {
-                self?.router.openWelcomeScreen()
-                self?.profile = nil
-            }
-        })
+        provider.logOut()
     }
 
     func fetchUserIfNeeded() {
