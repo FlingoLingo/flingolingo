@@ -36,7 +36,7 @@ final class CardsViewModel: ObservableObject {
         self.backAction = backAction
         self.popToRootAction = popToRootAction
         self.provider = provider
-        fetchedCards = deck.cards
+        fetchedCards = deck.cards.shuffled()
         displayingCards = fetchedCards
 
         subscription = $displayingCards.sink { [weak self] cards in

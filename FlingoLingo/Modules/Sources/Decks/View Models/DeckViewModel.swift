@@ -92,5 +92,12 @@ final class DeckViewModel: ObservableObject {
                 self?.isShowingError = true
             }
         })
+        removeCardIdFromUserDefaults(cardId: cardId)
+    }
+
+    private func removeCardIdFromUserDefaults(cardId: Int) {
+        var cardIds = UserDefaults.standard.stringArray(forKey: "\(deck.id)")
+        cardIds = cardIds?.filter { $0 != "\(cardId)" }
+        UserDefaults.standard.set(cardIds, forKey: "\(deck.id)")
     }
 }
