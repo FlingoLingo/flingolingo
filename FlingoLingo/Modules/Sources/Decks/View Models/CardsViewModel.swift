@@ -33,7 +33,9 @@ final class CardsViewModel: ObservableObject {
         displayingCards = fetchedCards
 
         subscription = $displayingCards.sink { cards in
-            if cards.count == 0 {}
+            if cards.count == 0 {
+                self.setStatistics(with: self.results)
+            }
         }
     }
 
@@ -46,6 +48,7 @@ final class CardsViewModel: ObservableObject {
     }
 
     func backButtonClicked() {
+        setStatistics(with: results)
         backAction()
     }
 
@@ -64,5 +67,30 @@ final class CardsViewModel: ObservableObject {
 
     func removeFirst() {
         displayingCards.removeFirst()
+    }
+
+    func setStatistics(with results: [Int: CardSwipeDirection]) {
+        var cardsIdsToAdd: Set<String> = []
+        var cardsIdsToRemove: Set<String> = []
+
+        for (cardId, direction) in results {
+            switch direction {
+            case .left:
+                cardsIdsToRemove.insert("\(cardId)")
+            case .right:
+                cardsIdsToAdd.insert("\(cardId)")
+            }
+        }
+
+        let cardsIdsFromUserDefaults = UserDefaults.standard.stringArray(forKey: "\(deck.id)") ?? []
+        for cardId in cardsIdsFromUserDefaults {
+            cardsIdsToAdd.insert(cardId)
+        }
+
+        for cardId in cardsIdsToRemove {
+            cardsIdsToAdd.remove(cardId)
+        }
+        let cardsIdsToAddArray = Array(cardsIdsToAdd)
+        UserDefaults.standard.set(cardsIdsToAddArray, forKey: "\(deck.id)")
     }
 }
