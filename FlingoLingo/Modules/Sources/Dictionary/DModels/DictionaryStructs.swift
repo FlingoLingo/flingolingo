@@ -52,3 +52,6 @@ struct Syn: Codable {
 // MARK: - Head
 struct Head: Codable {
 }
+
+// swiftlint:enable identifier_name
+// swiftlint:enable type_name
