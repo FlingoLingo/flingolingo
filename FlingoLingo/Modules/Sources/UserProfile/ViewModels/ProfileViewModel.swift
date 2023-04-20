@@ -43,8 +43,7 @@ final class ProfileViewModel: ObservableObject {
             switch res {
             case .success(let success):
                 self?.profile = success
-            case .failure(let failure):
-                print(failure)
+            case .failure: break
             }
             self?.isLoading = false
         })
