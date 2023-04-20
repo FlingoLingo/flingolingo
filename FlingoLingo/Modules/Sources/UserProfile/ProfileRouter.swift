@@ -13,6 +13,7 @@ final class ProfileRouter {
         let changePasswordController = changePasswordFactory.changePasswordViewController(backAction: goBack,
                                                                                           provider: provider,
                                                                                           profile: profile)
+        changePasswordController.hidesBottomBarWhenPushed = true
         presentingViewController?.navigationController?.pushViewController(changePasswordController, animated: true)
     }
 
