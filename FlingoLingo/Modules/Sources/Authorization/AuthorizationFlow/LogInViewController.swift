@@ -68,7 +68,11 @@ extension LogInViewController: AuthorizationViewDelegate {
 
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
         if checkValidation(mail: mail, password: password) {
+            authorizationView.applyStateForSpinner(.start)
+
             provider.logInUser(email: mail ?? "", password: password ?? "", onFinish: { [weak self] res in
+                self?.authorizationView.applyStateForSpinner(.stop)
+
                 switch res {
                 case .success(let profile):
                     self?.provider.domainProfile = profile

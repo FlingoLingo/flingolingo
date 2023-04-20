@@ -33,6 +33,11 @@ final class AuthorizationView: UIView {
         case signUp
         case logIn
     }
+    
+    enum ActivityIndicatorState {
+        case start
+        case stop
+    }
 
     // MARK: - Properties
     private lazy var navigationBarView: UIView = {
@@ -151,6 +156,13 @@ final class AuthorizationView: UIView {
         return button
     }()
 
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+
+        return spinner
+    }()
+
     weak var delegate: AuthorizationViewDelegate?
 
     // MARK: - Initialization
@@ -200,6 +212,15 @@ final class AuthorizationView: UIView {
         }
     }
 
+    func applyStateForSpinner(_ state: ActivityIndicatorState) {
+        switch state {
+        case .start:
+            spinner.startAnimating()
+        case .stop:
+            spinner.stopAnimating()
+        }
+    }
+
     private func configureView() {
         backgroundColor = ColorScheme.background
     }
@@ -210,6 +231,7 @@ final class AuthorizationView: UIView {
         setupTextFieldsConstraints()
         setupContinueButtonConstraints()
         setupRepeatPasswordTextFieldConstraints()
+        setupSpinnerConstraints()
     }
 
     private func addSubviews() {
@@ -224,6 +246,7 @@ final class AuthorizationView: UIView {
         addSubview(repeatPasswordTextField)
         addSubview(repeatPasswordErrorLabel)
         addSubview(continueButton)
+        addSubview(spinner)
     }
 
     private func addViewGestureRecognizer() {
@@ -355,8 +378,15 @@ extension AuthorizationView {
             trailingAnchor.constraint(equalTo: continueButton.trailingAnchor, constant: CommonConstants.bigSpacing),
             safeAreaLayoutGuide.bottomAnchor.constraint(
                 equalTo: continueButton.bottomAnchor,
-                constant: CommonConstants.bigSpacing
+                constant: CommonConstants.bottomPadding
             ),
+        ])
+    }
+
+    private func setupSpinnerConstraints() {
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }
