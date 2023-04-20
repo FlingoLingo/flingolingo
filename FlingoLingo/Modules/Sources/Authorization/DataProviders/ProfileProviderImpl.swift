@@ -93,27 +93,6 @@ public class ProfileProviderImpl: ProfileProvider {
         })
     }
 
-    public func getDaysUsing() -> Int {
-        var date: Date = Date.now
-        var days: Int = 0
-        let profileClient = ProfileClient(token: try? self.keychain.get(accessTokenKey))
-        profileClient.getProfile(completion: { res in
-            DispatchQueue.main.async {
-                switch res {
-                case .success(let success):
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ"
-                    date = dateFormatter.date(from: success.dateJoined) ?? Date.now
-                    days = Int(Date.now.timeIntervalSince1970 - date.timeIntervalSince1970)
-                    // return days
-                case .failure: break
-                }
-            }
-        })
-
-        return days
-    }
-
     public func getProfile(onFinish: @escaping ((Result<DomainProfile, ClientError>) -> Void)) {
         let profileClient = ProfileClient(token: try? self.keychain.get(accessTokenKey))
         profileClient.getProfile(completion: { res in

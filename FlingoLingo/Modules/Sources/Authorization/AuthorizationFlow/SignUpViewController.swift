@@ -16,7 +16,7 @@ public final class SignUpViewController: UIViewController {
         return view
     }()
     private let validationChecker = ValidationChecker()
-    private var provider: ProfileProvider
+    private let provider: ProfileProvider
 
     // MARK: - Lifecycle
     public init(provider: ProfileProvider) {
@@ -79,16 +79,18 @@ extension SignUpViewController: AuthorizationViewDelegate {
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
         if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {
             provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { result in
-                switch result {
-                case .success(let profile):
-                    self.provider.domainProfile = profile
-                    DispatchQueue.main.async {
-                        self.navigationController?.dismiss(animated: true)
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let profile):
+                        self.provider.domainProfile = profile
+                        DispatchQueue.main.async {
+                            self.navigationController?.dismiss(animated: true)
+                        }
+                    case .failure(let error):
+                        let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     }
-                case .failure(let error):
-                    let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
                 }
             })
         }
