@@ -3,13 +3,14 @@ import Authorization
 
 final class ProfileViewModel: ObservableObject {
 
-    @Published var isGuest: Bool = false
     @Published var isLoading = false
     @Published var profile: DomainProfile?
 
     private let router: ProfileRouter
     @Published private var provider: ProfileProvider
     private let defaults = UserDefaults.standard
+    @Published var wordsLearnedCount: Int = 0
+    @Published var decksCreatedCount: Int = 0
 
     enum StatisticsType: String, Equatable {
         case daysOfUse
@@ -31,10 +32,20 @@ final class ProfileViewModel: ObservableObject {
         router.openWelcomeScreen()
     }
 
-    func fetchUserIfNeeded() {
+    private func fetchUserIfNeeded() {
         if profile == nil {
             setDomainProfile()
         }
+    }
+
+    private func fetchStatistics() {
+        wordsLearnedCount = defaults.integer(forKey: "wordsLearned")
+        decksCreatedCount = defaults.integer(forKey: "decksCount")
+    }
+
+    func fetchDataIfNeeded() {
+        fetchUserIfNeeded()
+        fetchStatistics()
     }
 
     private func setDomainProfile() {
@@ -43,6 +54,7 @@ final class ProfileViewModel: ObservableObject {
             switch res {
             case .success(let success):
                 self?.profile = success
+                self?.defaults.set(self?.profile?.email, forKey: "profileEmail")
             case .failure: break
             }
             self?.isLoading = false
@@ -55,20 +67,42 @@ final class ProfileViewModel: ObservableObject {
         }
     }
 
-    func saveUserDefaults(user: User) {
-        let dict = ["daysOfUse": user.daysOfUse,
-                    "decksCount": user.decksCount,
-                    "timesRepeated": user.timesRepeated,
-                    "wordsLearned": user.wordsLearned]
-        defaults.set(dict, forKey: "stats")
+    func getDaysOfUse() -> Int {
+        getDaysOfUse(dateJoined: profile?.dateJoined ?? "")
     }
 
-    func getStatistics(for type: StatisticsType) -> Int {
-        let stats = defaults.dictionary(forKey: "stats") as? [String: Int] ?? [String: Int]()
-        return stats[type.rawValue] ?? 0
+    func getDaysOfUse(dateJoined: String) -> Int {
+        let calendar = Calendar(identifier: .gregorian)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let date = dateFormatter.date(from: dateJoined)
+        guard let date = date else { return 0 }
+        return calendar.numberOfDaysBetween(date, and: Date.now)
+    }
+
+    func getWordsLearned() -> Int {
+        defaults.integer(forKey: "wordsLearned")
+    }
+
+    func getDecksCount() -> Int {
+        defaults.integer(forKey: "decksCount")
     }
 
     func getUserEmail() -> String {
-        profile?.email ?? ""
+        let email = defaults.object(forKey: "profileEmail") as? String
+        if email != nil {
+            return email ?? ""
+        }
+        return profile?.email ?? ""
+    }
+}
+
+extension Calendar {
+    func numberOfDaysBetween(_ from: Date, and toDateInput: Date) -> Int {
+        let fromDate = startOfDay(for: from)
+        let toDate = startOfDay(for: toDateInput)
+        let numberOfDays = dateComponents([.day], from: fromDate, to: toDate)
+
+        return numberOfDays.day ?? 0 + 1
     }
 }
