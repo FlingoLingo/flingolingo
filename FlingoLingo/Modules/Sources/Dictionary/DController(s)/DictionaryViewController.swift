@@ -232,12 +232,15 @@ extension DictionaryViewController: UITextFieldDelegate {
         // новая альтернатива таймера
         let workItem = DispatchWorkItem { [weak self] in
             if !(self?.textField.text?.isEmpty ?? true) {
-                self?.networkFetcher.getWord(lungs:
+                self?.networkFetcher.getWord(
+                    lungs:
                                                 self?.languagesPairApiCode ?? "",
                                              text:
                                                 self?.textField.text?.trimmingCharacters(in:
                                                     .whitespaces) ?? " ") { word in
-                                                        if self?.sinonimsCount == 0 && !(self?.textField.text?.isEmpty ?? true) && !(self?.blockAppearance ?? true) {
+                                                        if self?.sinonimsCount == 0 &&
+                                                            !(self?.textField.text?.isEmpty ?? true) &&
+                                                            !(self?.blockAppearance ?? true) {
                         self?.textField.layer.opacity = 1
                                                             self?.updateSuggestTitle(word?.def?.first?.text)
                         self?.suggestionViewConstraint?.constant = 80

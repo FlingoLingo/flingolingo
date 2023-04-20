@@ -25,11 +25,7 @@ public protocol DecksProvider: AnyObject {
     func deleteCardFromDeck(deckId: Int, carId: Int, onFinish: @escaping (Bool) -> Void)
 
     func insertCardToDeck(
-        eng: String,
-        rus: String,
-        transcription: String,
-        examples: String,
-        decks: [Int],
+        request: InsertCardRequest,
         onFinish: @escaping (Bool) -> Void
     )
 

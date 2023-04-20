@@ -44,7 +44,6 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         cell.wordLabel.text = tableData.def?.first?.tr?[indexPath.row].text
         return cell
     }
-    
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
