@@ -12,6 +12,7 @@
 		3CADB95B29E6D136006E92C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95A29E6D136006E92C9 /* Assets.xcassets */; };
 		3CADB95E29E6D136006E92C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CADB95C29E6D136006E92C9 /* LaunchScreen.storyboard */; };
 		3CCE816629E7078200EAF382 /* Umbrella in Frameworks */ = {isa = PBXBuildFile; productRef = 3CCE816529E7078200EAF382 /* Umbrella */; };
+		48105D2A29F19ADA005216AE /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 48105D2929F19ADA005216AE /* SkeletonUI */; };
 		48EB159629EAD7D6004B7680 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB159529EAD7D6004B7680 /* CustomTabBarController.swift */; };
 		AD5305A429E9736300BB7FA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD5305A629E9736300BB7FA2 /* Localizable.strings */; };
 		F431B5F9AD728C57BC1D6C10 /* Pods_FlingoLingo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785A1D2192B6CD60EB676546 /* Pods_FlingoLingo.framework */; };
@@ -38,6 +39,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CCE816629E7078200EAF382 /* Umbrella in Frameworks */,
+				48105D2A29F19ADA005216AE /* SkeletonUI in Frameworks */,
 				F431B5F9AD728C57BC1D6C10 /* Pods_FlingoLingo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +117,7 @@
 			name = FlingoLingo;
 			packageProductDependencies = (
 				3CCE816529E7078200EAF382 /* Umbrella */,
+				48105D2929F19ADA005216AE /* SkeletonUI */,
 			);
 			productName = FlingoLingo;
 			productReference = 3CADB94E29E6D134006E92C9 /* FlingoLingo.app */;
@@ -144,6 +147,9 @@
 				ru,
 			);
 			mainGroup = 3CADB94529E6D134006E92C9;
+			packageReferences = (
+				48105D2829F19ADA005216AE /* XCRemoteSwiftPackageReference "SkeletonUI" */,
+			);
 			productRefGroup = 3CADB94F29E6D134006E92C9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -367,7 +373,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WS5WFL9CRG;
+				DEVELOPMENT_TEAM = LM3CWDSTFW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FlingoLingo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -444,10 +450,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		48105D2829F19ADA005216AE /* XCRemoteSwiftPackageReference "SkeletonUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CSolanaM/SkeletonUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		3CCE816529E7078200EAF382 /* Umbrella */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Umbrella;
+		};
+		48105D2929F19ADA005216AE /* SkeletonUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48105D2829F19ADA005216AE /* XCRemoteSwiftPackageReference "SkeletonUI" */;
+			productName = SkeletonUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

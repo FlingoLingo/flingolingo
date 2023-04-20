@@ -4,6 +4,7 @@ final class ProfileViewModel: ObservableObject {
 
     @Published var user: User
     @Published var isGuest: Bool = false
+    @Published var isLoading = false
 
     private let router: ProfileRouter
 

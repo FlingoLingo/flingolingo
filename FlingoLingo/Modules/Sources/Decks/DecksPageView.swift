@@ -21,20 +21,13 @@ struct DecksPageView: View {
             (SColors.background).edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                 DecksHeaderView(addDeckButtonClicked: viewModel.addDeckButtonCLicked)
-                if viewModel.isLoading {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .tint(SColors.mainText)
-                            .scaleEffect(1.5)
-                        Spacer()
-                    }
-                    Spacer()
-                } else {
-                    ScrollView(showsIndicators: false) {
-                        VStack(spacing: CommonConstants.smallSpacing) {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: CommonConstants.smallSpacing) {
+                        if viewModel.isLoading {
+                            ForEach(0...3, id: \.self) { _ in
+                                DeckCardSkeleton()
+                            }
+                        } else {
                             ForEach(viewModel.decks) { deck in
                                 DeckCardView(deck: deck) {
                                     viewModel.deckCardClicked(id: deck.id)
@@ -42,8 +35,8 @@ struct DecksPageView: View {
                             }
                         }
                     }
-                    .padding(.top, CommonConstants.bigSpacing)
                 }
+                .padding(.top, CommonConstants.bigSpacing)
             }
             .onAppear(perform: viewModel.reloadDecks)
             .alert("error", isPresented: $viewModel.isShowingError) {
