@@ -15,6 +15,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
             suggestionView.isHidden = true
         }
         return sinonimsCount
+    }
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         popOverVC.wordName = tableData.def?.first?.text ?? ""
         popOverVC.langsApi = languagesPairApiCode

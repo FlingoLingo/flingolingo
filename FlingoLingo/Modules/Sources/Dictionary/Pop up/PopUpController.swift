@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import UIComponents
 import NetworkLayer
+import Decks
 
 public final class PopUpViewController: UIViewController {
     public lazy var wordName = " "
@@ -88,7 +89,7 @@ public final class PopUpViewController: UIViewController {
         return addingButton
     }()
     private lazy var performing = UIActivityIndicatorView()
-    private var data: [Deck] = [.init(id: -1, isPrivate: false, name: "Новая колода", description: "", cards: [])]
+    private var data: [DeckResponse] = [DeckResponse(id: -1, isPrivate: false, name: "Новая колода", cards: [])]
     private var selectedDecksIds: [Int] = []
     private lazy var decksCollection = CollectionViews.collectionView()
     var langsApi = ""
@@ -211,10 +212,10 @@ public final class PopUpViewController: UIViewController {
                 engWord = translation
             }
             if dataArray.contains(-1) {
-                DeckClient().createDeck { result in
+                DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e").createDeck { result in
                     switch result {
                     case .success(let data):
-                        CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCard(eng: engWord,
+                        CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCardRequest(eng: engWord,
                                                                                                             rus: rusWord,
                                                                                                             transcription: self.translation,
                                                                                                             examples: self.translatedExample),
@@ -228,7 +229,7 @@ public final class PopUpViewController: UIViewController {
             if dataArray.contains(-1) {
                 dataArray.remove(at: 0)
             }
-            CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCard(eng: engWord,
+            CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCardRequest(eng: engWord,
                                                                                                 rus: rusWord,
                                                                                                 transcription: translation,
                                                                                                 examples: translatedExample),
@@ -237,17 +238,12 @@ public final class PopUpViewController: UIViewController {
         }
     }
     private func reloadCards() {
-        DeckClient().getDecks { result in
+        DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e").getDecks { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
                     var datum = data
-                    datum.insert(Deck(id: -1,
-                                      isPrivate: false,
-                                      name: "Новая колода",
-                                      description: "",
-                                      cards: []),
-                                 at: 0)
+                    datum.insert(DeckResponse(id: -1, isPrivate: false, name: "Новая колода", cards: []), at: 0)
                     self.data = datum
                     self.decksCollection.reloadData()
                     self.performing.removeFromSuperview()
