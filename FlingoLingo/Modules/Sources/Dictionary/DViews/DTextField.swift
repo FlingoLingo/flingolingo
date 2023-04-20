@@ -14,10 +14,10 @@ final class DTextField: UITextField {
     override init(frame: CGRect) {
 
         super.init(frame: frame)
-        layer.borderWidth = 1.5
+        layer.borderWidth = 1.0
         layer.borderColor = UIColor.white.cgColor
         layer.opacity = 0.4
-        layer.cornerRadius = 10
+        layer.cornerRadius = CommonConstants.textFieldCornerRadius
 
         placeholder = "Введите слово..."
 
@@ -51,7 +51,7 @@ public class SuggestionView: UIButton {
     public var suggest = ""
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layer.borderWidth = 1.5
+        layer.borderWidth = 1.0
         layer.borderColor = ColorScheme.mainText.cgColor
         layer.opacity = 0.4
         isHidden = true

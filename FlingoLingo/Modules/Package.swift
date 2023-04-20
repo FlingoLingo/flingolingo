@@ -53,6 +53,8 @@ let package = Package(
             name: "Dictionary",
             dependencies: [
                 "UIComponents",
+                "NetworkLayer",
+                "Decks"
             ]
         ),
         .target(

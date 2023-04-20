@@ -105,8 +105,23 @@ public class DecksProviderImpl: DecksProvider {
         }
     }
 
-    public func insertCardToDeck(onFinish: @escaping (Bool) -> Void) {
-
+    public func insertCardToDeck(
+        request: InsertCardRequest,
+        onFinish: @escaping (Bool) -> Void
+    ) {
+        let client = CardClient(token: token)
+        let card = AddCardRequest(eng: request.eng,
+                                  rus: request.rus,
+                                  transcription: request.transcription,
+                                  examples: request.examples)
+        client.addCard(card: card, decks: request.decks) { result in
+            switch result {
+            case .success:
+                onFinish(true)
+            case .failure:
+                onFinish(false)
+            }
+        }
     }
 
     public func editDeck(id: Int, newName: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {
@@ -123,5 +138,30 @@ public class DecksProviderImpl: DecksProvider {
                 }
             })
         }
+    }
+
+    public func setStatistics(deckId: Int, cardIdWithDirection: [Int: CardSwipeDirection]) {
+        var cardsIdsToAdd: Set<String> = []
+        var cardsIdsToRemove: Set<String> = []
+
+        for (cardId, direction) in cardIdWithDirection {
+            switch direction {
+            case .left:
+                cardsIdsToRemove.insert("\(cardId)")
+            case .right:
+                cardsIdsToAdd.insert("\(cardId)")
+            }
+        }
+
+        let cardsIdsFromUserDefaults = UserDefaults.standard.stringArray(forKey: "\(deckId)") ?? []
+        for cardId in cardsIdsFromUserDefaults {
+            cardsIdsToAdd.insert(cardId)
+        }
+
+        for cardId in cardsIdsToRemove {
+            cardsIdsToAdd.remove(cardId)
+        }
+        let cardsIdsToAddArray = Array(cardsIdsToAdd)
+        UserDefaults.standard.set(cardsIdsToAddArray, forKey: "\(deckId)")
     }
 }

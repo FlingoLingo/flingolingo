@@ -14,6 +14,7 @@ public class PopUpTableViewCell: UICollectionViewCell {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         layer.cornerRadius = CommonConstants.cornerRadius
         backgroundColor = ColorScheme.darkBackground
+        selectedBackgroundView = UIView()
         cellSettings()
     }
     required init?(coder: NSCoder) {
@@ -22,7 +23,11 @@ public class PopUpTableViewCell: UICollectionViewCell {
     func cellSettings() {
         contentView.addSubview(deckName)
         deckName.translatesAutoresizingMaskIntoConstraints = false
+        deckName.textColor = ColorScheme.mainText
+        deckName.textAlignment = .center
         NSLayoutConstraint.activate([
+            deckName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            deckName.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             deckName.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             deckName.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
