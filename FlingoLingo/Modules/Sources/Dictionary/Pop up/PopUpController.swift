@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Yandex on 17.04.2023.
 //
@@ -215,6 +215,9 @@ public final class PopUpViewController: UIViewController {
     }
 
     @objc func add() {
+        view.addSubview(performing)
+        NSLayoutConstraint.activate([performing.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     performing.centerYAnchor.constraint(equalTo: view.centerYAnchor)])
         guard !selectedDecksIds.isEmpty else {
             return
         }
@@ -246,6 +249,7 @@ public final class PopUpViewController: UIViewController {
                                                           decks: deckIds))
         { [weak self] result in
             DispatchQueue.main.async {
+                self?.performing.removeFromSuperview()
                 self?.dismiss(animated: true)
             }
         }
