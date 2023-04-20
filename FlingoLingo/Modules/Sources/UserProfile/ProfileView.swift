@@ -4,14 +4,13 @@ import UIComponents
 struct ProfileView: View {
 
     @ObservedObject private var viewModel: ProfileViewModel
-    @State private var loading = true
 
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
     }
 
     var body: some View {
-        if loading {
+        if viewModel.isLoading {
             ProfileViewSkeleton()
         } else {
             ZStack {
