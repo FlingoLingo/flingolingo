@@ -21,6 +21,7 @@ public enum Fonts {
     public static let searchText = UIFont.systemFont(ofSize: 17, weight: .regular)
     // Основной текст.
     public static let mainText = UIFont.systemFont(ofSize: 15, weight: .regular)
+    public static let mainTextBold = UIFont.systemFont(ofSize: 15, weight: .bold)
     // Текст на плашках.
     public static let cardsText = UIFont.systemFont(ofSize: 13, weight: .regular)
 }
