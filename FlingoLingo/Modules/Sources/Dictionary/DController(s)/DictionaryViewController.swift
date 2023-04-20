@@ -72,7 +72,7 @@ public final class DictionaryViewController: UIViewController {
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?
     private var suggestionViewConstraint: NSLayoutConstraint?
-    public var tableSpacing = 10
+    var tableSpacing = 10
     private lazy var network: NetworkRequest = {
         let network = NetworkRequest()
         return network
@@ -81,11 +81,15 @@ public final class DictionaryViewController: UIViewController {
         let networkFetcher = NetworkFetcher(network: network)
         return networkFetcher
     }()
+    private var workItem: DispatchWorkItem?
+    private var languagesPairApiCode = "en-ru"
+
     lazy var sinonimsCount = 0
     lazy var tableData: Word = Word(def: nil)
     lazy var blockAppearance = false
     let popOverVC = PopUpViewController()
 
+    // swiftlint:disable function_body_length
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.background
@@ -106,8 +110,7 @@ public final class DictionaryViewController: UIViewController {
         self.selectedLanguageConstant = selectedLanguageConstant
         self.arrowConstraint = arrowConstraint
         self.suggestionViewConstraint = suggestionViewConstraint
-        textField.rightViewButton.button.addTarget(self, action: #selector(textFieldFunc),
-                                      for: .touchUpInside)
+        textField.rightViewButton.button.addTarget(self, action: #selector(textFieldFunc), for: .touchUpInside)
         let topLabelConstraints = [
             centerConstraint,
             topLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
@@ -145,8 +148,7 @@ public final class DictionaryViewController: UIViewController {
                                                      constant: -CommonConstants.bigSpacing)
         ]
         let tableConstraints = [
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                               constant: CommonConstants.bigSpacing),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CommonConstants.bigSpacing),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                 constant: -CommonConstants.bigSpacing),
             tableView.topAnchor.constraint(equalTo: textField.bottomAnchor,
@@ -159,20 +161,14 @@ public final class DictionaryViewController: UIViewController {
         NSLayoutConstraint.activate(textFieldConstraints)
         NSLayoutConstraint.activate(tableConstraints)
         NSLayoutConstraint.activate(suggestionViewConstraints)
-        textField.addTarget(self, action: #selector(textFieldFunc),
-                            for: .allEditingEvents)
-        textField.addTarget(self, action: #selector(clear),
-                            for: .editingChanged)
-        textField.addTarget(self, action: #selector(clear),
-                            for: .editingDidBegin)
-        textField.rightViewButton.button.addTarget(self, action: #selector(clear),
-                                      for: .touchUpInside)
-        suggestionView.addTarget(self, action: #selector(suggestWasAccepted),
-                                 for: .touchUpInside)
+        textField.addTarget(self, action: #selector(textFieldFunc), for: .allEditingEvents)
+        textField.addTarget(self, action: #selector(clear), for: .editingChanged)
+        textField.addTarget(self, action: #selector(clear), for: .editingDidBegin)
+        textField.rightViewButton.button.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        suggestionView.addTarget(self, action: #selector(suggestWasAccepted), for: .touchUpInside)
         arrowButton.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
     }
-    private var workItem: DispatchWorkItem?
-    private var languagesPairApiCode = "en-ru"
+    // swiftlint:enable function_body_length
 }
 
 extension DictionaryViewController: UITextFieldDelegate {
@@ -207,25 +203,27 @@ extension DictionaryViewController: UITextFieldDelegate {
 
     func textFieldEdited() {
         // отменяем старый айтем
-        self.workItem?.cancel()
+        workItem?.cancel()
         tableView.reloadData()
-        self.textField.layer.opacity = 1
+        textField.layer.opacity = 1
         // новая альтернатива таймера
         let workItem = DispatchWorkItem { [weak self] in
-            if !(self?.textField.text?.isEmpty ?? true) {
-                self?.networkFetcher.getWord(lungs:
-                                                self?.languagesPairApiCode ?? "",
-                                             text:
-                                                self?.textField.text?.trimmingCharacters(in:
-                                                    .whitespaces) ?? " ") { word in
-                                                        if self?.sinonimsCount == 0 && !(self?.textField.text?.isEmpty ?? true) && !(self?.blockAppearance ?? true) {
-                        self?.textField.layer.opacity = 1
-                                                            self?.updateSuggestTitle(word?.def?.first?.text)
-                        self?.suggestionViewConstraint?.constant = 75
-                        self?.suggestionView.isHidden = false
-                        NSLayoutConstraint.activate([self!.suggestionViewConstraint!])
+            guard let self = self else { return }
+            if !(self.textField.text?.isEmpty ?? true) {
+                self.networkFetcher.getWord(
+                    lungs: self.languagesPairApiCode,
+                    text: self.textField.text?.trimmingCharacters(in: .whitespaces) ?? " "
+                ) { word in
+                    if self.sinonimsCount == 0
+                        && !(self.textField.text?.isEmpty ?? true)
+                        && !(self.blockAppearance) {
+                        self.textField.layer.opacity = 1
+                        self.updateSuggestTitle(word?.def?.first?.text)
+                        self.suggestionViewConstraint?.constant = 75
+                        self.suggestionView.isHidden = false
+                        NSLayoutConstraint.activate([self.suggestionViewConstraint!])
                         UIView.animate(withDuration: 0.25) {
-                            self?.view.layoutIfNeeded()
+                            self.view.layoutIfNeeded()
                         }
                     }
                 }
