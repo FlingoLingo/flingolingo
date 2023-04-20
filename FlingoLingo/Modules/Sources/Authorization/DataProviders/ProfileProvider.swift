@@ -1,4 +1,3 @@
-// typealias ItemsResult = Result<[String], Error>
 import NetworkLayer
 
 public protocol ProfileProvider: AnyObject {
@@ -14,7 +13,7 @@ public protocol ProfileProvider: AnyObject {
                         newPassword: String,
                         onFinish: @escaping ((Bool) -> Void))
 
-    func logOut(email: String, onFinish: @escaping ((Bool) -> Void))
+    func logOut(onFinish: @escaping ((Bool) -> Void))
 
     func getUserEmail() -> String
 

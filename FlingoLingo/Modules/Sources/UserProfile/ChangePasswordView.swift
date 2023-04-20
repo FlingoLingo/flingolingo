@@ -22,6 +22,9 @@ struct ChangePasswordView: View {
                     .alert("Пароль был успешно изменен", isPresented: $viewModel.isSuccessfulChange) {
                         Button("OK", role: .cancel) { }
                     }
+                    .alert("Ошибка смены пароля", isPresented: $viewModel.showPasswordAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
                 }
             }
             .padding(.horizontal, CommonConstants.bigSpacing)

@@ -3,22 +3,20 @@ import Authorization
 
 final class ProfileViewModel: ObservableObject {
 
-    @Published var user: User
     @Published var isGuest: Bool = false
 
     private let router: ProfileRouter
-    private let provider: ProfileProvider
+    @Published private var provider: ProfileProvider
     private let defaults = UserDefaults.standard
 
     init(router: ProfileRouter,
          provider: ProfileProvider) {
         self.router = router
         self.provider = provider
-        self.user = User()
     }
 
     func logOut() {
-        provider.logOut(email: user.email, onFinish: { res in
+        provider.logOut(onFinish: { res in
             if res {
                 self.router.openWelcomeScreen()
             }
@@ -26,8 +24,7 @@ final class ProfileViewModel: ObservableObject {
     }
 
     func openSettings() {
-        user = getUser()
-        router.changePassword(user: user, provider: provider)
+        router.changePassword(provider: provider)
     }
 
     func saveUserDefaults(user: User) {
@@ -52,5 +49,9 @@ final class ProfileViewModel: ObservableObject {
         let id = provider.getUserId()
         let email = provider.getUserEmail()
         return User(id: id, email: email, daysOfUse: daysOfUse, wordsLearned: wordsLearned, decksCount: decksCreated, timesRepeated: timesRepeated)
+    }
+    
+    func getUserEmail() -> String {
+        provider.getUserEmail()
     }
 }

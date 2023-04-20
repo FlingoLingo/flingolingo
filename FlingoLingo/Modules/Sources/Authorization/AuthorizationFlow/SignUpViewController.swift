@@ -16,10 +16,11 @@ public final class SignUpViewController: UIViewController {
         return view
     }()
     private let validationChecker = ValidationChecker()
-    private let provider = ProfileProviderImpl()
+    private var provider: ProfileProvider
 
     // MARK: - Lifecycle
-    public init() {
+    public init(provider: ProfileProvider) {
+        self.provider = provider
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -81,8 +82,10 @@ extension SignUpViewController: AuthorizationViewDelegate {
                 switch result {
                 case .success:
                     self.navigationController?.dismiss(animated: true)
-                case .failure:
-                    print("error")
+                case .failure(let error):
+                    let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             })
         }

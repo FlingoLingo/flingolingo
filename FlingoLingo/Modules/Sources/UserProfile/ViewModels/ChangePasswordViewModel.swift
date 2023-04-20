@@ -17,20 +17,18 @@ final class ChangePasswordViewModel: ObservableObject {
         }
     }
 
-    @Published var user: User
     @Published var oldPassword: String = ""
     @Published var newPassword: String = ""
     @Published var confirmPassword: String = ""
     @Published var validatePasswords: [TextField: String] = [:]
     @Published var isSuccessfulChange: Bool = false
+    @Published var showPasswordAlert: Bool = false
 
     private let backAction: () -> Void
     private let provider: ProfileProvider
 
-    init(user: User,
-         backAction: @escaping () -> Void,
+    init(backAction: @escaping () -> Void,
          provider: ProfileProvider) {
-        self.user = user
         self.backAction = backAction
         self.provider = provider
     }
@@ -56,14 +54,16 @@ final class ChangePasswordViewModel: ObservableObject {
         }
 
         if !hasError(for: .old) && !hasError(for: .new) && !hasError(for: .confirm) {
-            isSuccessfulChange = true
-//            provider.changePassword(user: user, oldPassword: oldPassword, newPassword: newPassword, onFinish: { isSuccess in
-//                if isSuccess {
-//                    isSuccessfulChange = true
-//                } else {
-//
-//                }
-//            })
+            provider.changePassword(email: provider.getUserEmail(),
+                                    oldPassword: oldPassword,
+                                    newPassword: newPassword,
+                                    onFinish: { res in
+                if res {
+                    self.isSuccessfulChange = true
+                } else {
+                    self.showPasswordAlert = true
+                }
+            })
         }
     }
 

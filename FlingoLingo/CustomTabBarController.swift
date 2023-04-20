@@ -33,10 +33,9 @@ final class CustomTabBarController: UITabBarController {
 
     override func viewWillAppear(_ animated: Bool) {
         if !profileProvider.isUserAuthenticated() {
-            let welcomeViewController = WelcomeViewController()
-            let navWelComeController = UINavigationController()
-            navWelComeController.setNavigationBarHidden(true, animated: false)
-            navWelComeController.viewControllers.append(welcomeViewController)
+            let welcomeViewController = WelcomeViewController(provider: profileProvider)
+            let navWelComeController = UINavigationController(rootViewController: welcomeViewController)
+//            navWelComeController.setNavigationBarHidden(true, animated: false)
             navWelComeController.modalPresentationStyle = .fullScreen
             self.present(navWelComeController, animated: false, completion: nil)
         }

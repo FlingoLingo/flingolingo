@@ -18,7 +18,7 @@ struct ProfileView: View {
                 if viewModel.isGuest {
                     GuestView()
                 } else {
-                    Text(viewModel.user.email)
+                    Text(viewModel.getUserEmail())
                         .font(Font(Fonts.subtitle))
                         .foregroundColor(SColors.accent)
                     StatisticsView(viewModel: viewModel)

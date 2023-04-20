@@ -9,6 +9,7 @@ import Foundation
 public struct GetProfileResponse: Decodable {
     public var id: Int
     public var username: String
+    public var dateJoined: String
 }
 
 public struct ChangePasswordRequest: Encodable {

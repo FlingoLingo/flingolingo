@@ -16,10 +16,11 @@ public final class LogInViewController: UIViewController {
         return view
     }()
     private let validationChecker = ValidationChecker()
-    private let provider = ProfileProviderImpl()
+    private let provider: ProfileProvider
 
     // MARK: - Lifecycle
-    public init() {
+    public init(provider: ProfileProvider) {
+        self.provider = provider
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -71,8 +72,10 @@ extension LogInViewController: AuthorizationViewDelegate {
                 switch res {
                 case .success:
                     self.navigationController?.dismiss(animated: true)
-                case .failure:
-                    print("why...")
+                case .failure(let error):
+                    let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             })
         }
