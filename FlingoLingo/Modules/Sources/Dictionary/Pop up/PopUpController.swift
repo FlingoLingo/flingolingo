@@ -89,11 +89,24 @@ public final class PopUpViewController: UIViewController {
         return addingButton
     }()
     private lazy var performing = UIActivityIndicatorView()
-    private var data: [DeckResponse] = [DeckResponse(id: -1, isPrivate: false, name: "Новая колода", cards: [])]
+    private var data: [DomainDeck] = [DomainDeck(deckResponse: DeckResponse(id: -1, isPrivate: false, name: "Новая колода", cards: []))]
     private var selectedDecksIds: [Int] = []
     private lazy var decksCollection = CollectionViews.collectionView()
     var langsApi = ""
     var index = 1
+    var rusWord = ""
+    var engWord = ""
+
+    private let decksProvider: DecksProvider
+
+    init(decksProvider: DecksProvider) {
+        self.decksProvider = decksProvider
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,13 +124,13 @@ public final class PopUpViewController: UIViewController {
         performing.style = .large
         NSLayoutConstraint.activate([downView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      downView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                                     popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      performing.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      performing.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      popUpView.widthAnchor.constraint(equalToConstant: 340),
                                      popUpView.heightAnchor.constraint(equalToConstant: 490)])
-        
+
         [blackFrame, decksCollection, addingButton].forEach { label in
             popUpView.addSubview(label)
         }
@@ -193,9 +206,11 @@ public final class PopUpViewController: UIViewController {
         decksCollection.reloadData()
         dismiss(animated: true)
     }
+
     @objc func dismis() {
         dismiss(animated: true)
     }
+
     @objc func add() {
         guard !selectedDecksIds.isEmpty else {
             return
@@ -204,8 +219,6 @@ public final class PopUpViewController: UIViewController {
         for item in selectedDecksIds {
             dataArray.append(item)
         }
-        var rusWord = ""
-        var engWord = ""
         switch langsApi {
         case "en-ru": rusWord = translation
             engWord = wordName
@@ -213,38 +226,45 @@ public final class PopUpViewController: UIViewController {
             engWord = translation
         }
         if dataArray.contains(-1) {
-            DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e").createDeck { result in
-                switch result {
-                case .success(let data):
-                    CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCardRequest(eng: engWord,
-                                                                                                               rus: rusWord,
-                                                                                                               transcription: self.translation,
-                                                                                                               examples: self.translatedExample),
-                                                                                          decks: [data.id]) { uselessStuff in
-                    }
-                    self.dismiss(animated: true)
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            createNewDeck()
         }
         if dataArray.contains(-1) {
             dataArray.remove(at: 0)
         }
-        CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCardRequest(eng: engWord,
-                                                                                                   rus: rusWord,
-                                                                                                   transcription: translation,
-                                                                                                   examples: translatedExample),
-                                                                              decks: dataArray) { uselessStuff in
+        addingCards(dataArray)
+    }
+
+    private func addingCards(_ deckIds: [Int]) {
+        decksProvider.insertCardToDeck(
+            eng: engWord,
+            rus: rusWord,
+            transcription: translation,
+            examples: translatedExample,
+            decks: deckIds
+        ) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.dismiss(animated: true)
+            }
+        }
+    }
+
+    private func createNewDeck() {
+        decksProvider.createNewDeck(name: "Новая колода") { result in
+            switch result {
+            case .success(let data):
+                self.addingCards([data.id])
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     private func reloadCards() {
-        DeckClient(token: "00fa7675354ab19839cdd317efa545429764b77e").getDecks { result in
+        decksProvider.getAllDecks { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
                     var datum = data
-                    datum.insert(DeckResponse(id: -1, isPrivate: false, name: "Новая колода", cards: []), at: 0)
+                    datum.insert(DomainDeck(deckResponse: DeckResponse(id: -1, isPrivate: false, name: "Новая колода", cards: [])), at: 0)
                     self.data = datum
                     self.decksCollection.reloadData()
                     self.performing.removeFromSuperview()
@@ -266,7 +286,7 @@ extension PopUpViewController: UICollectionViewDataSource {
                                                             for: indexPath) as? PopUpTableViewCell else {
             return PopUpTableViewCell()
         }
-        cell.deckName.text = "\(data[indexPath.row % data.count].name)"
+        cell.deckName.text = "\(data[indexPath.row % data.count].title)"
         if selectedDecksIds.contains(data[indexPath.row % data.count].id) {
             cell.backgroundColor = ColorScheme.accent
         }

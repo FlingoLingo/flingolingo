@@ -26,7 +26,7 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
         popOverVC.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(popOverVC, animated: true)
     }
-    
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DTableViewCell",
                                                        for: indexPath) as? DictionaryTableViewCell else {

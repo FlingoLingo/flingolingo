@@ -91,8 +91,33 @@ public class DecksProviderImpl: DecksProvider {
         })
     }
 
-    public func insertCardToDeck(onFinish: @escaping (Bool) -> Void) {
-
+    public func insertCardToDeck(
+        eng: String,
+        rus: String,
+        transcription: String,
+        examples: String,
+        decks: [Int],
+        onFinish: @escaping (Bool) -> Void
+    ) {
+        let client = CardClient(token: token)
+        let card = AddCardRequest(eng: eng, rus: rus, transcription: transcription, examples: examples)
+        client.addCard(card: card, decks: decks) { result in
+            switch result {
+            case .success:
+                onFinish(true)
+            case .failure:
+                onFinish(false)
+            }
+        }
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .success(let deck):
+//                    onFinish(.success(DomainDeck(deckResponse: deck)))
+//                case .failure(let failure):
+//                    onFinish(.failure(.client(failure)))
+//                }
+//            }
+//        })
     }
 
     public func editDeck(id: Int, newName: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {

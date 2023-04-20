@@ -7,6 +7,7 @@
 
 import UIKit
 import UIComponents
+import Decks
 
 public final class DictionaryViewController: UIViewController {
 
@@ -84,9 +85,19 @@ public final class DictionaryViewController: UIViewController {
     lazy var sinonimsCount = 0
     lazy var tableData: Word = Word(def: nil)
     lazy var blockAppearance = false
-    let popOverVC = PopUpViewController()
+    lazy var popOverVC = PopUpViewController(decksProvider: decksProvider)
     private var workItem: DispatchWorkItem?
     public var languagesPairApiCode = "en-ru"
+    private let decksProvider: DecksProvider
+
+    public init(decksProvider: DecksProvider) {
+        self.decksProvider = decksProvider
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // swiftlint:disable function_body_length
     public override func viewDidLoad() {
