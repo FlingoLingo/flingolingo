@@ -6,7 +6,7 @@ struct ProfileHeaderView: View {
     private let buttonClicked: (() -> Void)
     private let guest: Bool
 
-    public init(buttonClicked: @escaping () -> Void = {}, guest: Bool) {
+    init(buttonClicked: @escaping () -> Void = {}, guest: Bool) {
         self.buttonClicked = buttonClicked
         self.guest = guest
     }

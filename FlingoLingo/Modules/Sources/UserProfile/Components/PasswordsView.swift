@@ -3,9 +3,9 @@ import UIComponents
 
 struct PasswordsView: View {
 
-    @ObservedObject var viewModel: UserViewModel
+    @ObservedObject var viewModel: ChangePasswordViewModel
 
-    public init(viewModel: UserViewModel) {
+    init(viewModel: ChangePasswordViewModel) {
         self.viewModel = viewModel
     }
 

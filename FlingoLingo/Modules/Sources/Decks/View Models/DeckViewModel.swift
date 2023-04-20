@@ -15,15 +15,17 @@ final class DeckViewModel: ObservableObject {
     @Published var isShowingAlert = false
 
     let deck: Deck
+    private let router: CardsRouter
     private let backAction: () -> Void
 
-    init(deck: Deck, backAction: @escaping () -> Void) {
+    init(deck: Deck, backAction: @escaping () -> Void, router: CardsRouter) {
         self.deck = deck
         self.backAction = backAction
+        self.router = router
     }
 
     func startButtonClicked() {
-
+        router.startLearning(deck: deck)
     }
 
     func backButtonClicked() {

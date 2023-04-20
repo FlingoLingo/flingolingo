@@ -12,28 +12,34 @@ let package = Package(
             targets: [
                 "Authorization",
                 "UIComponents",
-                "UserProfile",
                 "Decks",
-                "Dictionary"
+                "Dictionary",
+                "NetworkLayer",
+                "UserProfile"
             ]
         )
     ],
     dependencies: [
+        .package(url: "https://github.com/andriyslyusar/SwiftyKeychainKit.git", from: "1.0.0-beta.2")
     ],
     targets: [
         .target(
             name: "Authorization",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
         .target(
             name: "UIComponents",
-            dependencies: []),
+            dependencies: [
+            ]
+        ),
         .target(
             name: "UserProfile",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "Authorization"
             ]
         ),
         .target(
@@ -48,5 +54,12 @@ let package = Package(
                 "UIComponents"
             ]
         ),
+        .target(
+            name: "NetworkLayer",
+            dependencies: [
+                "UIComponents",
+                    .product(name: "SwiftyKeychainKit", package: "SwiftyKeychainKit")
+            ]
+        )
     ]
 )

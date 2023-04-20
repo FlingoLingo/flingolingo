@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import UIComponents
+import NetworkLayer
 
 public final class PopUpViewController: UIViewController {
     public lazy var wordName = " "
@@ -20,7 +21,15 @@ public final class PopUpViewController: UIViewController {
         popUp.layer.cornerRadius = CommonConstants.cornerRadius
         popUp.backgroundColor = ColorScheme.background
         popUp.translatesAutoresizingMaskIntoConstraints = false
+        popUp.layer.shadowColor = UIColor.black.cgColor
+        popUp.layer.shadowRadius = 150
+        popUp.layer.shadowOpacity = 1
+        popUp.layer.shadowOffset = CGSize(width: 0, height: 0)
         return popUp
+    }()
+    private lazy var downView: UIView = {
+        let downView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        return downView
     }()
     private lazy var blackFrame: UIView = {
         let blackFrame = UIView()
@@ -46,11 +55,12 @@ public final class PopUpViewController: UIViewController {
     private lazy var translationLabel: UILabel = {
         let translationLabel = UILabel()
         translationLabel.translatesAutoresizingMaskIntoConstraints = false
-        translationLabel.textColor = ColorScheme.mainText
+        translationLabel.textColor = ColorScheme.accent
         translationLabel.font = Fonts.mainText
-        translationLabel.backgroundColor = ColorScheme.accent
+        translationLabel.backgroundColor = .init(red: 210/255, green: 67/255, blue: 102/255, alpha: 0.5)
         translationLabel.clipsToBounds = true
-        translationLabel.layer.cornerRadius = 7
+        translationLabel.sizeToFit()
+        translationLabel.layer.cornerRadius = 12.5
         return translationLabel
     }()
     private lazy var originalExampleLabel: UILabel = {
@@ -77,23 +87,30 @@ public final class PopUpViewController: UIViewController {
         addingButton.translatesAutoresizingMaskIntoConstraints = false
         return addingButton
     }()
-    private lazy var performing =  UIActivityIndicatorView()
-    var testa = ["AAAA", "BBBBB", "CCCCCC", "DDDDDD", "EEEEEE", "FFFFFFF"]
+    private lazy var performing = UIActivityIndicatorView()
+    private var data: [Deck] = [.init(id: -1, isPrivate: false, name: "Новая колода", description: "", cards: [])]
+    private var selectedDecksIds: [Int] = []
     private lazy var decksCollection = CollectionViews.collectionView()
+    var langsApi = ""
+    var index = 1
+    
     public override func viewDidLoad() {
-        view.addSubview(popUpView)
-        view.addSubview(performing)
+        super.viewDidLoad()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismis))
+        downView.addGestureRecognizer(tapGesture)
+        [downView, popUpView, performing].forEach { views in
+            view.addSubview(views)
+        }
         view.backgroundColor = .clear
         decksCollection.dataSource = self
         decksCollection.delegate = self
         decksCollection.register(PopUpTableViewCell.self, forCellWithReuseIdentifier: "ID")
-        decksCollection.showsHorizontalScrollIndicator = false
-        decksCollection.translatesAutoresizingMaskIntoConstraints = false
         performing.translatesAutoresizingMaskIntoConstraints = false
-        decksCollection.backgroundColor = .clear
         performing.startAnimating()
         performing.style = .large
-        NSLayoutConstraint.activate([popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        NSLayoutConstraint.activate([downView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     downView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            popUpView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      popUpView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      performing.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      performing.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -112,6 +129,8 @@ public final class PopUpViewController: UIViewController {
                                           constant: CommonConstants.smallSpacing),
             topLabel.leadingAnchor.constraint(equalTo: blackFrame.leadingAnchor,
                                               constant: CommonConstants.smallSpacing),
+            topLabel.trailingAnchor.constraint(equalTo: blackFrame.trailingAnchor,
+                                               constant: -CommonConstants.smallSpacing),
             blackFrame.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor,
                                                 constant: CommonConstants.bigSpacing),
             blackFrame.trailingAnchor.constraint(equalTo: popUpView.trailingAnchor,
@@ -119,20 +138,25 @@ public final class PopUpViewController: UIViewController {
             blackFrame.topAnchor.constraint(equalTo: popUpView.topAnchor,
                                             constant: CommonConstants.bigSpacing),
             blackFrame.heightAnchor.constraint(equalToConstant: 270),
-            transcriptionLabel.centerYAnchor.constraint(equalTo: topLabel.centerYAnchor),
-            transcriptionLabel.leadingAnchor.constraint(equalTo: topLabel.trailingAnchor,
-                                                        constant: CommonConstants.smallSpacing),
+            transcriptionLabel.topAnchor.constraint(equalTo: translationLabel.bottomAnchor,
+                                                    constant: CommonConstants.smallSpacing),
+            transcriptionLabel.leadingAnchor.constraint(equalTo: topLabel.leadingAnchor),
+            transcriptionLabel.trailingAnchor.constraint(equalTo: topLabel.trailingAnchor),
             translationLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor,
                                                   constant: CommonConstants.smallSpacing),
+            translationLabel.heightAnchor.constraint(equalToConstant: 30),
             translationLabel.leadingAnchor.constraint(equalTo: topLabel.leadingAnchor),
             originalExampleLabel.leadingAnchor.constraint(equalTo: topLabel.leadingAnchor),
-            originalExampleLabel.topAnchor.constraint(equalTo: translationLabel.bottomAnchor,
+            originalExampleLabel.topAnchor.constraint(equalTo: transcriptionLabel.bottomAnchor,
                                                       constant: CommonConstants.smallSpacing),
             originalExampleLabel.widthAnchor.constraint(equalToConstant: 260),
+            originalExampleLabel.bottomAnchor.constraint(equalTo: translatedExampleLabel.topAnchor, constant: -CommonConstants.smallSpacing),
             translatedExampleLabel.leadingAnchor.constraint(equalTo: topLabel.leadingAnchor),
             translatedExampleLabel.topAnchor.constraint(equalTo: originalExampleLabel.bottomAnchor,
                                                         constant: CommonConstants.smallSpacing),
             translatedExampleLabel.widthAnchor.constraint(equalToConstant: 260),
+            translatedExampleLabel.bottomAnchor.constraint(lessThanOrEqualTo: blackFrame.bottomAnchor,
+                                                           constant: -CommonConstants.smallSpacing),
             addingButton.bottomAnchor.constraint(equalTo: popUpView.bottomAnchor,
                                                  constant: -CommonConstants.bigSpacing),
             addingButton.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor,
@@ -149,30 +173,95 @@ public final class PopUpViewController: UIViewController {
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        let midItem = IndexPath(item: 2500, section: 0)
-        decksCollection.scrollToItem(at: midItem, at: .centeredHorizontally, animated: false)
+        reloadCards()
+        addingButton.layer.opacity = 0.5
         addingButton.addTarget(self, action: #selector(add), for: .touchUpInside)
         transcriptionLabel.text = transcription
-        topLabel.text = wordName
-        translationLabel.text = "  \(translation.uppercased())  "
+        topLabel.text = translation
+        translationLabel.text = "  \(wordName)  "
         originalExampleLabel.text = translatedExample
         translatedExampleLabel.text = originalExample
     }
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        performing.removeFromSuperview()
-        let midItem = IndexPath(item: 2500, section: 0)
-        decksCollection.scrollToItem(at: midItem, at: .centeredHorizontally, animated: false)
+    }
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        selectedDecksIds = []
+        decksCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .left, animated: false)
+        decksCollection.reloadData()
+        dismiss(animated: true)
+    }
+    @objc func dismis() {
+        dismiss(animated: true)
     }
     @objc func add() {
-        presentingViewController!.view.backgroundColor = ColorScheme.background
-        self.dismiss(animated: true)
+        if !selectedDecksIds.isEmpty {
+            self.dismiss(animated: true)
+            var dataArray: [Int] = []
+            for item in selectedDecksIds {
+                dataArray.append(item)
+            }
+            var rusWord = ""
+            var engWord = ""
+            switch langsApi {
+            case "en-ru": rusWord = translation
+                engWord = wordName
+            default: rusWord = wordName
+                engWord = translation
+            }
+            if dataArray.contains(-1) {
+                DeckClient().createDeck { result in
+                    switch result {
+                    case .success(let data):
+                        CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCard(eng: engWord,
+                                                                                                            rus: rusWord,
+                                                                                                            transcription: self.translation,
+                                                                                                            examples: self.translatedExample),
+                                                                                              decks: [data.id]) { uselessStuff in
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+            if dataArray.contains(-1) {
+                dataArray.remove(at: 0)
+            }
+            CardClient(token: "00fa7675354ab19839cdd317efa545429764b77e").addCard(card: AddCard(eng: engWord,
+                                                                                                rus: rusWord,
+                                                                                                transcription: translation,
+                                                                                                examples: translatedExample),
+                                                                                  decks: dataArray) { uselessStuff in
+            }
+        }
+    }
+    private func reloadCards() {
+        DeckClient().getDecks { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    var datum = data
+                    datum.insert(Deck(id: -1,
+                                      isPrivate: false,
+                                      name: "Новая колода",
+                                      description: "",
+                                      cards: []),
+                                 at: 0)
+                    self.data = datum
+                    self.decksCollection.reloadData()
+                    self.performing.removeFromSuperview()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
 extension PopUpViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5000
+        return data.count
     }
     public func collectionView(_ collectionView: UICollectionView,
                                cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -180,8 +269,13 @@ extension PopUpViewController: UICollectionViewDataSource {
                                                             for: indexPath) as? PopUpTableViewCell else {
             return PopUpTableViewCell()
         }
-        let index = indexPath.row % testa.count
-        cell.deckName.text = testa[index]
+        cell.deckName.text = "\(data[indexPath.row % data.count].name)"
+        if selectedDecksIds.contains(data[indexPath.row % data.count].id) {
+            cell.backgroundColor = ColorScheme.accent
+        }
+        else {
+            cell.backgroundColor = ColorScheme.darkBackground
+        }
         return cell
     }
 }
@@ -193,5 +287,24 @@ extension PopUpViewController: UICollectionViewDelegateFlowLayout {
 }
 extension PopUpViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if selectedDecksIds.contains(data[indexPath.row % data.count].id) {
+            for ind in 0..<selectedDecksIds.count {
+                if selectedDecksIds.count > ind {
+                    if selectedDecksIds[ind] == data[indexPath.row % data.count].id {
+                        selectedDecksIds.remove(at: ind)
+                    }
+                }
+            }
+        }
+        else {
+            selectedDecksIds.append(data[indexPath.row % data.count].id)
+        }
+        if selectedDecksIds.isEmpty {
+            addingButton.layer.opacity = 0.5
+        }
+        else {
+            addingButton.layer.opacity = 1
+        }
+        collectionView.reloadData()
     }
 }

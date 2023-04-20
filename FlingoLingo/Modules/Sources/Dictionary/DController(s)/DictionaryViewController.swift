@@ -20,8 +20,8 @@ public final class DictionaryViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         tableView.clipsToBounds = true
-        tableView.layer.cornerRadius = CommonConstants.textFieldCornerRadius
         tableView.allowsSelection = true
+
         return tableView
     }()
 
@@ -86,6 +86,7 @@ public final class DictionaryViewController: UIViewController {
     lazy var blockAppearance = false
     let popOverVC = PopUpViewController()
 
+    // swiftlint:disable function_body_length
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.background
@@ -95,8 +96,8 @@ public final class DictionaryViewController: UIViewController {
             view.addSubview(subView)
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
-        let centerConstraint = topLabel.topAnchor.constraint(equalTo: view.topAnchor,
-                                                             constant: 75)
+        let centerConstraint = topLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                                                constant: 40)
         let selectedLanguageConstant = originLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                                                constant: CommonConstants.bigSpacing)
         let arrowConstraint = arrowButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -128,7 +129,7 @@ public final class DictionaryViewController: UIViewController {
                                                     constant: 15)
         ]
         let textFieldConstraints = [
-            textField.heightAnchor.constraint(equalToConstant: 40),
+            textField.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
             textField.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                constant: CommonConstants.bigSpacing),
             textField.trailingAnchor.constraint(equalTo: view.trailingAnchor,
@@ -140,7 +141,7 @@ public final class DictionaryViewController: UIViewController {
             suggestionViewConstraint,
             suggestionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                     constant: CommonConstants.bigSpacing),
-            suggestionView.heightAnchor.constraint(equalToConstant: 40),
+            suggestionView.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
             suggestionView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                      constant: -CommonConstants.bigSpacing)
         ]
@@ -172,19 +173,16 @@ public final class DictionaryViewController: UIViewController {
         arrowButton.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
     }
     private var workItem: DispatchWorkItem?
-    private var languagesPairApiCode = "en-ru"
-    
-    
+    public var languagesPairApiCode = "en-ru"
 }
+
 extension DictionaryViewController: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         blockAppearance = false
-        textField.layer.opacity = 1
         sinonimsCount = 0
         tableView.reloadData()
         topLabel.isHidden = true
-        centerConstraint?.constant = 0
-        arrowButton.layer.opacity = 0.4
+        centerConstraint?.constant = -30
         suggestionView.isHidden = true
         suggestionViewConstraint?.constant = 25
         NSLayoutConstraint.activate([self.suggestionViewConstraint!])
@@ -194,6 +192,12 @@ extension DictionaryViewController: UITextFieldDelegate {
         UIView.animate(withDuration: 0.35) {
             self.view.layoutIfNeeded()
         }
+        suggestionView.isHidden = true
+        suggestionViewConstraint?.constant = CommonConstants.bigSpacing
+        NSLayoutConstraint.activate([self.suggestionViewConstraint!])
+        updateSuggestTitle("")
+        view.layoutIfNeeded()
+        tableView.reloadData()
     }
 
     private func updateSuggestTitle(_ title: String?) {
@@ -222,7 +226,7 @@ extension DictionaryViewController: UITextFieldDelegate {
                                                         if self?.sinonimsCount == 0 && !(self?.textField.text?.isEmpty ?? true) && !(self?.blockAppearance ?? true) {
                         self?.textField.layer.opacity = 1
                                                             self?.updateSuggestTitle(word?.def?.first?.text)
-                        self?.suggestionViewConstraint?.constant = 75
+                        self?.suggestionViewConstraint?.constant = 80
                         self?.suggestionView.isHidden = false
                         NSLayoutConstraint.activate([self!.suggestionViewConstraint!])
                         UIView.animate(withDuration: 0.25) {
@@ -267,13 +271,12 @@ extension DictionaryViewController: UITextFieldDelegate {
         view.layoutIfNeeded()
         tableView.reloadData()
     }
-
     public func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text?.isEmpty ?? false {
             textField.layer.opacity = 0.4
         }
         topLabel.isHidden = false
-        centerConstraint!.constant = 75
+        centerConstraint!.constant = 40
         selectedLanguageConstant?.constant = CommonConstants.bigSpacing
         NSLayoutConstraint.deactivate([arrowConstraint!])
         NSLayoutConstraint.activate([selectedLanguageConstant!])
@@ -283,7 +286,6 @@ extension DictionaryViewController: UITextFieldDelegate {
     }
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.workItem?.cancel()
-        arrowButton.layer.opacity = 1
         textField.resignFirstResponder()
         tableView.reloadData()
         return true

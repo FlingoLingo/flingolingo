@@ -19,8 +19,8 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        view.backgroundColor = ColorScheme.darkBackground
         popOverVC.wordName = tableData.def?.first?.text ?? ""
+        popOverVC.langsApi = languagesPairApiCode
         popOverVC.transcription = tableData.def?.first?.ts ?? ""
         popOverVC.translation = tableData.def?.first?.tr?[indexPath.row].text ?? ""
         popOverVC.translatedExample = tableData.def?.first?.tr?[indexPath.row].ex?.first?.text ?? ""
@@ -48,6 +48,6 @@ extension DictionaryViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
 }
