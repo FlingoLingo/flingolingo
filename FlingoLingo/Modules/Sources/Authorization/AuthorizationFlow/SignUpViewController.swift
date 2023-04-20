@@ -17,7 +17,6 @@ public final class SignUpViewController: UIViewController {
     }()
     private let validationChecker = ValidationChecker()
     private let provider: ProfileProvider
-    private let child = SpinnerViewController()
 
     // MARK: - Lifecycle
     public init(provider: ProfileProvider) {
@@ -69,19 +68,6 @@ public final class SignUpViewController: UIViewController {
 
         return isValid
     }
-
-    private func createSpinnerView() {
-        addChild(child)
-        child.view.frame = view.frame
-        view.addSubview(child.view)
-        child.didMove(toParent: self)
-    }
-
-    private func removeSpinnerView() {
-        child.willMove(toParent: nil)
-        child.view.removeFromSuperview()
-        child.removeFromParent()
-    }
 }
 
 // MARK: - AuthorizationViewDelegate
@@ -92,10 +78,10 @@ extension SignUpViewController: AuthorizationViewDelegate {
 
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
         if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {
-            createSpinnerView()
+            authorizationView.applyStateForSpinner(.start)
 
             provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { [weak self] result in
-                self?.removeSpinnerView()
+                self?.authorizationView.applyStateForSpinner(.stop)
 
                 DispatchQueue.main.async {
                     switch result {
