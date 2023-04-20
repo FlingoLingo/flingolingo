@@ -17,10 +17,16 @@ struct CardsViewControllerFactory {
 
     public func cardsViewController(
         deck: DomainDeck,
+        provider: DecksProvider,
         backAction: @escaping () -> Void,
         popToRootAction: @escaping () -> Void
     ) -> UIViewController {
-        let viewModel = CardsViewModel(deck: deck, backAction: backAction, popToRootAction: popToRootAction)
+        let viewModel = CardsViewModel(
+            deck: deck,
+            provider: provider,
+            backAction: backAction,
+            popToRootAction: popToRootAction
+        )
         return UIHostingController(rootView: CardsView(viewModel: viewModel))
     }
 }

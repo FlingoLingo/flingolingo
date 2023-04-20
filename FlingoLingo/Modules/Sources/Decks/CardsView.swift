@@ -8,7 +8,7 @@
 import SwiftUI
 import UIComponents
 
-enum CardSwipeDirection {
+public enum CardSwipeDirection {
     case left
     case right
 }

@@ -18,6 +18,7 @@ final class CustomTabBarController: UITabBarController {
         static let decks = UIImage(named: "decksTabItem")
         static let profile = UIImage(named: "profileTabItem")
     }
+    private let decksProtocolImpl = DecksProviderImpl()
 
     // MARK: - Loads
     override func viewDidLoad() {
@@ -52,7 +53,7 @@ final class CustomTabBarController: UITabBarController {
 
     private func createDictionaryNavigationController() -> UIViewController {
         let dictionaryController = configureViewController(
-            controller: DictionaryViewController(),
+            controller: DictionaryViewController(decksProvider: decksProtocolImpl),
             title: NSLocalizedString("dictionary", comment: ""),
             image: Constants.dictionary ?? .add
         )
@@ -64,7 +65,6 @@ final class CustomTabBarController: UITabBarController {
 
     private func createDecksNavigationController() -> UIViewController {
         let decksViewControllerFactory = DecksViewControllerFactory()
-        let decksProtocolImpl = DecksProviderImpl()
         let decksController = configureViewController(
             controller: decksViewControllerFactory.decksViewController(provider: decksProtocolImpl),
             title: NSLocalizedString("decksHeader", comment: ""),

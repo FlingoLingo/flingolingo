@@ -18,6 +18,11 @@ class CollectionViews {
                                               collectionViewLayout: layout)
         layout.estimatedItemSize = .zero
         layout.scrollDirection = .horizontal
+        collectionView.contentInset.left = 70
+        collectionView.contentInset.right = 70
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
         return collectionView
     }
 }

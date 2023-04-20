@@ -11,14 +11,16 @@ import NetworkLayer
 public struct DomainDeck: Identifiable {
     public let id: Int
     public let title: String
-    public let learnedWords: Int
+    public var learnedWords: Int {
+        let learnedCardsIds = UserDefaults.standard.stringArray(forKey: "\(id)") ?? []
+        return learnedCardsIds.count
+    }
     public let repetitionDate: Date
     public let cards: [DomainCard]
 
     public init(deckResponse: DeckResponse) {
         self.id = deckResponse.id
         self.title = deckResponse.name
-        self.learnedWords = 0
         self.repetitionDate = Date.now
         let decodedCards = deckResponse.cards.map({ card in
             let decodedCard = DomainCard(card: card)

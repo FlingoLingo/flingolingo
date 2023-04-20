@@ -14,6 +14,12 @@ public struct DeckResponse: Decodable {
     public let isPrivate: Bool
     public let name: String
     public let cards: Cards
+    public init(id: Int, isPrivate: Bool, name: String, cards: Cards) {
+        self.cards = cards
+        self.id = id
+        self.isPrivate = isPrivate
+        self.name = name
+    }
 }
 
 public struct DeckRequest: Encodable {
@@ -61,7 +67,7 @@ public final class DeckClient {
                                   body: EmptyRequest(),
                                   completion: completion)
     }
-    
+
     public func createDeckWithName(name: String, completion: @escaping (Result<DeckResponse, ClientError>) -> Void) {
         self.netLayer.makeRequest(method: "POST",
                                   urlPattern: "/decks/",
