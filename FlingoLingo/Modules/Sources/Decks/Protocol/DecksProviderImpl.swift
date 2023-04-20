@@ -23,7 +23,10 @@ public class DecksProviderImpl: DecksProvider {
     }
 
     public func getAllDecks(onFinish: @escaping (Result<[DomainDeck], DecksError>) -> Void) {
-        guard let token = token else { return }
+        guard let token = token else {
+            onFinish(.failure(.client(ClientError.noDataError)))
+            return
+        }
         let client = DeckClient(token: token)
         client.getDecks(completion: { result in
             DispatchQueue.main.async {
@@ -41,7 +44,10 @@ public class DecksProviderImpl: DecksProvider {
     }
 
     public func getDeck(id: Int, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {
-        guard let token = token else { return }
+        guard let token = token else {
+            onFinish(.failure(.client(ClientError.noDataError)))
+            return
+        }
         let client = DeckClient(token: token)
         client.getDeck(id: id, completion: { result in
             DispatchQueue.main.async {
@@ -56,7 +62,10 @@ public class DecksProviderImpl: DecksProvider {
     }
 
     public func createNewDeck(name: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {
-        guard let token = token else { return }
+        guard let token = token else {
+            onFinish(.failure(.client(ClientError.noDataError)))
+            return
+        }
         let client = DeckClient(token: token)
         client.createDeckWithName(name: name, completion: { result in
             DispatchQueue.main.async {
@@ -71,7 +80,10 @@ public class DecksProviderImpl: DecksProvider {
     }
 
     public func deleteDeck(id: Int, onFinish: @escaping (Bool) -> Void) {
-        guard let token = token else { return }
+        guard let token = token else {
+            onFinish(false)
+            return
+        }
         let client = DeckClient(token: token)
         client.deleteDeck(id: id, completion: { result in
             DispatchQueue.main.async {
@@ -86,7 +98,10 @@ public class DecksProviderImpl: DecksProvider {
     }
 
     public func deleteCardFromDeck(deckId: Int, carId: Int, onFinish: @escaping (Bool) -> Void) {
-        guard let token = token else { return }
+        guard let token = token else {
+            onFinish(false)
+            return
+        }
         let client = CardClient(token: token)
         client.removeCard(deckId: deckId, cardId: carId, completion: { result in
             DispatchQueue.main.async {
@@ -104,7 +119,10 @@ public class DecksProviderImpl: DecksProvider {
         request: InsertCardRequest,
         onFinish: @escaping (Bool) -> Void
     ) {
-        guard let token = token else { return }
+        guard let token = token else {
+            onFinish(false)
+            return
+        }
         let client = CardClient(token: token)
         let card = AddCardRequest(eng: request.eng,
                                   rus: request.rus,
@@ -121,7 +139,10 @@ public class DecksProviderImpl: DecksProvider {
     }
 
     public func editDeck(id: Int, newName: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {
-        guard let token = token else { return }
+        guard let token = token else {
+            onFinish(.failure(.client(ClientError.noDataError)))
+            return
+        }
         let client = DeckClient(token: token)
         client.editDeck(id: id, name: newName, isPrivate: true, completion: { result in
             DispatchQueue.main.async {
