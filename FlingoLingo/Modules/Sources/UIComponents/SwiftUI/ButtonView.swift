@@ -37,14 +37,8 @@ public struct ButtonView: View {
             .background(buttonBackgroundColor)
             .cornerRadius(CommonConstants.cornerRadius)
             .onTapGesture {
-                animate = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration, execute: {
-                    self.animate = false
-                    buttonClicked()
-                })
+                buttonClicked()
             }
-            .scaleEffect(animate ? 0.9 : 1)
-            .animation(.easeIn(duration: animationDuration), value: animate)
     }
 }
 
