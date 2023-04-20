@@ -32,6 +32,11 @@ public struct DeckNameRequest: Encodable {
     var name: String
 }
 
+public struct CardKnowledgeRequest: Encodable {
+    public let cardsLearned: [Int]
+    public let cardsForgotten: [Int]
+}
+
 public enum DecksError: Error {
     case jsonEncodeError
     case jsonDecodeError
@@ -86,6 +91,18 @@ public final class DeckClient {
                                                     name: name),
                                   completion: completion)
     }
+
+    public func updateCardKnowledge(deckId: Int,
+                                    cardsLearned: [Int],
+                                    cardsForgotten: [Int],
+                                    completion: @escaping (Result<MessageResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "PUT",
+                                  urlPattern: "/decks/\(deckId)/",
+                                  body: CardKnowledgeRequest(cardsLearned: cardsLearned,
+                                                             cardsForgotten: cardsForgotten),
+                                  completion: completion)
+    }
+
     public func deleteDeck(id: Int, completion: @escaping (Result<MessageResponse, ClientError>) -> Void) {
         self.netLayer.makeRequest(method: "DELETE",
                                   urlPattern: "/decks/\(id)/",
