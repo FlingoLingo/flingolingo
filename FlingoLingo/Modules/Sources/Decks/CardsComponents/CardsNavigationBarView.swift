@@ -21,8 +21,10 @@ struct CardsNavigationBarView: View {
                 Icons.leftArrow
                     .foregroundColor(SColors.mainText)
             }
-            ProgressView(value: viewModel.progress, total: Double(viewModel.fetchedCards.count))
-                .tint(SColors.accent)
+            ProgressView(
+                value: min(viewModel.progress, Double(viewModel.fetchedCards.count)),
+                total: Double(viewModel.fetchedCards.count)
+            )
             Button(action: viewModel.changeCardsMainSide) {
                 Icons.circledArrows
                     .foregroundColor(SColors.mainText)
