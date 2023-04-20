@@ -14,22 +14,6 @@ public class ProfileProviderImpl: ProfileProvider {
     public init() {
     }
 
-    public func getUserEmail() -> String {
-        var email: String = ""
-        let profileClient = ProfileClient(token: try? self.keychain.get(accessTokenKey))
-        profileClient.getProfile(completion: { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let user):
-                    email = user.username
-                case .failure: break
-                }
-            }
-        })
-
-        return email
-    }
-
     public func logInUser(email: String,
                           password: String,
                           onFinish: @escaping ((Result<DomainProfile, ClientError>) -> Void)) {
