@@ -270,7 +270,7 @@ public final class PopUpViewController: UIViewController {
                     var datum = data
                     datum.append(DomainDeck(deckResponse: DeckResponse(id: -1,
                                                                        isPrivate: false,
-                                                                       name: "Новая колода",
+                                                                       name: "новая колода",
                                                                        cards: [])))
                     self.data = datum
                     self.decksCollection.reloadData()
