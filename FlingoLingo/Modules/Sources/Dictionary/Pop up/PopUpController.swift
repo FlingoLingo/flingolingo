@@ -215,9 +215,7 @@ public final class PopUpViewController: UIViewController {
     }
 
     @objc func add() {
-        view.addSubview(performing)
-        NSLayoutConstraint.activate([performing.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     performing.centerYAnchor.constraint(equalTo: view.centerYAnchor)])
+        performing.isHidden = false
         guard !selectedDecksIds.isEmpty else {
             return
         }
@@ -249,7 +247,7 @@ public final class PopUpViewController: UIViewController {
                                                           decks: deckIds))
         { [weak self] result in
             DispatchQueue.main.async {
-                self?.performing.removeFromSuperview()
+                self?.performing.isHidden = true
                 self?.dismiss(animated: true)
             }
         }
@@ -278,7 +276,7 @@ public final class PopUpViewController: UIViewController {
                                  at: 0)
                     self.data = datum
                     self.decksCollection.reloadData()
-                    self.performing.removeFromSuperview()
+                    self.performing.isHidden = true
                 }
             case .failure(let error):
                 print(error)
