@@ -96,7 +96,7 @@ struct CardView: View {
                     let checkingStatus = (translation > 0 ? translation : -translation)
 
                     withAnimation(.easeOut(duration: CommonConstants.animationDutation)) {
-                        if checkingStatus > (width / 2) {
+                        if checkingStatus > (width / 4) {
                             offset = (translation > 0 ? width : -width) * 2
                             if translation > 0 {
                                 viewModel.doSwipe(withInfo: .init(id: card.id, direction: .right))
