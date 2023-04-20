@@ -53,7 +53,6 @@ let package = Package(
             name: "Dictionary",
             dependencies: [
                 "UIComponents",
-                "NetworkLayer"
             ]
         ),
         .target(
@@ -62,6 +61,6 @@ let package = Package(
                 "UIComponents",
                     .product(name: "SwiftyKeychainKit", package: "SwiftyKeychainKit")
             ]
-        )
+        ),
     ]
 )

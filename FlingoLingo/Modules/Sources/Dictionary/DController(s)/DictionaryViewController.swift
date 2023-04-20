@@ -20,8 +20,8 @@ public final class DictionaryViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
         tableView.clipsToBounds = true
+        tableView.layer.cornerRadius = CommonConstants.textFieldCornerRadius
         tableView.allowsSelection = true
-
         return tableView
     }()
 
@@ -72,7 +72,7 @@ public final class DictionaryViewController: UIViewController {
     private var selectedLanguageConstant: NSLayoutConstraint?
     private var arrowConstraint: NSLayoutConstraint?
     private var suggestionViewConstraint: NSLayoutConstraint?
-    var tableSpacing = 10
+    public var tableSpacing = 10
     private lazy var network: NetworkRequest = {
         let network = NetworkRequest()
         return network
@@ -107,7 +107,8 @@ public final class DictionaryViewController: UIViewController {
         self.selectedLanguageConstant = selectedLanguageConstant
         self.arrowConstraint = arrowConstraint
         self.suggestionViewConstraint = suggestionViewConstraint
-        textField.rightViewButton.button.addTarget(self, action: #selector(textFieldFunc), for: .touchUpInside)
+        textField.rightViewButton.button.addTarget(self, action: #selector(textFieldFunc),
+                                      for: .touchUpInside)
         let topLabelConstraints = [
             centerConstraint,
             topLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
@@ -141,11 +142,14 @@ public final class DictionaryViewController: UIViewController {
             suggestionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                     constant: CommonConstants.bigSpacing),
             suggestionView.heightAnchor.constraint(equalToConstant: CommonConstants.textFieldHeight),
+
             suggestionView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                      constant: -CommonConstants.bigSpacing)
         ]
         let tableConstraints = [
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CommonConstants.bigSpacing),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                               constant: CommonConstants.bigSpacing),
+
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                 constant: -CommonConstants.bigSpacing),
             tableView.topAnchor.constraint(equalTo: textField.bottomAnchor,
@@ -158,11 +162,16 @@ public final class DictionaryViewController: UIViewController {
         NSLayoutConstraint.activate(textFieldConstraints)
         NSLayoutConstraint.activate(tableConstraints)
         NSLayoutConstraint.activate(suggestionViewConstraints)
-        textField.addTarget(self, action: #selector(textFieldFunc), for: .allEditingEvents)
-        textField.addTarget(self, action: #selector(clear), for: .editingChanged)
-        textField.addTarget(self, action: #selector(clear), for: .editingDidBegin)
-        textField.rightViewButton.button.addTarget(self, action: #selector(clear), for: .touchUpInside)
-        suggestionView.addTarget(self, action: #selector(suggestWasAccepted), for: .touchUpInside)
+        textField.addTarget(self, action: #selector(textFieldFunc),
+                            for: .allEditingEvents)
+        textField.addTarget(self, action: #selector(clear),
+                            for: .editingChanged)
+        textField.addTarget(self, action: #selector(clear),
+                            for: .editingDidBegin)
+        textField.rightViewButton.button.addTarget(self, action: #selector(clear),
+                                      for: .touchUpInside)
+        suggestionView.addTarget(self, action: #selector(suggestWasAccepted),
+                                 for: .touchUpInside)
         arrowButton.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
     }
     private var workItem: DispatchWorkItem?
@@ -205,9 +214,9 @@ extension DictionaryViewController: UITextFieldDelegate {
 
     func textFieldEdited() {
         // отменяем старый айтем
-        workItem?.cancel()
+        self.workItem?.cancel()
         tableView.reloadData()
-        textField.layer.opacity = 1
+        self.textField.layer.opacity = 1
         // новая альтернатива таймера
         let workItem = DispatchWorkItem { [weak self] in
             if !(self?.textField.text?.isEmpty ?? true) {
@@ -223,7 +232,7 @@ extension DictionaryViewController: UITextFieldDelegate {
                         self?.suggestionView.isHidden = false
                         NSLayoutConstraint.activate([self!.suggestionViewConstraint!])
                         UIView.animate(withDuration: 0.25) {
-                            self.view.layoutIfNeeded()
+                            self?.view.layoutIfNeeded()
                         }
                     }
                 }

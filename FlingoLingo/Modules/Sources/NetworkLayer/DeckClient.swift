@@ -9,205 +9,81 @@ import Foundation
 
 public typealias Cards = [Card]
 
-public struct Deck: Decodable {
-    public init(id: Int, isPrivate: Bool, name: String, description: String, cards: Cards) {
-        self.id = id
-        self.isPrivate = isPrivate
-        self.name = name
-        self.description = description
-        self.cards = cards
-    }
-    
-    public var id: Int
-    public var isPrivate: Bool
-    public var name: String
-    public var description: String
-    public var cards: Cards
+public struct DeckResponse: Decodable {
+    public let id: Int
+    public let isPrivate: Bool
+    public let name: String
+    public let cards: Cards
+}
+
+public struct DeckRequest: Encodable {
+    var id: Int
+    var isPrivate: Bool?
+    var name: String?
+}
+
+public struct DeckNameRequest: Encodable {
+    var name: String
 }
 
 public enum DecksError: Error {
-    case jsonParseError
+    case jsonEncodeError
+    case jsonDecodeError
     case responseError
     case noDataError
 }
 
-typealias Decks = [Deck]
+typealias Decks = [DeckResponse]
 
 public final class DeckClient {
-    public init() {}
+    let netLayer: NetworkLayer
 
-    public func getDecks(completion: @escaping (Result<[Deck], DecksError>) -> Void) {
-        let deckSearch = URL(string: baseUrl + "/decks/")!
-        var request = URLRequest(url: deckSearch)
-        request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "GET"
-        let session: URLSession = {
-            let session = URLSession(configuration: .default)
-            session.configuration.timeoutIntervalForRequest = 30.0
-            return session
-        }()
-
-        let task = session.dataTask(with: request) { data, _, error in
-        guard error == nil else {
-            completion(.failure(.responseError))
-            return
-        }
-        guard let data = data else {
-            completion(.failure(.noDataError))
-            return
-        }
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let decks = self.decodeJSON(type: Decks.self, from: data) else {
-            completion(.failure(.jsonParseError))
-            return
-        }
-            completion(.success(decks))
-        }
-        task.resume()
+    public init(token: String) {
+        self.netLayer = NetworkLayer(token: token)
     }
 
-    private func decodeJSON<T: Decodable>(type: T.Type, from data: Data?) -> T? {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let data else {
-            return nil
-        }
-        do {
-            return try decoder.decode(type, from: data)
-        } catch {
-            print(error)
-            return nil
-        }
+    public func getDecks(completion: @escaping (Result<[DeckResponse], ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "GET",
+                                  urlPattern: "/decks/",
+                                  body: EmptyRequest(),
+                                  completion: completion)
     }
 
-    public func getDeck(id: Int, completion: @escaping (Result<Deck, DecksError>) -> Void) {
-        let deckSearch = URL(string: baseUrl + "/decks/\(id)/")!
-        var request = URLRequest(url: deckSearch)
-        request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "GET"
-        let session: URLSession = {
-            let session = URLSession(configuration: .default)
-            session.configuration.timeoutIntervalForRequest = 30.0
-            return session
-        }()
-
-        let task = session.dataTask(with: request) { data, _, error in
-        guard error == nil else {
-            completion(.failure(.responseError))
-            return
-        }
-        guard let data = data else {
-            completion(.failure(.noDataError))
-            return
-        }
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let deck = try? decoder.decode(Deck.self, from: data) else {
-            completion(.failure(.jsonParseError))
-        return
-        }
-        completion(.success(deck))
+    public func getDeck(id: Int, completion: @escaping (Result<DeckResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "GET",
+                                  urlPattern: "/decks/\(id)/",
+                                  body: EmptyRequest(),
+                                  completion: completion)
     }
-    task.resume()
+    public func createDeck(completion: @escaping (Result<DeckResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "POST",
+                                  urlPattern: "/decks/",
+                                  body: EmptyRequest(),
+                                  completion: completion)
+    }
+    
+    public func createDeckWithName(name: String, completion: @escaping (Result<DeckResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "POST",
+                                  urlPattern: "/decks/",
+                                  body: DeckNameRequest(name: name),
+                                  completion: completion)
     }
 
-    public func createDeck(completion: @escaping (Result<Deck, DecksError>) -> Void) {
-        let deckSearch = URL(string: baseUrl + "/decks/")!
-        var request = URLRequest(url: deckSearch)
-        request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        let session: URLSession = {
-            let session = URLSession(configuration: .default)
-            session.configuration.timeoutIntervalForRequest = 30.0
-            return session
-        }()
-
-        let task = session.dataTask(with: request) { data, _, error in
-        guard error == nil else {
-            completion(.failure(.responseError))
-            return
-        }
-        guard let data = data else {
-            completion(.failure(.noDataError))
-            return
-
-        }
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let decks = try? decoder.decode(Deck.self, from: data) else {
-            completion(.failure(.jsonParseError))
-        return
-        }
-        completion(.success(decks))
+    public func editDeck(id: Int,
+                         name: String?,
+                         isPrivate: Bool?,
+                         completion: @escaping (Result<DeckResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "PATCH",
+                                  urlPattern: "/decks/\(id)/",
+                                  body: DeckRequest(id: id,
+                                                    isPrivate: isPrivate,
+                                                    name: name),
+                                  completion: completion)
     }
-    task.resume()
-    }
-
-    public func editDeck(id: Int, name: String, description: String, isPrivate: Bool, completion: @escaping (Result<Deck, DecksError>) -> Void) {
-        let deckSearch = URL(string: baseUrl + "/decks/\(id)/")!
-        var request = URLRequest(url: deckSearch)
-        request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "PATCH"
-        request.httpBody = try? JSONSerialization.data(withJSONObject: ["name": name, "description": description, "is_private": isPrivate] as [String : Any])
-        let session: URLSession = {
-            let session = URLSession(configuration: .default)
-            session.configuration.timeoutIntervalForRequest = 30.0
-            return session
-        }()
-
-        let task = session.dataTask(with: request) { data, _, error in
-        guard error == nil else {
-            completion(.failure(.responseError))
-            return
-        }
-        guard let data = data else {
-            completion(.failure(.noDataError))
-            return
-        }
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let deck = try? decoder.decode(Deck.self, from: data) else {
-            completion(.failure(.jsonParseError))
-        return
-        }
-        completion(.success(deck))
-    }
-    task.resume()
-    }
-    public func deleteDeck(id: Int, completion: @escaping (Result<Deck, DecksError>) -> Void) {
-        let deckSearch = URL(string: baseUrl + "/decks/\(id)/")!
-        var request = URLRequest(url: deckSearch)
-        request.setValue("Token \(token)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "DELETE"
-        let session: URLSession = {
-            let session = URLSession(configuration: .default)
-            session.configuration.timeoutIntervalForRequest = 30.0
-            return session
-        }()
-
-        let task = session.dataTask(with: request) { data, _, error in
-        guard error == nil else {
-            completion(.failure(.responseError))
-            return
-        }
-        guard let data = data else {
-            completion(.failure(.noDataError))
-            return
-        }
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let deck = try? decoder.decode(Deck.self, from: data) else {
-            completion(.failure(.jsonParseError))
-        return
-        }
-        completion(.success(deck))
-    }
-    task.resume()
+    public func deleteDeck(id: Int, completion: @escaping (Result<MessageResponse, ClientError>) -> Void) {
+        self.netLayer.makeRequest(method: "DELETE",
+                                  urlPattern: "/decks/\(id)/",
+                                  body: EmptyRequest(),
+                                  completion: completion)
     }
 }
