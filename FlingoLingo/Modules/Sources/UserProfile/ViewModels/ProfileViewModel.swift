@@ -6,7 +6,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var isGuest: Bool = false
     @Published var isLoading = false
 
-    var profile: DomainProfile?
+    @Published var profile: DomainProfile?
 
     private let router: ProfileRouter
     @Published private var provider: ProfileProvider
@@ -23,11 +23,18 @@ final class ProfileViewModel: ObservableObject {
         provider.logOut(onFinish: { [weak self] res in
             if res {
                 self?.router.openWelcomeScreen()
+                self?.profile = nil
             }
         })
     }
 
-    func setDomainProfile() {
+    func fetchUserIfNeeded() {
+        if profile == nil {
+            setDomainProfile()
+        }
+    }
+
+    private func setDomainProfile() {
         isLoading = true
         provider.getProfile(onFinish: { [weak self] res in
             switch res {
@@ -41,7 +48,9 @@ final class ProfileViewModel: ObservableObject {
     }
 
     func openSettings() {
-        router.changePassword(provider: provider)
+        if let profile = profile {
+            router.changePassword(provider: provider, profile: profile)
+        }
     }
 
     func saveUserDefaults(user: User) {

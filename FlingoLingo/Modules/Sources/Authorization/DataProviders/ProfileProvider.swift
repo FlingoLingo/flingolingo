@@ -21,9 +21,5 @@ public protocol ProfileProvider: AnyObject {
 
     func logOut(onFinish: @escaping ((Bool) -> Void))
 
-    func getUserEmail() -> String
-
-    func getUserId() -> Int
-
     func getProfile(onFinish: @escaping ((Result<DomainProfile, ClientError>) -> Void))
 }

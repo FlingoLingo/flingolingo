@@ -33,5 +33,6 @@ struct ProfileView: View {
             }
             .padding(.horizontal, CommonConstants.bigSpacing)
         }
+        .onAppear(perform: viewModel.fetchUserIfNeeded)
     }
 }

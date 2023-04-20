@@ -26,11 +26,13 @@ final class ChangePasswordViewModel: ObservableObject {
 
     private let backAction: () -> Void
     private let provider: ProfileProvider
+    var domainProfile: DomainProfile
 
     init(backAction: @escaping () -> Void,
-         provider: ProfileProvider) {
+         provider: ProfileProvider, domainProfile: DomainProfile) {
         self.backAction = backAction
         self.provider = provider
+        self.domainProfile = domainProfile
     }
 
     func changePassword() {
@@ -54,14 +56,16 @@ final class ChangePasswordViewModel: ObservableObject {
         }
 
         if !hasError(for: .old) && !hasError(for: .new) && !hasError(for: .confirm) {
-            provider.changePassword(email: provider.getUserEmail(),
+            provider.changePassword(email: domainProfile.email,
                                     oldPassword: oldPassword,
                                     newPassword: newPassword,
                                     onFinish: { res in
-                if res {
-                    self.isSuccessfulChange = true
-                } else {
-                    self.showPasswordAlert = true
+                DispatchQueue.main.async {
+                    if res {
+                        self.isSuccessfulChange = true
+                    } else {
+                        self.showPasswordAlert = true
+                    }
                 }
             })
         }

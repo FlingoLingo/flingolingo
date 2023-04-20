@@ -158,10 +158,6 @@ public class ProfileProviderImpl: ProfileProvider {
         return value != nil
     }
 
-    public func getUserId() -> Int {
-        id
-    }
-
     func getStatistics() -> [String: Int] {
         defaults.dictionary(forKey: "stats") as? [String: Int] ?? [String: Int]()
     }
