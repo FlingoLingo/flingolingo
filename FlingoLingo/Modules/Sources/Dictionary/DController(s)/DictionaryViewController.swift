@@ -325,9 +325,11 @@ extension DictionaryViewController: UITextFieldDelegate {
         switch languagesPairApiCode {
         case "en-ru":
             languagesPairApiCode = "ru-en"
+            textField.languageCode = "ru-RU"
 
         default:
             languagesPairApiCode = "en-ru"
+            textField.languageCode = "en-US"
         }
         suggestWasAccepted()
         textField.text = ""

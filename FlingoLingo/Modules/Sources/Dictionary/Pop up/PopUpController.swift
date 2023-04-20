@@ -123,6 +123,7 @@ public final class PopUpViewController: UIViewController {
         decksCollection.dataSource = self
         decksCollection.delegate = self
         decksCollection.register(PopUpTableViewCell.self, forCellWithReuseIdentifier: "ID")
+        decksCollection.register(NewDeckPopUpTableViewCell.self, forCellWithReuseIdentifier: "ID2")
         performing.translatesAutoresizingMaskIntoConstraints = false
         performing.startAnimating()
         performing.style = .large
@@ -303,11 +304,16 @@ extension PopUpViewController: UICollectionViewDataSource {
             cell.backgroundColor = ColorScheme.darkBackground
         }
         if data[indexPath.row % data.count].id == -1 {
-            cell.deckName.font = Fonts.mainTextBold
-            cell.deckName.text = "+ новая колода"
-        }
-        else {
-            cell.deckName.font = Fonts.mainText
+            guard let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "ID2",
+                                                                for: indexPath) as? NewDeckPopUpTableViewCell else {
+                return NewDeckPopUpTableViewCell()
+            }
+            if selectedDecksIds.contains(data[indexPath.row % data.count].id) {
+                cell2.backgroundColor = ColorScheme.accent
+            } else {
+                cell2.backgroundColor = ColorScheme.darkBackground
+            }
+            return cell2
         }
         return cell
     }
