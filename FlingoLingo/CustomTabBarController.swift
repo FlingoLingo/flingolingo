@@ -10,6 +10,7 @@ import Decks
 import UIKit
 import UserProfile
 import Dictionary
+import Authorization
 
 final class CustomTabBarController: UITabBarController {
     // MARK: - Constants
@@ -18,6 +19,10 @@ final class CustomTabBarController: UITabBarController {
         static let decks = UIImage(named: "decksTabItem")
         static let profile = UIImage(named: "profileTabItem")
     }
+    private let decksProtocolImpl = DecksProviderImpl()
+
+    // MARK: - Properties
+    let profileProvider = ProfileProviderImpl()
 
     // MARK: - Loads
     override func viewDidLoad() {
@@ -25,6 +30,30 @@ final class CustomTabBarController: UITabBarController {
         configureTabBar()
         configureAppearance()
         selectedIndex = 1
+        NotificationCenter.default.addObserver(
+            forName: .unauthNetworkNotificationName,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.profileProvider.logOut()
+            self?.presentLoginIfNeeded()
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presentLoginIfNeeded()
+    }
+
+    private func presentLoginIfNeeded() {
+        if !profileProvider.isUserAuthenticated() {
+            let welcomeViewController = WelcomeViewController(provider: profileProvider)
+            let navWelComeController = UINavigationController(rootViewController: welcomeViewController)
+            navWelComeController.setNavigationBarHidden(true, animated: false)
+            navWelComeController.modalPresentationStyle = .fullScreen
+            self.present(navWelComeController, animated: false, completion: nil)
+        }
+
     }
 
     // MARK: - Configurations
@@ -52,7 +81,7 @@ final class CustomTabBarController: UITabBarController {
 
     private func createDictionaryNavigationController() -> UIViewController {
         let dictionaryController = configureViewController(
-            controller: DictionaryViewController(),
+            controller: DictionaryViewController(decksProvider: decksProtocolImpl),
             title: NSLocalizedString("dictionary", comment: ""),
             image: Constants.dictionary ?? .add
         )
@@ -65,7 +94,7 @@ final class CustomTabBarController: UITabBarController {
     private func createDecksNavigationController() -> UIViewController {
         let decksViewControllerFactory = DecksViewControllerFactory()
         let decksController = configureViewController(
-            controller: decksViewControllerFactory.decksViewController(),
+            controller: decksViewControllerFactory.decksViewController(provider: decksProtocolImpl),
             title: NSLocalizedString("decksHeader", comment: ""),
             image: Constants.decks ?? .add
         )
@@ -79,7 +108,7 @@ final class CustomTabBarController: UITabBarController {
     private func createProfileNavigationController() -> UIViewController {
         let userProfileViewControllerFactory = ProfileViewControllerFactory()
         let userProfileController = configureViewController(
-            controller: userProfileViewControllerFactory.profileViewController(),
+            controller: userProfileViewControllerFactory.profileViewController(provider: profileProvider),
             title: NSLocalizedString("profile", comment: ""),
             image: Constants.profile ?? .add
         )

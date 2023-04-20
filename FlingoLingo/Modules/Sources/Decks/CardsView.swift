@@ -8,7 +8,7 @@
 import SwiftUI
 import UIComponents
 
-enum CardSwipeDirection {
+public enum CardSwipeDirection {
     case left
     case right
 }
@@ -75,8 +75,6 @@ struct CardsView: View {
 
     func swipe(_ direction: CardSwipeDirection) {
         guard let card = viewModel.displayingCards.first else { return }
-        withAnimation(.easeOut(duration: CommonConstants.animationDutation)) {
             viewModel.doSwipe(withInfo: CardSwipeInfo(id: card.id, direction: direction))
-        }
     }
 }

@@ -6,15 +6,17 @@ final class ProfileRouter {
 
     public weak var presentingViewController: UIViewController?
 
-    func changePassword(user: User) {
+    func changePassword(provider: ProfileProvider, profile: DomainProfile) {
         let changePasswordFactory = ChangePasswordViewControllerFactory()
-        let changePasswordController = changePasswordFactory.changePasswordViewController(user: user,
-                                                                                          backAction: goBack)
+        let changePasswordController = changePasswordFactory.changePasswordViewController(backAction: goBack,
+                                                                                          provider: provider,
+                                                                                          profile: profile)
+        changePasswordController.hidesBottomBarWhenPushed = true
         presentingViewController?.navigationController?.pushViewController(changePasswordController, animated: true)
     }
 
     func openWelcomeScreen() {
-        let welcomeViewController = WelcomeViewController()
+        let welcomeViewController = WelcomeViewController(provider: ProfileProviderImpl())
         let navWelComeController = UINavigationController()
         navWelComeController.setNavigationBarHidden(true, animated: false)
         navWelComeController.viewControllers.append(welcomeViewController)

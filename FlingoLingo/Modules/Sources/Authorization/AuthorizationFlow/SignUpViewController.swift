@@ -16,9 +16,12 @@ public final class SignUpViewController: UIViewController {
         return view
     }()
     private let validationChecker = ValidationChecker()
+    private let provider: ProfileProvider
+    private lazy var activityIndicatorView = UIActivityIndicatorView()
 
     // MARK: - Lifecycle
-    public init() {
+    public init(provider: ProfileProvider) {
+        self.provider = provider
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -28,6 +31,17 @@ public final class SignUpViewController: UIViewController {
 
     public override func loadView() {
         view = authorizationView
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.style = .large
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 
     // MARK: - Module functions
@@ -74,7 +88,39 @@ extension SignUpViewController: AuthorizationViewDelegate {
         navigationController?.popViewController(animated: true)
     }
 
+    private func showLoading() {
+        authorizationView.continueButton.isEnabled = false
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.isHidden = false
+    }
+
+    private func hideLoading() {
+        authorizationView.continueButton.isEnabled = true
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.isHidden = true
+    }
+
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
-        if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {}
+        if checkValidation(mail: mail, password: password, repeatPassword: repeatPassword) {
+            authorizationView.applyStateForSpinner(.start)
+
+            provider.registerUser(email: mail ?? "", password: password ?? "", onFinish: { [weak self] result in
+                self?.authorizationView.applyStateForSpinner(.stop)
+
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let profile):
+                        self?.provider.domainProfile = profile
+                        DispatchQueue.main.async {
+                            self?.navigationController?.dismiss(animated: true)
+                        }
+                    case .failure(let error):
+                        let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self?.present(alert, animated: true, completion: nil)
+                    }
+                }
+            })
+        }
     }
 }

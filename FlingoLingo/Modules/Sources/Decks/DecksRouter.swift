@@ -16,9 +16,11 @@ public final class DecksRouter {
 
     }
 
-    func viewDetails(deck: Deck) {
+    func viewDetails(deck: DomainDeck, provider: DecksProvider) {
         let deckFactory = DeckViewControllerFactory()
-        let deckController = deckFactory.deckViewController(deck: deck, backAction: goBack)
+        let deckController = deckFactory.deckViewController(deck: deck,
+                                                            backAction: goBack,
+                                                            provider: provider)
         presentingViewController?.navigationController?.pushViewController(deckController, animated: true)
     }
 

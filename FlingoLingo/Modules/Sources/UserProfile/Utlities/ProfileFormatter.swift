@@ -3,53 +3,53 @@ import SwiftUI
 
 struct ProfileFormatter {
 
-    func formatNumberDaysStudying(user: User) -> String {
+    func formatNumberDaysStudying(daysOfUse: Int) -> String {
         var word = ""
-        if user.daysOfUse % 10 == 1 {
+        if daysOfUse % 10 == 1 {
             word = NSLocalizedString("day1", comment: "")
-        } else if user.daysOfUse % 10 >= 2 && user.daysOfUse <= 4 {
+        } else if daysOfUse % 10 >= 2 && daysOfUse <= 4 {
             word = NSLocalizedString("day2-4", comment: "")
-        } else if user.daysOfUse % 10 == 0 || user.daysOfUse % 10 >= 5 {
+        } else if daysOfUse % 10 == 0 || daysOfUse % 10 >= 5 {
             word = NSLocalizedString("day05-9", comment: "")
         }
 
-        return "\(user.daysOfUse) \(word)"
+        return "\(daysOfUse) \(word)"
     }
 
-    func formatNumberWordsLearned(user: User) -> String {
+    func formatNumberWordsLearned(wordsLearned: Int) -> String {
         var word = ""
-        if user.wordsLearned % 10 == 1 {
+        if wordsLearned % 10 == 1 {
             word = NSLocalizedString("word1", comment: "")
-        } else if user.wordsLearned % 10 >= 2 && user.wordsLearned <= 4 {
+        } else if wordsLearned % 10 >= 2 && wordsLearned <= 4 {
             word = NSLocalizedString("word2-4", comment: "")
-        } else if user.wordsLearned % 10 == 0 || user.wordsLearned % 10 >= 5 {
+        } else if wordsLearned % 10 == 0 || wordsLearned % 10 >= 5 {
             word = NSLocalizedString("word05-9", comment: "")
         }
 
-        return "\(user.wordsLearned) \(word)"
+        return "\(wordsLearned) \(word)"
     }
 
-    func formatNumberTimesRepeated(user: User) -> String {
+    func formatNumberTimesRepeated(timesRepeated: Int) -> String {
         var word = ""
-        if user.timesRepeated % 10 == 0 || user.timesRepeated % 10 == 1 || user.timesRepeated % 10 >= 5 {
+        if timesRepeated % 10 == 0 || timesRepeated % 10 == 1 || timesRepeated % 10 >= 5 {
             word = NSLocalizedString("time015-9", comment: "")
         } else {
             word = NSLocalizedString("time2-4", comment: "")
         }
 
-        return "\(user.timesRepeated) \(word)"
+        return "\(timesRepeated) \(word)"
     }
 
-    func formatNumberDecksCreated(user: User) -> String {
+    func formatNumberDecksCreated(decksCount: Int) -> String {
         var word = ""
-        if user.timesRepeated % 10 == 0 || user.timesRepeated % 10 >= 5 {
+        if decksCount % 10 == 0 || decksCount % 10 >= 5 {
             word = NSLocalizedString("deck05-9", comment: "")
-        } else if user.decksCount == 1 {
+        } else if decksCount == 1 {
             word = NSLocalizedString("deck1", comment: "")
-        } else if user.decksCount >= 2 && user.decksCount <= 4 {
+        } else if decksCount >= 2 && decksCount <= 4 {
             word = NSLocalizedString("deck2-4", comment: "")
         }
 
-        return "\(user.decksCount) \(word)"
+        return "\(decksCount) \(word)"
     }
 }

@@ -74,7 +74,6 @@ final class NetworkRequest {
         }.resume()
     }
 }
-
 // swiftlint:disable line_length
 // all urls here
 private enum Urls: String {

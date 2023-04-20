@@ -48,8 +48,3 @@ public final class AuthClient {
                                   completion: completion)
     }
 }
-
-// пример использования
-// let client = AuthClient(token: nil)
-// client.registerUser(username: "bobson5", password: "roberts", completion: {res in print(res)})
-// client.getToken(username: "bobson5", password: "roberts", completion: {res in print(res)})

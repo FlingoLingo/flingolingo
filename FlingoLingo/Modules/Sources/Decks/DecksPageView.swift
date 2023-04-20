@@ -21,16 +21,26 @@ struct DecksPageView: View {
             (SColors.background).edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.smallStackSpacing) {
                 DecksHeaderView(addDeckButtonClicked: viewModel.addDeckButtonCLicked)
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     VStack(spacing: CommonConstants.smallSpacing) {
-                        ForEach(viewModel.decks) { deck in
-                            DeckCardView(deck: deck) {
-                                viewModel.deckCardClicked(id: deck.id)
+                        if viewModel.isLoading {
+                            ForEach(0...3, id: \.self) { _ in
+                                DeckCardSkeleton()
+                            }
+                        } else {
+                            ForEach(viewModel.decks) { deck in
+                                DeckCardView(deck: deck) {
+                                    viewModel.deckCardClicked(id: deck.id)
+                                }
                             }
                         }
                     }
                 }
                 .padding(.top, CommonConstants.bigSpacing)
+            }
+            .onAppear(perform: viewModel.reloadDecks)
+            .alert("error", isPresented: $viewModel.isShowingError) {
+                Button("ok", role: .cancel) { }
             }
             .alert(NSLocalizedString("addDeckTitle", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
                 TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.newDeckName)
@@ -40,5 +50,6 @@ struct DecksPageView: View {
             .padding(.horizontal, CommonConstants.bigSpacing)
             .cornerRadius(CommonConstants.cornerRadius)
         }
+        .disabled(viewModel.isLoading)
     }
 }

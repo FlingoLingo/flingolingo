@@ -16,8 +16,11 @@ public final class WelcomeViewController: UIViewController {
         return view
     }()
 
+    private var provider: ProfileProvider
+
     // MARK: - Lifecycle
-    public init() {
+    public init(provider: ProfileProvider) {
+        self.provider = provider
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -33,12 +36,12 @@ public final class WelcomeViewController: UIViewController {
 // MARK: - WelcomeViewDelegate
 extension WelcomeViewController: WelcomeViewDelegate {
     func signUpButtonTapped() {
-        let signUpViewController = SignUpViewController()
+        let signUpViewController = SignUpViewController(provider: provider)
         navigationController?.pushViewController(signUpViewController, animated: true)
     }
 
     func logInButtonTapped() {
-        let logInViewController = LogInViewController()
+        let logInViewController = LogInViewController(provider: provider)
         navigationController?.pushViewController(logInViewController, animated: true)
     }
 

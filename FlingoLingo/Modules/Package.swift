@@ -20,7 +20,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/andriyslyusar/SwiftyKeychainKit.git", from: "1.0.0-beta.2")
+        .package(url: "https://github.com/andriyslyusar/SwiftyKeychainKit.git", from: "1.0.0-beta.2"),
+        .package(url: "https://github.com/CSolanaM/SkeletonUI.git", from: "1.0.11")
     ],
     targets: [
         .target(
@@ -39,19 +40,23 @@ let package = Package(
             name: "UserProfile",
             dependencies: [
                 "UIComponents",
-                "Authorization"
+                "Authorization",
+                    .product(name: "SkeletonUI", package: "SkeletonUI")
             ]
         ),
         .target(
             name: "Decks",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
         .target(
             name: "Dictionary",
             dependencies: [
                 "UIComponents",
+                "NetworkLayer",
+                "Decks"
             ]
         ),
         .target(

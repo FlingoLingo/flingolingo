@@ -33,6 +33,11 @@ final class AuthorizationView: UIView {
         case signUp
         case logIn
     }
+    
+    enum ActivityIndicatorState {
+        case start
+        case stop
+    }
 
     // MARK: - Properties
     private lazy var navigationBarView: UIView = {
@@ -141,7 +146,7 @@ final class AuthorizationView: UIView {
         return label
     }()
 
-    private lazy var continueButton: MainButton = {
+    lazy var continueButton: MainButton = {
         let title = NSLocalizedString("continueButton", comment: "")
         let button = MainButton(title: title, titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.accent)
         button.isEnabled = true
@@ -149,6 +154,13 @@ final class AuthorizationView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
 
         return button
+    }()
+
+    private lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+
+        return spinner
     }()
 
     weak var delegate: AuthorizationViewDelegate?
@@ -200,6 +212,15 @@ final class AuthorizationView: UIView {
         }
     }
 
+    func applyStateForSpinner(_ state: ActivityIndicatorState) {
+        switch state {
+        case .start:
+            spinner.startAnimating()
+        case .stop:
+            spinner.stopAnimating()
+        }
+    }
+
     private func configureView() {
         backgroundColor = ColorScheme.background
     }
@@ -210,6 +231,7 @@ final class AuthorizationView: UIView {
         setupTextFieldsConstraints()
         setupContinueButtonConstraints()
         setupRepeatPasswordTextFieldConstraints()
+        setupSpinnerConstraints()
     }
 
     private func addSubviews() {
@@ -224,6 +246,7 @@ final class AuthorizationView: UIView {
         addSubview(repeatPasswordTextField)
         addSubview(repeatPasswordErrorLabel)
         addSubview(continueButton)
+        addSubview(spinner)
     }
 
     private func addViewGestureRecognizer() {
@@ -355,14 +378,27 @@ extension AuthorizationView {
             trailingAnchor.constraint(equalTo: continueButton.trailingAnchor, constant: CommonConstants.bigSpacing),
             safeAreaLayoutGuide.bottomAnchor.constraint(
                 equalTo: continueButton.bottomAnchor,
-                constant: CommonConstants.bigSpacing
+                constant: CommonConstants.bottomPadding
             ),
+        ])
+    }
+
+    private func setupSpinnerConstraints() {
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }
 
 // MARK: - UITextFieldDelegate
 extension AuthorizationView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+
+        return true
+    }
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text else { return }
 

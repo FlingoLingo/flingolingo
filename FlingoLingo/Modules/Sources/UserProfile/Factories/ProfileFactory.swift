@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import Authorization
 
 public struct ProfileViewControllerFactory {
 
@@ -7,9 +8,9 @@ public struct ProfileViewControllerFactory {
 
     }
 
-    public func profileViewController() -> UIViewController {
+    public func profileViewController(provider: ProfileProvider) -> UIViewController {
         let router = ProfileRouter()
-        let viewModel = ProfileViewModel(user: User(), router: router)
+        let viewModel = ProfileViewModel(router: router, provider: provider)
         let controller = UIHostingController(rootView: ProfileView(viewModel: viewModel))
         router.presentingViewController = controller
         return controller

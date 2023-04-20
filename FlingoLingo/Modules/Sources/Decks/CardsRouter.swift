@@ -16,10 +16,11 @@ final class CardsRouter {
 
     }
 
-    func startLearning(deck: Deck) {
+    func startLearning(deck: DomainDeck, provider: DecksProvider) {
         let cardFactory = CardsViewControllerFactory()
         let cardsController = cardFactory.cardsViewController(
             deck: deck,
+            provider: provider,
             backAction: goBack,
             popToRootAction: popToRoot
         )

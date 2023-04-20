@@ -1,6 +1,6 @@
 //
 //  NetworkLayer.swift
-//  
+//
 //
 //  Created by Ринат Афиатуллов on 18.04.2023.
 //
@@ -21,6 +21,7 @@ public enum ClientError: Error {
     case jsonDecodeError
     case responseError
     case noDataError
+    case httpError(Int)
 }
 
 public struct EmptyRequest: Encodable {
@@ -62,25 +63,39 @@ public final class NetworkLayer {
             session.configuration.timeoutIntervalForRequest = 30.0
             return session
         }()
-        let task = session.dataTask(with: request) { data, _, error in
+        let task = session.dataTask(with: request) { data, response, error in
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 401, 403:
+                    NotificationCenter.default.post(name: .unauthNetworkNotificationName, object: nil)
+                    return
+                case 400...599:
+                    completion(.failure(.httpError(httpResponse.statusCode)))
+                default:
+                    break
+                }
+            }
 
-        guard error == nil else {
-            completion(.failure(.responseError))
+            guard error == nil else {
+                completion(.failure(.responseError))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(.noDataError))
+                return
+            }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            guard let resp = try? decoder.decode(T.self, from: data) else {
+                completion(.failure(.jsonDecodeError))
             return
-        }
-        guard let data = data else {
-            completion(.failure(.noDataError))
-            return
-        }
-        print(String(data: data, encoding: .utf8)!)
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        guard let resp = try? decoder.decode(T.self, from: data) else {
-            completion(.failure(.jsonDecodeError))
-        return
         }
         completion(.success(resp))
     }
     task.resume()
     }
+}
+
+public extension Notification.Name {
+    static let unauthNetworkNotificationName: Notification.Name = .init("unauthNoticationName")
 }

@@ -17,6 +17,7 @@ final class DictionaryTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "DTableViewCell")
+        selectionStyle = .none
         cellSettings()
     }
 
