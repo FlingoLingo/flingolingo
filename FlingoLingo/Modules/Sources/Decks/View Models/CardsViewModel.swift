@@ -22,19 +22,28 @@ final class CardsViewModel: ObservableObject {
     private let popToRootAction: () -> Void
     var subscription: AnyCancellable?
     var results: [Int: CardSwipeDirection] = [:]
+    let provider: DecksProvider
 
     let notificationSubject: PassthroughSubject<CardSwipeInfo, Never> = .init()
 
-    init(deck: DomainDeck, backAction: @escaping () -> Void, popToRootAction: @escaping () -> Void) {
+    init(
+        deck: DomainDeck,
+        provider: DecksProvider,
+        backAction: @escaping () -> Void,
+        popToRootAction: @escaping () -> Void
+    ) {
         self.deck = deck
         self.backAction = backAction
         self.popToRootAction = popToRootAction
+        self.provider = provider
         fetchedCards = deck.cards
         displayingCards = fetchedCards
 
-        subscription = $displayingCards.sink { cards in
+        subscription = $displayingCards.sink { [weak self] cards in
             if cards.count == 0 {
-                self.setStatistics(with: self.results)
+                guard let deckId = self?.deck.id else { return }
+                let cardIdWithDirection = self?.results ?? [:]
+                provider.setStatistics(deckId: deckId, cardIdWithDirection: cardIdWithDirection)
             }
         }
     }
@@ -48,8 +57,11 @@ final class CardsViewModel: ObservableObject {
     }
 
     func backButtonClicked() {
-        setStatistics(with: results)
         backAction()
+
+        let deckId = deck.id
+        let cardIdWithDirection = results
+        provider.setStatistics(deckId: deckId, cardIdWithDirection: cardIdWithDirection)
     }
 
     func backToDecksButtonClicked() {
@@ -67,30 +79,5 @@ final class CardsViewModel: ObservableObject {
 
     func removeFirst() {
         displayingCards.removeFirst()
-    }
-
-    func setStatistics(with results: [Int: CardSwipeDirection]) {
-        var cardsIdsToAdd: Set<String> = []
-        var cardsIdsToRemove: Set<String> = []
-
-        for (cardId, direction) in results {
-            switch direction {
-            case .left:
-                cardsIdsToRemove.insert("\(cardId)")
-            case .right:
-                cardsIdsToAdd.insert("\(cardId)")
-            }
-        }
-
-        let cardsIdsFromUserDefaults = UserDefaults.standard.stringArray(forKey: "\(deck.id)") ?? []
-        for cardId in cardsIdsFromUserDefaults {
-            cardsIdsToAdd.insert(cardId)
-        }
-
-        for cardId in cardsIdsToRemove {
-            cardsIdsToAdd.remove(cardId)
-        }
-        let cardsIdsToAddArray = Array(cardsIdsToAdd)
-        UserDefaults.standard.set(cardsIdsToAddArray, forKey: "\(deck.id)")
     }
 }

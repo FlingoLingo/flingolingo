@@ -27,4 +27,6 @@ public protocol DecksProvider: AnyObject {
     func insertCardToDeck(onFinish: @escaping (Bool) -> Void)
 
     func editDeck(id: Int, newName: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void)
+
+    func setStatistics(deckId: Int, cardIdWithDirection: [Int: CardSwipeDirection])
 }
