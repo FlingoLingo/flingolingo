@@ -37,20 +37,13 @@ struct DeckView: View {
                                    deleteButtonClicked: viewModel.deleteDeck)
                 DeckInfoView(deck: viewModel.deck)
                 SearchView(text: $viewModel.text)
-                if viewModel.isLoading {
-                    HStack {
-                        Spacer()
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .tint(SColors.mainText)
-                            .scaleEffect(1.5)
-                        Spacer()
-                    }
-                    .padding(.top, CommonConstants.bigSpacing)
-                    Spacer()
-                } else {
-                    ScrollView(showsIndicators: false) {
-                        VStack(spacing: CommonConstants.smallSpacing) {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: CommonConstants.smallSpacing) {
+                        if viewModel.isLoading {
+                            ForEach(0...4, id: \.self) { _ in
+                                CardSkeletonView()
+                            }
+                        } else {
                             ForEach(searchResults) { card in
                                 WordCardView(card: card,
                                              wordCardClicked: viewModel.wordCardClicked,
