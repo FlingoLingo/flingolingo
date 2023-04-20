@@ -174,6 +174,7 @@ public final class DictionaryViewController: UIViewController {
                                  for: .touchUpInside)
         arrowButton.addTarget(self, action: #selector(langsChanging), for: .touchUpInside)
     }
+    // swiftlint:enable function_body_length
     private var workItem: DispatchWorkItem?
     public var languagesPairApiCode = "en-ru"
 }
