@@ -62,12 +62,5 @@ let package = Package(
                     .product(name: "SwiftyKeychainKit", package: "SwiftyKeychainKit")
             ]
         ),
-        .target(
-            name: "NetworkLayer",
-            dependencies: [
-                "UIComponents",
-                    .product(name: "SwiftyKeychainKit", package: "SwiftyKeychainKit")
-            ]
-        )
     ]
 )
