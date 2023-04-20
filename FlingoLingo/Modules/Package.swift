@@ -51,7 +51,8 @@ let package = Package(
         .target(
             name: "Dictionary",
             dependencies: [
-                "UIComponents"
+                "UIComponents",
+                "NetworkLayer"
             ]
         ),
         .target(
