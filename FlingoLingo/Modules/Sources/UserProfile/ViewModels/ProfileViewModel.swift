@@ -11,6 +11,13 @@ final class ProfileViewModel: ObservableObject {
     private let router: ProfileRouter
     @Published private var provider: ProfileProvider
     private let defaults = UserDefaults.standard
+    
+    enum StatisticsType: String, Equatable {
+        case daysOfUse
+        case wordsLearned
+        case decksCount
+        case timesRepeated
+    }
 
     init(router: ProfileRouter,
          provider: ProfileProvider) {
@@ -61,8 +68,9 @@ final class ProfileViewModel: ObservableObject {
         defaults.set(dict, forKey: "stats")
     }
 
-    func getStatistics() -> [String: Int] {
-        defaults.dictionary(forKey: "stats") as? [String: Int] ?? [String: Int]()
+    func getStatistics(for type: StatisticsType) -> Int {
+        let stats = defaults.dictionary(forKey: "stats") as? [String: Int] ?? [String: Int]()
+        return stats[type.rawValue] ?? 0
     }
 
     func getUserEmail() -> String {

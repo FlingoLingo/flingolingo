@@ -15,7 +15,7 @@ struct StatisticsView: View {
                         .font(Font(Fonts.mainText))
                     BubbleView(
                         bubbleText: formatter.formatNumberDaysStudying(
-                            daysOfUse: viewModel.getStatistics()["daysOfUse"] ?? 0))
+                            daysOfUse: viewModel.getStatistics(for: .daysOfUse)))
                 }
                 HStack {
                     Text("wordsLearned")
@@ -23,7 +23,7 @@ struct StatisticsView: View {
                         .font(Font(Fonts.mainText))
                     BubbleView(
                         bubbleText: formatter.formatNumberWordsLearned(
-                            wordsLearned: viewModel.getStatistics()["wordsLearned"] ?? 0))
+                            wordsLearned: viewModel.getStatistics(for: .wordsLearned)))
                 }
                 HStack {
                     Text("decksCreated")
@@ -31,7 +31,7 @@ struct StatisticsView: View {
                         .font(Font(Fonts.mainText))
                     BubbleView(
                         bubbleText: formatter.formatNumberDecksCreated(
-                            decksCount: viewModel.getStatistics()["decksCount"] ?? 0))
+                            decksCount: viewModel.getStatistics(for: .decksCount)))
                 }
                 HStack {
                     Text("timesRepeated")
@@ -39,7 +39,7 @@ struct StatisticsView: View {
                         .font(Font(Fonts.mainText))
                     BubbleView(
                         bubbleText: formatter.formatNumberTimesRepeated(
-                            timesRepeated: viewModel.getStatistics()["timesRepeated"] ?? 0))
+                            timesRepeated: viewModel.getStatistics(for: .timesRepeated)))
                 }
             }
         }

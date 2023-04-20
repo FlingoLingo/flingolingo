@@ -7,14 +7,14 @@
 import Foundation
 
 public struct GetProfileResponse: Decodable {
-    public var id: Int
-    public var username: String
-    public var dateJoined: String
+    public let id: Int
+    public let username: String
+    public let dateJoined: String
 }
 
 public struct ChangePasswordRequest: Encodable {
-    var oldPassword: String
-    var newPassword: String
+    public let oldPassword: String
+    public let newPassword: String
 }
 
 public final class ProfileClient {
