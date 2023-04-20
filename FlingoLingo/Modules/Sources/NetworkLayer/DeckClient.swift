@@ -33,8 +33,8 @@ public struct DeckNameRequest: Encodable {
 }
 
 public struct CardKnowledgeRequest: Encodable {
-    public var cardsLearned: [Int]
-    public var cardsForgotten: [Int]
+    public let cardsLearned: [Int]
+    public let cardsForgotten: [Int]
 }
 
 public enum DecksError: Error {
