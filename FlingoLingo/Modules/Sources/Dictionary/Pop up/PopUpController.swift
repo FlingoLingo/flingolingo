@@ -268,11 +268,10 @@ public final class PopUpViewController: UIViewController {
             case .success(let data):
                 DispatchQueue.main.async {
                     var datum = data
-                    datum.insert(DomainDeck(deckResponse: DeckResponse(id: -1,
+                    datum.append(DomainDeck(deckResponse: DeckResponse(id: -1,
                                                                        isPrivate: false,
                                                                        name: "Новая колода",
-                                                                       cards: [])),
-                                 at: 0)
+                                                                       cards: [])))
                     self.data = datum
                     self.decksCollection.reloadData()
                     self.performing.isHidden = true
@@ -299,6 +298,13 @@ extension PopUpViewController: UICollectionViewDataSource {
             cell.backgroundColor = ColorScheme.accent
         } else {
             cell.backgroundColor = ColorScheme.darkBackground
+        }
+        if data[indexPath.row % data.count].id == -1 {
+            cell.deckName.font = Fonts.mainTextBold
+            cell.deckName.text = "+ новая колода"
+        }
+        else {
+            cell.deckName.font = Fonts.mainText
         }
         return cell
     }
