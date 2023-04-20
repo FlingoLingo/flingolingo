@@ -16,7 +16,7 @@ struct ProfileViewSkeleton: View {
             SColors.background.edgesIgnoringSafeArea(.all)
             VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
                 HStack {
-                    Text(NSLocalizedString("profile", comment: ""))
+                    Text("profile")
                         .font(Font(Fonts.largeTitle))
                         .foregroundColor(SColors.mainText)
                     Spacer()
