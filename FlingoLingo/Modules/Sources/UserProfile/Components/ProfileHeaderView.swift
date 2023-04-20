@@ -4,11 +4,9 @@ import UIComponents
 struct ProfileHeaderView: View {
 
     private let buttonClicked: (() -> Void)
-    private let guest: Bool
 
-    init(buttonClicked: @escaping () -> Void = {}, guest: Bool) {
+    init(buttonClicked: @escaping () -> Void = {}) {
         self.buttonClicked = buttonClicked
-        self.guest = guest
     }
 
     var body: some View {
@@ -22,7 +20,6 @@ struct ProfileHeaderView: View {
                 Icons.settings
                     .foregroundColor(SColors.mainText)
             })
-            .opacity(guest ? 0 : 1)
         }
     }
 }

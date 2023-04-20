@@ -17,21 +17,15 @@ struct ProfileView: View {
                 ZStack {
                     SColors.background.edgesIgnoringSafeArea(.all)
                     VStack(alignment: .leading, spacing: CommonConstants.bigSpacing) {
-                        ProfileHeaderView(buttonClicked: viewModel.openSettings, guest: viewModel.isGuest)
+                        ProfileHeaderView(buttonClicked: viewModel.openSettings)
 
-                        if viewModel.isGuest {
-                            GuestView()
-                        } else {
-                            Text(viewModel.getUserEmail())
-                                .font(Font(Fonts.subtitle))
-                                .foregroundColor(SColors.accent)
-                            StatisticsView(viewModel: viewModel)
-                        }
+                        Text(viewModel.getUserEmail())
+                            .font(Font(Fonts.subtitle))
+                            .foregroundColor(SColors.accent)
+                        StatisticsView(viewModel: viewModel)
 
                         Spacer()
-                        ButtonView(buttonText: viewModel.isGuest
-                                   ? NSLocalizedString("logInButton", comment: "")
-                                   : NSLocalizedString("logOut", comment: ""),
+                        ButtonView(buttonText: NSLocalizedString("logOut", comment: ""),
                                    buttonClicked: viewModel.logOut)
                         .padding(.bottom, CommonConstants.bottomPadding)
                     }
@@ -39,6 +33,6 @@ struct ProfileView: View {
                 }
             }
         }
-        .onAppear(perform: viewModel.fetchUserIfNeeded)
+        .onAppear(perform: viewModel.fetchDataIfNeeded)
     }
 }
