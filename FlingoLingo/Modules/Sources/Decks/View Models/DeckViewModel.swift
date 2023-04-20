@@ -46,7 +46,7 @@ final class DeckViewModel: ObservableObject {
         provider.editDeck(id: deck.id, newName: deckName, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
-                self?.deck = DomainDeck(deckResponse: deck)
+                self?.deck = deck
             case .failure:
                 self?.isShowingError = true
             }
@@ -63,7 +63,7 @@ final class DeckViewModel: ObservableObject {
         provider.getDeck(id: deck.id, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
-                self?.deck = DomainDeck(deckResponse: deck)
+                self?.deck = deck
             case .failure:
                 self?.isShowingError = true
             }
@@ -73,11 +73,10 @@ final class DeckViewModel: ObservableObject {
 
     func deleteDeck() {
         isLoading = true
-        provider.deleteDeck(id: deck.id, onFinish: { [weak self] result in
-            switch result {
-            case .success:
+        provider.deleteDeck(id: deck.id, onFinish: { [weak self] success in
+            if success {
                 self?.backAction()
-            case .failure:
+            } else {
                 self?.isShowingError = true
             }
             self?.isLoading = false
@@ -86,11 +85,10 @@ final class DeckViewModel: ObservableObject {
 
     func deleteWordCard(cardId: Int) {
         isLoading = true
-        provider.deleteCardFromDeck(deckId: deck.id, carId: cardId, onFinish: { [weak self] result in
-            switch result {
-            case .success:
+        provider.deleteCardFromDeck(deckId: deck.id, carId: cardId, onFinish: { [weak self] success in
+            if success {
                 self?.reloadDeck()
-            case .failure:
+            } else {
                 self?.isShowingError = true
             }
         })

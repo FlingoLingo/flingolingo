@@ -29,11 +29,7 @@ public final class DecksViewModel: ObservableObject {
         provider.getAllDecks { [weak self] result in
             switch result {
             case .success(let decks):
-                let decodedDecks = decks.map({ deck in
-                    let newDeck = DomainDeck(deckResponse: deck)
-                    return newDeck
-                })
-                self?.decks = decodedDecks
+                self?.decks = decks
             case .failure:
                 self?.isShowingError = true
             }
@@ -58,8 +54,7 @@ public final class DecksViewModel: ObservableObject {
         provider.createNewDeck(name: newDeckName, onFinish: { [weak self] result in
             switch result {
             case .success(let deck):
-                let decodedDeck = DomainDeck(deckResponse: deck)
-                self?.decks.append(decodedDeck)
+                self?.decks.append(deck)
             case .failure:
                 self?.isShowingError = true
             }
