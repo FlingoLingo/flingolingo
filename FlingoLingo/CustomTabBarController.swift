@@ -30,10 +30,22 @@ final class CustomTabBarController: UITabBarController {
         configureTabBar()
         configureAppearance()
         selectedIndex = 1
+        NotificationCenter.default.addObserver(
+            forName: .unauthNetworkNotificationName,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.profileProvider.logOut()
+            self?.presentLoginIfNeeded()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        presentLoginIfNeeded()
+    }
+
+    private func presentLoginIfNeeded() {
         if !profileProvider.isUserAuthenticated() {
             let welcomeViewController = WelcomeViewController(provider: profileProvider)
             let navWelComeController = UINavigationController(rootViewController: welcomeViewController)
@@ -41,6 +53,7 @@ final class CustomTabBarController: UITabBarController {
             navWelComeController.modalPresentationStyle = .fullScreen
             self.present(navWelComeController, animated: false, completion: nil)
         }
+
     }
 
     // MARK: - Configurations

@@ -17,6 +17,7 @@ public final class LogInViewController: UIViewController {
     }()
     private let validationChecker = ValidationChecker()
     private let provider: ProfileProvider
+    private lazy var activityIndicatorView = UIActivityIndicatorView()
 
     // MARK: - Lifecycle
     public init(provider: ProfileProvider) {
@@ -30,6 +31,17 @@ public final class LogInViewController: UIViewController {
 
     public override func loadView() {
         view = authorizationView
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(activityIndicatorView)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.style = .large
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 
     // MARK: - Module functions
@@ -66,19 +78,28 @@ extension LogInViewController: AuthorizationViewDelegate {
         navigationController?.popViewController(animated: true)
     }
 
+    private func showLoading() {
+        authorizationView.continueButton.isEnabled = false
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.isHidden = false
+    }
+
+    private func hideLoading() {
+        authorizationView.continueButton.isEnabled = true
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.isHidden = true
+    }
+
     func continueButtonTapped(mail: String?, password: String?, repeatPassword: String?) {
         if checkValidation(mail: mail, password: password) {
             authorizationView.applyStateForSpinner(.start)
 
             provider.logInUser(email: mail ?? "", password: password ?? "", onFinish: { [weak self] res in
                 self?.authorizationView.applyStateForSpinner(.stop)
-
                 switch res {
                 case .success(let profile):
                     self?.provider.domainProfile = profile
-                    DispatchQueue.main.async {
-                        self?.navigationController?.dismiss(animated: true)
-                    }
+                    self?.navigationController?.dismiss(animated: true)
                 case .failure(let error):
                     let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

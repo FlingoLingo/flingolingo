@@ -146,7 +146,7 @@ final class AuthorizationView: UIView {
         return label
     }()
 
-    private lazy var continueButton: MainButton = {
+    lazy var continueButton: MainButton = {
         let title = NSLocalizedString("continueButton", comment: "")
         let button = MainButton(title: title, titleColor: ColorScheme.mainText, backgroundColor: ColorScheme.accent)
         button.isEnabled = true

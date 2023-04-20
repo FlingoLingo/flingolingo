@@ -125,6 +125,7 @@ public class ProfileProviderImpl: ProfileProvider {
 
     public func logOut() {
         try? keychain.remove(accessTokenKey)
+        domainProfile = nil
     }
 
     public func isUserAuthenticated() -> Bool {
