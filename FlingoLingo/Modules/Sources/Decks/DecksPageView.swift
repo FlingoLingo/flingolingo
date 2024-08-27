@@ -44,6 +44,7 @@ struct DecksPageView: View {
             }
             .alert(NSLocalizedString("addDeckTitle", comment: ""), isPresented: $viewModel.isShowingAlert, actions: {
                 TextField(NSLocalizedString("deckNamePh", comment: ""), text: $viewModel.newDeckName)
+                Button(NSLocalizedString("createWithAI", comment: ""), action: viewModel.createDeckAI)
                 Button(NSLocalizedString("create", comment: ""), action: viewModel.createDeck)
                 Button(NSLocalizedString("cancel", comment: ""), role: .cancel, action: {})
             })

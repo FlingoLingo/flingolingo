@@ -78,6 +78,24 @@ public class DecksProviderImpl: DecksProvider {
             }
         })
     }
+    
+    public func createNewDeckAI(name: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void) {
+        guard let token = token else {
+            onFinish(.failure(.client(ClientError.noDataError)))
+            return
+        }
+        let client = DeckClient(token: token)
+        client.createDeckWithAI(name: name, completion: { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let deck):
+                    onFinish(.success(DomainDeck(deckResponse: deck)))
+                case .failure(let failure):
+                    onFinish(.failure(.client(failure)))
+                }
+            }
+        })
+    }
 
     public func deleteDeck(id: Int, onFinish: @escaping (Bool) -> Void) {
         guard let token = token else {

@@ -19,6 +19,8 @@ public protocol DecksProvider: AnyObject {
     func getDeck(id: Int, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void)
 
     func createNewDeck(name: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void)
+    
+    func createNewDeckAI(name: String, onFinish: @escaping (Result<DomainDeck, DecksError>) -> Void)
 
     func deleteDeck(id: Int, onFinish: @escaping (Bool) -> Void)
 

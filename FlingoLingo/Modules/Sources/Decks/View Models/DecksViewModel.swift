@@ -61,4 +61,17 @@ public final class DecksViewModel: ObservableObject {
             self?.isLoading = false
         })
     }
+    
+    func createDeckAI() {
+        isLoading = true
+        provider.createNewDeckAI(name: newDeckName, onFinish: { [weak self] result in
+            switch result {
+            case .success(let deck):
+                self?.decks.append(deck)
+            case .failure:
+                self?.isShowingError = true
+            }
+            self?.isLoading = false
+        })
+    }
 }
